@@ -1,0 +1,12 @@
+------------------
+
+2024/03/15 Chen
+
+Done last scrum:
+- Wrote first version of project proposal
+- Created Trello board with 3 lists (todo, doing, done)
+
+To do until next scrum: 
+- Modify project proposal according to changes discussed in class
+- Modify Trello board to 4 (Planning/Todo, Working/InProgress, Done/NeedsTesting, Finished)
+- Setup GitHub repository for the project
