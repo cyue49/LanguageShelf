@@ -1,3 +1,15 @@
+2024/03/16 Chen
+
+Done since last scrum: 
+- Submitted modified project proposal
+- Modified Trello board with the 4 lists as described in class
+- Set up GitHub repository for the project with base code of the project including temporary top and bottom toolbar 
+- Started following a tutorial about Firebase user authentication 
+
+Todo until next scrum:
+- Continue following the tutorial about Firebase user authentication 
+- Start deciding and setting up some color sets to be used in the project
+
 ------------------
 
 2024/03/15 Chen
