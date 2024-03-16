@@ -4,7 +4,7 @@ struct UserProfileView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("User Profile")
+                SignedOutView()
             }
             .navigationTitle("User Profile")
             .navigationBarTitleDisplayMode(.inline)
