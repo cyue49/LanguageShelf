@@ -30,7 +30,7 @@ struct SignedOutView: View {
                     .padding(.bottom)
                 
                 TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
-                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password)
+                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
                 
                 Button1(label: "Sign Up", clicked: {
                     // sign up
@@ -65,7 +65,7 @@ struct SignedOutView: View {
                     .padding(.bottom)
                 
                 TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
-                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password)
+                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
                 TextFieldWithLabel(label: "Enter your username: ", placeholder: "", textValue: $username)
                 
                 Button1(label: "Sign Up", clicked: {
