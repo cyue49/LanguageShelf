@@ -1,17 +1,25 @@
 import SwiftUI
+import Firebase
 
 struct SignedOutView: View {
+    @EnvironmentObject var userManager: UserAccountsManager
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var username: String = ""
     
-    @State private var isSignIn: Bool = true
+    @State private var hasAccount: Bool = true
+    @State private var isLoggedIn: Bool = false
     
     var body: some View {
-        if (isSignIn) {
-            signIn
+        if isLoggedIn {
+            SignedInView()
         } else {
-            signUp
+            if hasAccount {
+                signIn
+            } else {
+                signUp
+            }
         }
     }
     
@@ -32,13 +40,13 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
                 TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
                 
-                Button1(label: "Sign Up", clicked: {
-                    // sign up
+                Button1(label: "Sign In", clicked: {
+                    login()
                 })
                 .padding(.top)
                 
                 Button {
-                    isSignIn.toggle()
+                    hasAccount.toggle()
                 } label: {
                     Text("Don't have an account? Sign up here!")
                         .underline()
@@ -47,6 +55,13 @@ struct SignedOutView: View {
                 }
             }
             .padding(50)
+            .onAppear() {
+                Auth.auth().addStateDidChangeListener { auth, user in
+                    if user != nil {
+                        isLoggedIn = true 
+                    }
+                }
+            }
         }
     }
     
@@ -69,12 +84,19 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your username: ", placeholder: "", textValue: $username)
                 
                 Button1(label: "Sign Up", clicked: {
-                    // sign up
+                    register()
                 })
                 .padding(.top)
+                .onAppear() {
+                    Auth.auth().addStateDidChangeListener { auth, user in
+                        if user != nil {
+                            isLoggedIn = true
+                        }
+                    }
+                }
                 
                 Button {
-                    isSignIn.toggle()
+                    hasAccount.toggle()
                 } label: {
                     Text("Already have an account? Sign in here!")
                         .underline()
@@ -85,8 +107,29 @@ struct SignedOutView: View {
             .padding(50)
         }
     }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    func register() {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        userManager.addUser(email: email, username: username)
+    }
 }
 
-#Preview {
-    SignedOutView()
+struct SignedOutView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignedOutView()
+            .environmentObject(UserAccountsManager())
+    }
 }
