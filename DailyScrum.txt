@@ -1,3 +1,18 @@
+2024/03/17 Chen
+
+Done since last scrum: 
+- Finished following tutorial about Firebase user authentication 
+- Added some color sets to project assets
+- Implemented a first working version of sign up/sign in/log out using Firebase Authentication  and adding user information to database using Firebase Firestore
+- Started following a second tutorial about Firebase authentication and Firebase firestore
+
+Todo until next scrum: 
+- Continue working on user authentication and saving user info to database
+- Make improvements to current user authentication based on new material learned in the second tutorial
+- Work on frontend UI of the user profile page
+
+------------------
+
 2024/03/16 Chen
 
 Done since last scrum: 
