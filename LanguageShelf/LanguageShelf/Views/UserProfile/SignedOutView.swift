@@ -41,7 +41,7 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
                 
                 Button1(label: "Sign In", clicked: {
-                    login()
+                    userManager.login(email: email, password: password)
                 })
                 .padding(.top)
                 
@@ -84,7 +84,7 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your username: ", placeholder: "", textValue: $username)
                 
                 Button1(label: "Sign Up", clicked: {
-                    register()
+                    userManager.register(email: email, password: password, username: username)
                 })
                 .padding(.top)
                 .onAppear() {
@@ -106,24 +106,6 @@ struct SignedOutView: View {
             }
             .padding(50)
         }
-    }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-        }
-    }
-    
-    func register() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-        }
-        
-        userManager.addUser(email: email, username: username)
     }
 }
 

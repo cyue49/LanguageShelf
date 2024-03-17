@@ -8,6 +8,24 @@ class UserAccountsManager: ObservableObject {
         getUsers()
     }
     
+    func login(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
+    func register(email: String, password: String, username: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        addUser(email: email, username: username)
+    }
+    
     func getUsers() {
         users.removeAll()
         
