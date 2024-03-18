@@ -2,17 +2,9 @@ import SwiftUI
 import Firebase
 
 struct SignedInView: View {
-    @State private var isLoggedIn: Bool = true
+    @EnvironmentObject var userManager: UserAccountsManager
     
     var body: some View {
-        if isLoggedIn {
-            userProfile
-        } else {
-            SignedOutView()
-        }
-    }
-    
-    var userProfile: some View {
         ZStack {
             Color("BackgroundColor")
             
@@ -20,24 +12,9 @@ struct SignedInView: View {
             VStack {
                 Text("Signed in user")
                 Button1(label: "Sign Out", clicked: {
-                    logout()
+                    userManager.signOut()
                 })
             }
-            .onAppear() {
-                Auth.auth().addStateDidChangeListener { auth, user in
-                    if user == nil {
-                        isLoggedIn = false
-                    }
-                }
-            }
-        }
-    }
-    
-    func logout() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("error login out")
         }
     }
 }
