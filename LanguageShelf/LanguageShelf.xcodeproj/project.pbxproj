@@ -25,6 +25,7 @@
 		DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550B32BA670720045BA66 /* TextFieldStyles.swift */; };
 		DEE550B72BA68BF90045BA66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550B62BA68BF90045BA66 /* User.swift */; };
 		DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */; };
+		DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		DEE550B32BA670720045BA66 /* TextFieldStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldStyles.swift; sourceTree = "<group>"; };
 		DEE550B62BA68BF90045BA66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsManager.swift; sourceTree = "<group>"; };
+		DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				DEE550B12BA6704B0045BA66 /* ButtonStyles.swift */,
 				DEE550B32BA670720045BA66 /* TextFieldStyles.swift */,
+				DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */,
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
+				DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */,
 				DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */,
 				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
 			);

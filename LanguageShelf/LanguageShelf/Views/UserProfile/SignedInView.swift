@@ -14,7 +14,7 @@ struct SignedInView: View {
                     .padding(.top)
                 
                 Text(user.username)
-                    .font(.title)
+                    .font(.largeTitle)
                     .frame(maxWidth: .infinity, maxHeight: 20)
                     .padding(.bottom)
                 
@@ -24,6 +24,24 @@ struct SignedInView: View {
             }
             .padding()
         }
+        
+//        VStack (alignment: .center, spacing: 25) {
+//            Circle()
+//                .fill(Color("ButtonColor"))
+//                .stroke(Color("IconColor"), lineWidth: 2)
+//                .frame(width: 150, height: 150)
+//                .padding(.top)
+//            
+//            Text("Username")
+//                .font(.largeTitle)
+//                .frame(maxWidth: .infinity, maxHeight: 20)
+//                .padding(.bottom)
+//            
+//            ChooseColorThemeView()
+//            
+//            Spacer()
+//        }
+//        .padding()
     }
 }
 

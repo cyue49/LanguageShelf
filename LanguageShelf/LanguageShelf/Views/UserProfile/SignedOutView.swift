@@ -11,20 +11,16 @@ struct SignedOutView: View {
     @State private var hasAccount: Bool = true
     
     var body: some View {
-            if hasAccount {
-                signIn
-            } else {
-                signUp
-            }
+        if hasAccount {
+            signIn
+        } else {
+            signUp
+        }
     }
     
     var signIn: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .foregroundStyle(Color("ToolBarColor"))
-                .frame(width:350, height: 550)
-            
-            VStack (alignment: .center, spacing: 30) {
+        GroupBox {
+            VStack (alignment: .center, spacing: 25) {
                 Text("Sign In")
                     .font(.system(size: 26, weight: .bold, design: .rounded))
                     .foregroundStyle(Color("FontColor"))
@@ -51,17 +47,15 @@ struct SignedOutView: View {
                         .multilineTextAlignment(.center)
                 }
             }
-            .padding(50)
+            .padding()
         }
+        .backgroundStyle(Color("ToolBarColor"))
+        .cornerRadius(30)
     }
     
     var signUp: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .foregroundStyle(Color("ToolBarColor"))
-                .frame(width:350, height: 600)
-            
-            VStack (alignment: .center, spacing: 30) {
+        GroupBox {
+            VStack (alignment: .center, spacing: 25) {
                 Text("Sign Up")
                     .font(.system(size: 26, weight: .bold, design: .rounded))
                     .foregroundStyle(Color("FontColor"))
@@ -90,8 +84,10 @@ struct SignedOutView: View {
                         .multilineTextAlignment(.center)
                 }
             }
-            .padding(50)
+            .padding()
         }
+        .backgroundStyle(Color("ToolBarColor"))
+        .cornerRadius(30)
     }
 }
 

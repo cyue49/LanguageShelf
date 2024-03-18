@@ -2,16 +2,42 @@ import SwiftUI
 
 struct ChooseColorThemeView: View {
     var body: some View {
-        VStack {
-            Text("Choose a Color Theme")
-                .frame(maxWidth: .infinity, maxHeight: 400)
-                .background(RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .foregroundStyle(.white)
-                    .frame(height: 400))
-                .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .stroke(Color("IconColor"), lineWidth: 2)
-                    .frame(height: 400))
+        GroupBox {
+            VStack (alignment: .leading, spacing: 20) {
+                Text("Choose a Color Theme")
+                    .multilineTextAlignment(.leading)
+                    .font(.title3)
+                    .padding(.bottom)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            ScrollView(.vertical) {
+                Grid (alignment: .topLeading, verticalSpacing: 20){
+                    GridRow {
+                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Default Theme")
+                    }
+                    Divider()
+                    GridRow {
+                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Dark Theme")
+                    }
+                    Divider()
+                    GridRow {
+                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Green Theme")
+                    }
+                    Divider()
+                    GridRow {
+                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Orange Theme")
+                    }
+                }
+            }
         }
+        .frame(minHeight: 350)
+        .backgroundStyle(.white)
+        .cornerRadius(30)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(Color("IconColor"), lineWidth: 2)
+        )
     }
 }
 

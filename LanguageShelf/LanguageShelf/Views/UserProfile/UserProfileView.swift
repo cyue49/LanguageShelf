@@ -9,11 +9,14 @@ struct UserProfileView: View {
             ZStack {
                 Color("BackgroundColor")
                 
-                if userManager.userSession != nil {
-                    SignedInView()
-                } else {
-                    SignedOutView()
+                VStack {
+                    if userManager.userSession != nil {
+                        SignedInView()
+                    } else {
+                        SignedOutView()
+                    }
                 }
+                .padding(20)
             }
             .navigationTitle("User Profile")
             .navigationBarTitleDisplayMode(.inline)
