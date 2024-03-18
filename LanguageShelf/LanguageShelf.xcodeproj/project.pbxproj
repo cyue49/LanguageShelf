@@ -14,6 +14,7 @@
 		DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572E12BA4995B00488990 /* UserProfileView.swift */; };
 		DE8572EC2BA4B6FB00488990 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572EB2BA4B6FB00488990 /* ContentView.swift */; };
 		DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572ED2BA4D95100488990 /* GameScreenView.swift */; };
+		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DED6F7532BA73D5B00F742D0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DED6F7522BA73D5B00F742D0 /* FirebaseDatabaseSwift */; };
 		DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */; };
 		DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A52BA65D7A0045BA66 /* SignedInView.swift */; };
@@ -35,6 +36,7 @@
 		DE8572E12BA4995B00488990 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		DE8572EB2BA4B6FB00488990 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DE8572ED2BA4D95100488990 /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
+		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
 		DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutView.swift; sourceTree = "<group>"; };
 		DEE550A52BA65D7A0045BA66 /* SignedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInView.swift; sourceTree = "<group>"; };
 		DEE550AE2BA66B130045BA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				DE8572E12BA4995B00488990 /* UserProfileView.swift */,
 				DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */,
 				DEE550A52BA65D7A0045BA66 /* SignedInView.swift */,
+				DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
 				DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */,
+				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

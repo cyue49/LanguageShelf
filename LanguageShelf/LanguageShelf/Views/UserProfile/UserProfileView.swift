@@ -21,6 +21,14 @@ struct UserProfileView: View {
                 ToolbarItem(placement: .topBarLeading){
                     Text("Logo")
                 }
+                if userManager.userSession != nil {
+                    ToolbarItem(placement: .topBarTrailing){
+                        Button("Sign Out") {
+                            userManager.signOut()
+                        }
+                        .foregroundStyle(Color("PrimaryAccentColor"))
+                    }
+                }
             }
             .toolbarBackground(Color("ToolBarColor"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)

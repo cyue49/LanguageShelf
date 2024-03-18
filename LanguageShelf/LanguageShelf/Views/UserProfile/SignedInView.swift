@@ -6,12 +6,23 @@ struct SignedInView: View {
     
     var body: some View {
         if let user = userManager.currentUser {
-            VStack {
-                Text("Signed in user: \(user.username)")
-                Button1(label: "Sign Out", clicked: {
-                    userManager.signOut()
-                })
+            VStack (alignment: .center, spacing: 25) {
+                Circle()
+                    .fill(Color("ButtonColor"))
+                    .stroke(Color("IconColor"), lineWidth: 2)
+                    .frame(width: 150, height: 150)
+                    .padding(.top)
+                
+                Text(user.username)
+                    .font(.title)
+                    .frame(maxWidth: .infinity, maxHeight: 20)
+                    .padding(.bottom)
+                
+                ChooseColorThemeView()
+                
+                Spacer()
             }
+            .padding()
         }
     }
 }
