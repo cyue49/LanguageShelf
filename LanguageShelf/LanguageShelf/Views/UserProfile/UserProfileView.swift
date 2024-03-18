@@ -1,10 +1,17 @@
 import SwiftUI
+import Firebase
 
 struct UserProfileView: View {
+    @EnvironmentObject var userManager: UserAccountsManager
+    
     var body: some View {
         NavigationStack {
             VStack {
-                SignedOutView()
+                if userManager.userSession != nil {
+                    SignedInView()
+                } else {
+                    SignedOutView()
+                }
             }
             .navigationTitle("User Profile")
             .navigationBarTitleDisplayMode(.inline)

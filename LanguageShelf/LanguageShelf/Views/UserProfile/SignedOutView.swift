@@ -9,18 +9,13 @@ struct SignedOutView: View {
     @State private var username: String = ""
     
     @State private var hasAccount: Bool = true
-    @State private var isLoggedIn: Bool = false
     
     var body: some View {
-        if isLoggedIn {
-            SignedInView()
-        } else {
             if hasAccount {
                 signIn
             } else {
                 signUp
             }
-        }
     }
     
     var signIn: some View {
@@ -55,13 +50,6 @@ struct SignedOutView: View {
                 }
             }
             .padding(50)
-            .onAppear() {
-                Auth.auth().addStateDidChangeListener { auth, user in
-                    if user != nil {
-                        isLoggedIn = true 
-                    }
-                }
-            }
         }
     }
     
@@ -84,16 +72,14 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your username: ", placeholder: "", textValue: $username)
                 
                 Button1(label: "Sign Up", clicked: {
-                    userManager.register(email: email, password: password, username: username)
+                    Task {
+                        try await userManager.register(
+                            email: email,
+                            password: password,
+                            username: username)
+                    }
                 })
                 .padding(.top)
-                .onAppear() {
-                    Auth.auth().addStateDidChangeListener { auth, user in
-                        if user != nil {
-                            isLoggedIn = true
-                        }
-                    }
-                }
                 
                 Button {
                     hasAccount.toggle()
