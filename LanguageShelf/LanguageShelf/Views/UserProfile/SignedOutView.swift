@@ -36,7 +36,11 @@ struct SignedOutView: View {
                 TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
                 
                 Button1(label: "Sign In", clicked: {
-                    userManager.login(email: email, password: password)
+                    Task {
+                        try await userManager.signIn(
+                            email: email,
+                            password: password)
+                    }
                 })
                 .padding(.top)
                 

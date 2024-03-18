@@ -15,11 +15,13 @@ class UserAccountsManager: ObservableObject {
         }
     }
     
-    func login(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+    func signIn(email: String, password: String) async throws {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = result.user
+            await fetchUser()
+        } catch {
+            print("ERROR SIGNING IN USER: \(error.localizedDescription)")
         }
     }
     
