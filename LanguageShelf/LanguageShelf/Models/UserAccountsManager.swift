@@ -29,8 +29,8 @@ class UserAccountsManager: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(email: email, username: username)
-            try await Firestore.firestore().collection("Users").document(user.email).setData(["email": email, "username": username])
+            let user = User(id: result.user.uid, email: email, username: username)
+            try await Firestore.firestore().collection("Users").document(user.id).setData(["id": user.id, "email": email, "username": username])
             await fetchUser()
         } catch {
             print("ERROR CREATING USER: \(error.localizedDescription)")
@@ -43,7 +43,7 @@ class UserAccountsManager: ObservableObject {
         guard let snapshot = try? await Firestore.firestore().collection("Users").document(uid).getDocument() else { return }
         let email = snapshot["email"] as? String ?? ""
         let username = snapshot["username"] as? String ?? ""
-        self.currentUser = User(email: email, username: username)
+        self.currentUser = User(id: uid, email: email, username: username)
     }
     
     // unset user session and current userß
