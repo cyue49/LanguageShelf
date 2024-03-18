@@ -1,6 +1,9 @@
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
+    @EnvironmentObject var userManager: UserAccountsManager
+    
     init() {
         UITabBar.appearance().backgroundColor = UIColor(named: "ToolBarColor")
     }
@@ -25,5 +28,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(UserAccountsManager())
     }
 }

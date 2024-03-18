@@ -20,8 +20,6 @@ struct SignedOutView: View {
     
     var signIn: some View {
         ZStack {
-            Color("BackgroundColor")
-            
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .foregroundStyle(Color("ToolBarColor"))
                 .frame(width:350, height: 550)
@@ -59,8 +57,6 @@ struct SignedOutView: View {
     
     var signUp: some View {
         ZStack {
-            Color("BackgroundColor")
-            
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .foregroundStyle(Color("ToolBarColor"))
                 .frame(width:350, height: 600)

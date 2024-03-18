@@ -3,10 +3,8 @@ import Firebase
 
 @MainActor
 class UserAccountsManager: ObservableObject {
-    @Published var users: [User] = []
-    
-    @Published var userSession: FirebaseAuth.User?
-    @Published var currentUser: User?
+    @Published var userSession: FirebaseAuth.User? // whether user is signed in or not
+    @Published var currentUser: User? // current user
     
     init() {
          self.userSession = Auth.auth().currentUser
@@ -15,6 +13,7 @@ class UserAccountsManager: ObservableObject {
         }
     }
     
+    // set user session and current user and sign user in
     func signIn(email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -25,6 +24,7 @@ class UserAccountsManager: ObservableObject {
         }
     }
     
+    // create new user, add user info in firebase firestore, set user session, set current user
     func register(email: String, password: String, username: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -37,6 +37,7 @@ class UserAccountsManager: ObservableObject {
         }
     }
     
+    // set current user
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let snapshot = try? await Firestore.firestore().collection("Users").document(uid).getDocument() else { return }
@@ -45,6 +46,7 @@ class UserAccountsManager: ObservableObject {
         self.currentUser = User(email: email, username: username)
     }
     
+    // unset user session and current userß
     func signOut() {
         do {
             try Auth.auth().signOut()

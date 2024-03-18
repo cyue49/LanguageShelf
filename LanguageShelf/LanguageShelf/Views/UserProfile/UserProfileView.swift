@@ -6,7 +6,9 @@ struct UserProfileView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            ZStack {
+                Color("BackgroundColor")
+                
                 if userManager.userSession != nil {
                     SignedInView()
                 } else {
@@ -29,5 +31,6 @@ struct UserProfileView: View {
 struct UserProfile_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView()
+            .environmentObject(UserAccountsManager())
     }
 }
