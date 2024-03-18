@@ -1,3 +1,18 @@
+2024/03/18 Chen
+
+Done since last scrum:
+- Refactored user authentication to have log in/log out/sign up functions in the user account manager instead of in the view itself
+- Worked a bit on the frontendUI of the user profile page
+- Followed another firebase tutorial to have sign in and sign up functions access the Firestore asynchronously
+
+Todo until next scrum: 
+- Add form validation to user sign up (password format, etc.)
+- Add a confirm password field to user sign up
+- Add pop up notifications when wrong password or email on sign in 
+- Continue working on user profile page functionalities
+
+------------------
+
 2024/03/17 Chen
 
 Done since last scrum: 
