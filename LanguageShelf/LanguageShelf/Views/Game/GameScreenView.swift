@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct GameScreenView: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -13,7 +15,7 @@ struct GameScreenView: View {
                     Text("Logo")
                 }
             }
-            .toolbarBackground(Color("ToolBarColor"), for: .navigationBar)
+            .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
@@ -22,5 +24,6 @@ struct GameScreenView: View {
 struct GameScreen_Previews: PreviewProvider {
     static var previews: some View {
         GameScreenView()
+            .environmentObject(ThemeManager())
     }
 }

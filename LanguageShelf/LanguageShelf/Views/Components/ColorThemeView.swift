@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ColorThemeView: View {
-    var colorSet: [String]
+    @EnvironmentObject var themeManager: ThemeManager
+    
+    var colorSet: [Color]
     var label: String
     
     var body: some View {
@@ -11,7 +13,7 @@ struct ColorThemeView: View {
             HStack (spacing: 25) {
                 ForEach(colorSet, id: \.self) { color in
                     Rectangle()
-                        .fill(Color(color))
+                        .fill(color)
                         .frame(width: 40, height: 40)
                 }
             }
@@ -22,6 +24,7 @@ struct ColorThemeView: View {
 
 struct ColorThemeView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Default Theme")
+        ColorThemeView(colorSet: [Color("1-PrimaryAccentColor"),Color("1-SecondaryColor"), Color("1-ToolBarColor"), Color("1-ButtonColor"), Color("1-BackgroundColor")], label: "Default Theme")
+            .environmentObject(ThemeManager())
     }
 }

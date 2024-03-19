@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
+		DE32997C2BA9D43E004A0E0B /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32997B2BA9D43E004A0E0B /* ThemeManager.swift */; };
 		DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572C82BA497F500488990 /* LanguageShelfApp.swift */; };
 		DE8572CD2BA497F600488990 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CC2BA497F600488990 /* Assets.xcassets */; };
 		DE8572D02BA497F600488990 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CF2BA497F600488990 /* Preview Assets.xcassets */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
+		DE32997B2BA9D43E004A0E0B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		DE8572C52BA497F500488990 /* LanguageShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguageShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8572C82BA497F500488990 /* LanguageShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageShelfApp.swift; sourceTree = "<group>"; };
 		DE8572CC2BA497F600488990 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 			children = (
 				DEE550B62BA68BF90045BA66 /* User.swift */,
 				DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */,
+				DE3299792BA9D21F004A0E0B /* Themes.swift */,
+				DE32997B2BA9D43E004A0E0B /* ThemeManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,9 +266,11 @@
 				DE8572EC2BA4B6FB00488990 /* ContentView.swift in Sources */,
 				DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */,
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
+				DE32997C2BA9D43E004A0E0B /* ThemeManager.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
 				DEF0D2732BA945A900BA9C8E /* SecureTextfieldWithEye.swift in Sources */,
 				DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */,
+				DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */,
 				DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */,
 				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
 			);

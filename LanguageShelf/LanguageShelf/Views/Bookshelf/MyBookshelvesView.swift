@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MyBookshelvesView: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -15,7 +17,7 @@ struct MyBookshelvesView: View {
                 ToolbarItem(placement: .topBarTrailing){
                     Image(systemName: "plus")                }
             }
-            .toolbarBackground(Color("ToolBarColor"), for: .navigationBar)
+            .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
@@ -24,5 +26,6 @@ struct MyBookshelvesView: View {
 struct MyBookshelves_Previews: PreviewProvider {
     static var previews: some View {
         MyBookshelvesView()
+            .environmentObject(ThemeManager())
     }
 }

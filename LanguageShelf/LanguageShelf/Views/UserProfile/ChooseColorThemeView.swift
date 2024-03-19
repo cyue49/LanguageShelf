@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ChooseColorThemeView: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    
     var body: some View {
         GroupBox {
             VStack (alignment: .leading, spacing: 20) {
@@ -14,19 +16,39 @@ struct ChooseColorThemeView: View {
             ScrollView(.vertical) {
                 Grid (alignment: .topLeading, verticalSpacing: 20){
                     GridRow {
-                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Default Theme")
+                        ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
+                                                  themeManager.themeSets[0].secondaryColor,
+                                                  themeManager.themeSets[0].toolbarColor,
+                                                  themeManager.themeSets[0].buttonColor,
+                                                  themeManager.themeSets[0].bgColor],
+                                       label: "Default Theme")
                     }
                     Divider()
                     GridRow {
-                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Dark Theme")
+                        ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
+                                                  themeManager.themeSets[0].secondaryColor,
+                                                  themeManager.themeSets[0].toolbarColor,
+                                                  themeManager.themeSets[0].buttonColor,
+                                                  themeManager.themeSets[0].bgColor],
+                                       label: "Dark Theme")
                     }
                     Divider()
                     GridRow {
-                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Green Theme")
+                        ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
+                                                  themeManager.themeSets[0].secondaryColor,
+                                                  themeManager.themeSets[0].toolbarColor,
+                                                  themeManager.themeSets[0].buttonColor,
+                                                  themeManager.themeSets[0].bgColor],
+                                       label: "Green Theme")
                     }
                     Divider()
                     GridRow {
-                        ColorThemeView(colorSet: ["PrimaryAccentColor","IconColor", "ToolBarColor", "ButtonColor", "BackgroundColor"], label: "Orange Theme")
+                        ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
+                                                  themeManager.themeSets[0].secondaryColor,
+                                                  themeManager.themeSets[0].toolbarColor,
+                                                  themeManager.themeSets[0].buttonColor,
+                                                  themeManager.themeSets[0].bgColor],
+                                       label: "Orange Theme")
                     }
                 }
             }
@@ -36,7 +58,7 @@ struct ChooseColorThemeView: View {
         .cornerRadius(30)
         .overlay(
             RoundedRectangle(cornerRadius: 30)
-                .stroke(Color("IconColor"), lineWidth: 2)
+                .stroke(themeManager.currentTheme.secondaryColor, lineWidth: 2)
         )
     }
 }
@@ -44,5 +66,6 @@ struct ChooseColorThemeView: View {
 struct ChooseColorThemeView_Previews: PreviewProvider {
     static var previews: some View {
         ChooseColorThemeView()
+            .environmentObject(ThemeManager())
     }
 }

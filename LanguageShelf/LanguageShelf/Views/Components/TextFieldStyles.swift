@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TextFieldWithLabel: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    
     var label: String
     var placeholder: String
     @Binding var textValue: String
@@ -10,7 +12,7 @@ struct TextFieldWithLabel: View {
         VStack (alignment: .leading) {
             HStack {
                 Text(label)
-                    .foregroundStyle(Color("FontColor"))
+                    .foregroundStyle(themeManager.currentTheme.fontColor)
                 Image(systemName: "asterisk")
                     .foregroundStyle(.red)
                     .font(.system(size: 8))
@@ -20,22 +22,22 @@ struct TextFieldWithLabel: View {
                     SecureField(placeholder, text: $textValue)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding(12)
-                        .background(Color("BackgroundColor"))
+                        .background(themeManager.currentTheme.bgColor)
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color("IconColor"), lineWidth: 2)
+                                .stroke(themeManager.currentTheme.secondaryColor, lineWidth: 2)
                         )
                 }
             } else {
                 TextField(placeholder, text: $textValue)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding(12)
-                    .background(Color("BackgroundColor"))
+                    .background(themeManager.currentTheme.bgColor)
                     .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color("IconColor"), lineWidth: 2)
+                            .stroke(themeManager.currentTheme.secondaryColor, lineWidth: 2)
                     )
             }
         }
@@ -45,5 +47,6 @@ struct TextFieldWithLabel: View {
 struct TextFieldStyles_Previews: PreviewProvider {
     static var previews: some View {
         TextFieldWithLabel(label: "Question", placeholder: "Input", textValue: .constant("Input"))
+            .environmentObject(ThemeManager())
     }
 }
