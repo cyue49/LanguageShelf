@@ -49,8 +49,8 @@ struct SignedOutView: View {
                     .padding(.bottom)
                 
                 ScrollView {
-                    TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
-                    TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
+                    TextFieldWithLabel(label: "Enter your email", placeholder: "", textValue: $email)
+                    SecureTextFieldWithEye(label: "Enter your password", placeholder: "", textValue: $password)
                 }
                 
                 Button1(label: "Sign In", clicked: {
@@ -96,14 +96,14 @@ struct SignedOutView: View {
                         CheckListView(invalidMessage: "Invalid email format.", validMessage: "Valid email", isValid: validEmail)
                     }
                     
-                    TextFieldWithLabel(label: "Enter your password", placeholder: "", textValue: $password, isSecureField: true)
+                    SecureTextFieldWithEye(label: "Enter your password", placeholder: "", textValue: $password)
                     if (!password.isEmpty){
                         CheckListView(invalidMessage: "Password must be at be at least 8 characters long and contain an uppercase letter, a number, and a special character.", validMessage: "Valid password", isValid: validPassword)
                     }
                     
-                    TextFieldWithLabel(label: "Confirm your password", placeholder: "", textValue: $confirmPassword, isSecureField: true)
+                    SecureTextFieldWithEye(label: "Confirm your password", placeholder: "", textValue: $confirmPassword)
                     if (!confirmPassword.isEmpty){
-                        CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Valid password", isValid: validConfirmPassword)
+                        CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Passwords match.", isValid: validConfirmPassword)
                     }
                     
                     TextFieldWithLabel(label: "Enter your username", placeholder: "", textValue: $username)

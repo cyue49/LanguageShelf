@@ -16,15 +16,17 @@ struct TextFieldWithLabel: View {
                     .font(.system(size: 8))
             }
             if isSecureField {
-                SecureField(placeholder, text: $textValue)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                    .padding(12)
-                    .background(Color("BackgroundColor"))
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color("IconColor"), lineWidth: 2)
-                    )
+                ZStack {
+                    SecureField(placeholder, text: $textValue)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .padding(12)
+                        .background(Color("BackgroundColor"))
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color("IconColor"), lineWidth: 2)
+                        )
+                }
             } else {
                 TextField(placeholder, text: $textValue)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
