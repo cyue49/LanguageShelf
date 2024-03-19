@@ -38,7 +38,7 @@ struct ChooseColorThemeView: View {
                                                       themeManager.themeSets[1].toolbarColor,
                                                       themeManager.themeSets[1].buttonColor,
                                                       themeManager.themeSets[1].bgColor],
-                                           label: "Dark Theme")
+                                           label: "Light Theme")
                         })
                         
                     }
@@ -52,7 +52,7 @@ struct ChooseColorThemeView: View {
                                                       themeManager.themeSets[2].toolbarColor,
                                                       themeManager.themeSets[2].buttonColor,
                                                       themeManager.themeSets[2].bgColor],
-                                           label: "Green Theme")
+                                           label: "Dark Theme")
                         })
                     }
                     Divider()
@@ -65,7 +65,7 @@ struct ChooseColorThemeView: View {
                                                       themeManager.themeSets[3].toolbarColor,
                                                       themeManager.themeSets[3].buttonColor,
                                                       themeManager.themeSets[3].bgColor],
-                                           label: "Light Theme")
+                                           label: "Green Theme")
                         })
                     }
                 }
