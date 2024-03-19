@@ -24,16 +24,6 @@ struct DefaultTheme: ThemeProtocol {
 }
 
 struct LightTheme: ThemeProtocol {
-    var primaryAccentColor: Color = Color("4-PrimaryAccentColor")
-    var secondaryColor: Color = Color("4-SecondaryColor")
-    var toolbarColor: Color = Color("4-ToolbarColor")
-    var buttonColor: Color = Color("4-ButtonColor")
-    var bgColor: Color = Color("4-BackgroundColor")
-    var bgColor2: Color = Color("4-BackgroundColor2")
-    var fontColor: Color = Color("4-FontColor")
-}
-
-struct DarkTheme: ThemeProtocol {
     var primaryAccentColor: Color = Color("2-PrimaryAccentColor")
     var secondaryColor: Color = Color("2-SecondaryColor")
     var toolbarColor: Color = Color("2-ToolbarColor")
@@ -43,7 +33,7 @@ struct DarkTheme: ThemeProtocol {
     var fontColor: Color = Color("2-FontColor")
 }
 
-struct GreenTheme: ThemeProtocol {
+struct DarkTheme: ThemeProtocol {
     var primaryAccentColor: Color = Color("3-PrimaryAccentColor")
     var secondaryColor: Color = Color("3-SecondaryColor")
     var toolbarColor: Color = Color("3-ToolbarColor")
@@ -51,4 +41,14 @@ struct GreenTheme: ThemeProtocol {
     var bgColor: Color = Color("3-BackgroundColor")
     var bgColor2: Color = Color("3-BackgroundColor2")
     var fontColor: Color = Color("3-FontColor")
+}
+
+struct GreenTheme: ThemeProtocol {
+    var primaryAccentColor: Color = Color("4-PrimaryAccentColor")
+    var secondaryColor: Color = Color("4-SecondaryColor")
+    var toolbarColor: Color = Color("4-ToolbarColor")
+    var buttonColor: Color = Color("4-ButtonColor")
+    var bgColor: Color = Color("4-BackgroundColor")
+    var bgColor2: Color = Color("4-BackgroundColor2")
+    var fontColor: Color = Color("4-FontColor")
 }
