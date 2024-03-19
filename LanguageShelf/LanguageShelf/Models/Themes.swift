@@ -32,3 +32,13 @@ struct DarkTheme: ThemeProtocol {
     var bgColor2: Color = Color("2-BackgroundColor2")
     var fontColor: Color = Color("2-FontColor")
 }
+
+struct GreenTheme: ThemeProtocol {
+    var primaryAccentColor: Color = Color("3-PrimaryAccentColor")
+    var secondaryColor: Color = Color("3-SecondaryColor")
+    var toolbarColor: Color = Color("3-ToolbarColor")
+    var buttonColor: Color = Color("3-ButtonColor")
+    var bgColor: Color = Color("3-BackgroundColor")
+    var bgColor2: Color = Color("3-BackgroundColor2")
+    var fontColor: Color = Color("3-FontColor")
+}

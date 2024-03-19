@@ -44,12 +44,16 @@ struct ChooseColorThemeView: View {
                     }
                     Divider()
                     GridRow {
-                        ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
-                                                  themeManager.themeSets[0].secondaryColor,
-                                                  themeManager.themeSets[0].toolbarColor,
-                                                  themeManager.themeSets[0].buttonColor,
-                                                  themeManager.themeSets[0].bgColor],
-                                       label: "Green Theme")
+                        Button(action: {
+                            themeManager.setTheme(theme: 2)
+                        }, label: {
+                            ColorThemeView(colorSet: [themeManager.themeSets[2].primaryAccentColor,
+                                                      themeManager.themeSets[2].secondaryColor,
+                                                      themeManager.themeSets[2].toolbarColor,
+                                                      themeManager.themeSets[2].buttonColor,
+                                                      themeManager.themeSets[2].bgColor],
+                                           label: "Green Theme")
+                        })
                     }
                     Divider()
                     GridRow {
@@ -58,7 +62,7 @@ struct ChooseColorThemeView: View {
                                                   themeManager.themeSets[0].toolbarColor,
                                                   themeManager.themeSets[0].buttonColor,
                                                   themeManager.themeSets[0].bgColor],
-                                       label: "Orange Theme")
+                                       label: "Light Theme")
                     }
                 }
             }
