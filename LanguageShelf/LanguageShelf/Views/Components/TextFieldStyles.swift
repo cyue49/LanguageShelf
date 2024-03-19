@@ -23,6 +23,7 @@ struct TextFieldWithLabel: View {
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding(12)
                         .background(themeManager.currentTheme.bgColor)
+                        .foregroundStyle(themeManager.currentTheme.fontColor)
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
@@ -34,6 +35,7 @@ struct TextFieldWithLabel: View {
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding(12)
                     .background(themeManager.currentTheme.bgColor)
+                    .foregroundStyle(themeManager.currentTheme.fontColor)
                     .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)

@@ -19,12 +19,17 @@ struct UserProfileView: View {
                 }
                 .padding(20)
             }
-            .navigationTitle("User Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Text("Logo")
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("User Profile")
+                        .foregroundStyle(themeManager.currentTheme.fontColor)
+                }
+                
                 if userManager.userSession != nil {
                     ToolbarItem(placement: .topBarTrailing){
                         Button("Sign Out") {

@@ -8,11 +8,15 @@ struct GameScreenView: View {
             VStack {
                 Text("Game Screen")
             }
-            .navigationTitle("Game Screen")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Text("Logo")
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("Game Screen")
+                        .foregroundStyle(themeManager.currentTheme.fontColor)
                 }
             }
             .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .navigationBar)

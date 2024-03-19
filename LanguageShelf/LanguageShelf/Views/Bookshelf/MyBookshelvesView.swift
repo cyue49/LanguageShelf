@@ -8,12 +8,17 @@ struct MyBookshelvesView: View {
             VStack {
                 Text("My Bookshelves")
             }
-            .navigationTitle("My Bookshelves")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading){
                     Text("Logo")
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("My Bookshelves")
+                        .foregroundStyle(themeManager.currentTheme.fontColor)
+                }
+                
                 ToolbarItem(placement: .topBarTrailing){
                     Image(systemName: "plus")                }
             }

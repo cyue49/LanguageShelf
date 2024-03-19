@@ -17,6 +17,7 @@ struct SignedInView: View {
                 Text(user.username)
                     .font(.largeTitle)
                     .frame(maxWidth: .infinity, maxHeight: 20)
+                    .foregroundStyle(themeManager.currentTheme.fontColor)
                     .padding(.bottom)
                 
                 ChooseColorThemeView()
