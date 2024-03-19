@@ -1,3 +1,18 @@
+2024/03/19 Chen
+
+Done since last scrum: 
+- Added confirm password field to sign up form
+- Added form validation checking for not empty and correct format for user sign up and sign in forms
+- Show popup alert when sign in with wrong email or password
+- Worked on the frontend ui of the user profile view
+
+Todo until next scrum: 
+- Continue working on features of the user profile view
+- Work on changing app theme and updating user profile (profile picture, username, etc.)
+- Look into adding images to app
+
+------------------
+
 2024/03/18 Chen
 
 Done since last scrum:
