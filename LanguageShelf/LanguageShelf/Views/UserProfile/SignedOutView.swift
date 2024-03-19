@@ -11,6 +11,8 @@ struct SignedOutView: View {
     
     @State private var hasAccount: Bool = true
     
+    @State private var showAlert: Bool = false
+    
     private var validEmail: Bool {
         return !email.isEmpty
         && email.contains("@")
@@ -19,7 +21,7 @@ struct SignedOutView: View {
     
     private var validPassword: Bool {
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(?=.*[!&^%$#@()/_*+-]+.*).{8,}$")
-
+        
         return !password.isEmpty
         && password.count>=8
         && passwordRegex.evaluate(with: password)
@@ -53,9 +55,7 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign In", clicked: {
                     Task {
-                        try await userManager.signIn(
-                            email: email,
-                            password: password)
+                        showAlert = try await userManager.signIn(email: email, password: password)
                     }
                 })
                 .padding(.top)
@@ -65,13 +65,19 @@ struct SignedOutView: View {
                 Button {
                     hasAccount.toggle()
                 } label: {
-                    Text("Don't have an account? Sign up here!")
+                    Text("Don't have an account? Sign up!")
                         .underline()
                         .foregroundStyle(Color("PrimaryAccentColor"))
                         .multilineTextAlignment(.center)
                 }
             }
             .padding()
+            .alert(isPresented: $showAlert){
+                Alert (
+                    title: Text("Sign in failed"),
+                    message: Text("Please make sure that you have entered the correct email address and password."),
+                    dismissButton: .cancel(Text("Ok")) {})
+            }
         }
         .backgroundStyle(Color("ToolBarColor"))
         .cornerRadius(30)
@@ -109,10 +115,7 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign Up", clicked: {
                     Task {
-                        try await userManager.register(
-                            email: email,
-                            password: password,
-                            username: username)
+                        try await userManager.register(email: email, password: password, username: username)
                     }
                 })
                 .padding(.top)
@@ -122,7 +125,7 @@ struct SignedOutView: View {
                 Button {
                     hasAccount.toggle()
                 } label: {
-                    Text("Already have an account? Sign in here!")
+                    Text("Already have an account? Sign in!")
                         .underline()
                         .foregroundStyle(Color("PrimaryAccentColor"))
                         .multilineTextAlignment(.center)

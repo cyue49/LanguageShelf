@@ -14,14 +14,16 @@ class UserAccountsManager: ObservableObject {
     }
     
     // set user session and current user and sign user in
-    func signIn(email: String, password: String) async throws {
+    func signIn(email: String, password: String) async throws -> Bool {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
         } catch {
             print("ERROR SIGNING IN USER: \(error.localizedDescription)")
+            return true // show failed sign in alert
         }
+        return false // don't show failed sign in alert
     }
     
     // create new user, add user info in firebase firestore, set user session, set current user
