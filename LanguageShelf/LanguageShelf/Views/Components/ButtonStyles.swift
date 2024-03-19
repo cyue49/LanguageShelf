@@ -8,15 +8,12 @@ struct Button1: View {
         Button(action: clicked) {
             Text(label)
                 .frame(maxWidth: .infinity)
+                .bold()
         }
         .padding(15)
-        .background(Color("ButtonColor"))
-        .foregroundStyle(Color("FontColor"))
+        .background(Color("PrimaryAccentColor"))
+        .foregroundStyle(.white)
         .cornerRadius(20)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color("IconColor"), lineWidth: 2)
-        )
     }
 }
 

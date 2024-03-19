@@ -7,8 +7,28 @@ struct SignedOutView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var username: String = ""
+    @State private var confirmPassword: String = ""
     
     @State private var hasAccount: Bool = true
+    
+    private var validEmail: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && email.contains(".")
+    }
+    
+    private var validPassword: Bool {
+        let passwordRegex = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(?=.*[!&^%$#@()/_*+-]+.*).{8,}$")
+
+        return !password.isEmpty
+        && password.count>=8
+        && passwordRegex.evaluate(with: password)
+    }
+    
+    private var validConfirmPassword: Bool {
+        return !confirmPassword.isEmpty
+        && confirmPassword == password
+    }
     
     var body: some View {
         if hasAccount {
@@ -26,8 +46,10 @@ struct SignedOutView: View {
                     .foregroundStyle(Color("FontColor"))
                     .padding(.bottom)
                 
-                TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
-                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
+                ScrollView {
+                    TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
+                    TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
+                }
                 
                 Button1(label: "Sign In", clicked: {
                     Task {
@@ -37,6 +59,8 @@ struct SignedOutView: View {
                     }
                 })
                 .padding(.top)
+                .disabled(!validForm)
+                .opacity(validForm ? 1.0 : 0.3)
                 
                 Button {
                     hasAccount.toggle()
@@ -60,10 +84,28 @@ struct SignedOutView: View {
                     .font(.system(size: 26, weight: .bold, design: .rounded))
                     .foregroundStyle(Color("FontColor"))
                     .padding(.bottom)
-                
-                TextFieldWithLabel(label: "Enter your email: ", placeholder: "", textValue: $email)
-                TextFieldWithLabel(label: "Enter your password: ", placeholder: "", textValue: $password, isSecureField: true)
-                TextFieldWithLabel(label: "Enter your username: ", placeholder: "", textValue: $username)
+                ScrollView {
+                    TextFieldWithLabel(label: "Enter your email", placeholder: "", textValue: $email)
+                    if (!email.isEmpty){
+                        CheckListView(invalidMessage: "Invalid email format.", validMessage: "Valid email", isValid: validEmail)
+                    }
+                    
+                    TextFieldWithLabel(label: "Enter your password", placeholder: "", textValue: $password, isSecureField: true)
+                    if (!password.isEmpty){
+                        CheckListView(invalidMessage: "Password must be at be at least 8 characters long and contain an uppercase letter, a number, and a special character.", validMessage: "Valid password", isValid: validPassword)
+                    }
+                    
+                    TextFieldWithLabel(label: "Confirm your password", placeholder: "", textValue: $confirmPassword, isSecureField: true)
+                    if (!confirmPassword.isEmpty){
+                        CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Valid password", isValid: validConfirmPassword)
+                    }
+                    
+                    TextFieldWithLabel(label: "Enter your username", placeholder: "", textValue: $username)
+                    Text("Your username is for display only on your profile.")
+                        .font(.caption)
+                        .foregroundStyle(Color("PrimaryAccentColor"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
                 Button1(label: "Sign Up", clicked: {
                     Task {
@@ -74,6 +116,8 @@ struct SignedOutView: View {
                     }
                 })
                 .padding(.top)
+                .disabled(!validForm)
+                .opacity(validForm ? 1.0 : 0.3)
                 
                 Button {
                     hasAccount.toggle()
@@ -88,6 +132,20 @@ struct SignedOutView: View {
         }
         .backgroundStyle(Color("ToolBarColor"))
         .cornerRadius(30)
+    }
+}
+
+extension SignedOutView: FormAuthProtocol {
+    var validForm: Bool {
+        if hasAccount { // sign in
+            return !email.isEmpty
+            && !password.isEmpty
+        } else { // sign up
+            return validEmail
+            && validPassword
+            && validConfirmPassword
+            && !username.isEmpty
+        }
     }
 }
 

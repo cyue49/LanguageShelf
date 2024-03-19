@@ -26,6 +26,7 @@
 		DEE550B72BA68BF90045BA66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550B62BA68BF90045BA66 /* User.swift */; };
 		DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */; };
 		DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */; };
+		DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF0D2702BA8DD2900BA9C8E /* CheckListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		DEE550B62BA68BF90045BA66 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsManager.swift; sourceTree = "<group>"; };
 		DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThemeView.swift; sourceTree = "<group>"; };
+		DEF0D2702BA8DD2900BA9C8E /* CheckListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				DEE550B12BA6704B0045BA66 /* ButtonStyles.swift */,
 				DEE550B32BA670720045BA66 /* TextFieldStyles.swift */,
 				DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */,
+				DEF0D2702BA8DD2900BA9C8E /* CheckListView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
 				DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */,
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
+				DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */,
 				DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */,
 				DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */,
 				DEE550B22BA6704B0045BA66 /* ButtonStyles.swift in Sources */,

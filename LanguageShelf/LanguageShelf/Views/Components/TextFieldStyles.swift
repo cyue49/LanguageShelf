@@ -8,8 +8,13 @@ struct TextFieldWithLabel: View {
     
     var body: some View {
         VStack (alignment: .leading) {
-            Text(label)
-                .foregroundStyle(Color("FontColor"))
+            HStack {
+                Text(label)
+                    .foregroundStyle(Color("FontColor"))
+                Image(systemName: "asterisk")
+                    .foregroundStyle(.red)
+                    .font(.system(size: 8))
+            }
             if isSecureField {
                 SecureField(placeholder, text: $textValue)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)

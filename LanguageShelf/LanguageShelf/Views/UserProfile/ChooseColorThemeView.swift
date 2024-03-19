@@ -31,7 +31,7 @@ struct ChooseColorThemeView: View {
                 }
             }
         }
-        .frame(minHeight: 350)
+        .frame(minHeight: 360)
         .backgroundStyle(.white)
         .cornerRadius(30)
         .overlay(

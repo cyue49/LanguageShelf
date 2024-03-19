@@ -57,3 +57,10 @@ class UserAccountsManager: ObservableObject {
         }
     }
 }
+
+
+protocol FormAuthProtocol {
+    var validForm: Bool {
+        get
+    }
+}
