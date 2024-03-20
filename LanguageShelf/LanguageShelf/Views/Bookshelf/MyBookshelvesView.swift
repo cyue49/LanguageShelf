@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MyBookshelvesView: View {
+    @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
@@ -31,6 +32,7 @@ struct MyBookshelvesView: View {
 struct MyBookshelves_Previews: PreviewProvider {
     static var previews: some View {
         MyBookshelvesView()
+            .environmentObject(UserAccountsManager())
             .environmentObject(ThemeManager())
     }
 }

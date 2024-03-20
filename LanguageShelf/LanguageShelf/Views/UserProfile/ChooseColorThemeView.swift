@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ChooseColorThemeView: View {
+    @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
@@ -19,6 +20,9 @@ struct ChooseColorThemeView: View {
                     GridRow {
                         Button(action: {
                             themeManager.setTheme(theme: 0)
+                            Task {
+                                try await userManager.updateUser(attribute: "theme", value: "0")
+                            }
                         }, label: {
                             ColorThemeView(colorSet: [themeManager.themeSets[0].primaryAccentColor,
                                                       themeManager.themeSets[0].secondaryColor,
@@ -32,6 +36,9 @@ struct ChooseColorThemeView: View {
                     GridRow {
                         Button(action: {
                             themeManager.setTheme(theme: 1)
+                            Task {
+                                try await userManager.updateUser(attribute: "theme", value: "1")
+                            }
                         }, label: {
                             ColorThemeView(colorSet: [themeManager.themeSets[1].primaryAccentColor,
                                                       themeManager.themeSets[1].secondaryColor,
@@ -46,6 +53,9 @@ struct ChooseColorThemeView: View {
                     GridRow {
                         Button(action: {
                             themeManager.setTheme(theme: 2)
+                            Task {
+                                try await userManager.updateUser(attribute: "theme", value: "2")
+                            }
                         }, label: {
                             ColorThemeView(colorSet: [themeManager.themeSets[2].primaryAccentColor,
                                                       themeManager.themeSets[2].secondaryColor,
@@ -59,6 +69,9 @@ struct ChooseColorThemeView: View {
                     GridRow {
                         Button(action: {
                             themeManager.setTheme(theme: 3)
+                            Task {
+                                try await userManager.updateUser(attribute: "theme", value: "3")
+                            }
                         }, label: {
                             ColorThemeView(colorSet: [themeManager.themeSets[3].primaryAccentColor,
                                                       themeManager.themeSets[3].secondaryColor,
@@ -84,6 +97,7 @@ struct ChooseColorThemeView: View {
 struct ChooseColorThemeView_Previews: PreviewProvider {
     static var previews: some View {
         ChooseColorThemeView()
+            .environmentObject(UserAccountsManager())
             .environmentObject(ThemeManager())
     }
 }
