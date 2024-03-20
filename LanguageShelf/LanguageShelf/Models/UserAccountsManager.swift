@@ -31,7 +31,7 @@ class UserAccountsManager: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, email: email, username: username, theme: 0)
+            let user = User(id: result.user.uid, email: email, username: username, theme: "0")
             try await Firestore.firestore().collection("Users").document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0])
             await fetchUser()
         } catch {
@@ -45,7 +45,7 @@ class UserAccountsManager: ObservableObject {
         guard let snapshot = try? await Firestore.firestore().collection("Users").document(uid).getDocument() else { return }
         let email = snapshot["email"] as? String ?? ""
         let username = snapshot["username"] as? String ?? ""
-        let theme = snapshot["theme"] as? Int ?? 0
+        let theme = snapshot["theme"] as? String ?? "0"
         self.currentUser = User(id: uid, email: email, username: username, theme: theme)
     }
     
@@ -63,11 +63,7 @@ class UserAccountsManager: ObservableObject {
     // update attribute with new value for current user
     func updateUser(attribute: String, value: String) async throws {
         do {
-            if (attribute == "theme"){
-                try await Firestore.firestore().collection("Users").document(userSession!.uid).updateData([attribute: Int(value)])
-            } else {
-                try await Firestore.firestore().collection("Users").document(userSession!.uid).updateData([attribute: value])
-            }
+            try await Firestore.firestore().collection("Users").document(userSession!.uid).updateData([attribute: value])
         } catch {
             print("ERROR UPDATING DATA: \(error.localizedDescription)")
         }

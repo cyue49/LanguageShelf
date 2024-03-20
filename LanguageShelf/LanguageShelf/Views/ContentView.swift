@@ -15,7 +15,7 @@ struct ContentView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .onAppear() {
                     if userManager.userSession != nil && userManager.currentUser != nil {
-                        themeManager.setTheme(theme: userManager.currentUser!.theme)
+                        themeManager.setTheme(theme: Int(userManager.currentUser!.theme)!)
                         print("here")
                     }
                 }
@@ -32,12 +32,6 @@ struct ContentView: View {
                 .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
         }
-//        .onAppear() {
-//            if userManager.userSession != nil && userManager.currentUser != nil {
-//                themeManager.setTheme(theme: userManager.currentUser!.theme)
-//                print("here")
-//            }
-//        }
     }
 }
 
