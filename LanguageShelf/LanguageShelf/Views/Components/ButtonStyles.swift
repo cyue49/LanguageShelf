@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Button1: View {
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var userManager: UserAccountsManager
     
     var label: String
     var clicked: () -> Void
@@ -13,7 +13,7 @@ struct Button1: View {
                 .bold()
         }
         .padding(15)
-        .background(themeManager.currentTheme.primaryAccentColor)
+        .background(userManager.currentTheme.primaryAccentColor)
         .foregroundStyle(.white)
         .cornerRadius(20)
     }
@@ -23,6 +23,6 @@ struct Button1: View {
 struct ButtonStyles_Previews: PreviewProvider {
     static var previews: some View {
         Button1(label: "Button", clicked: {})
-            .environmentObject(ThemeManager())
+            .environmentObject(UserAccountsManager())
     }
 }

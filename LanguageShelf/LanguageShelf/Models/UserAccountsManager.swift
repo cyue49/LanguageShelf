@@ -3,11 +3,17 @@ import Firebase
 
 @MainActor
 class UserAccountsManager: ObservableObject {
+    // For user authentication
     @Published var userSession: FirebaseAuth.User? // whether user is signed in or not
     @Published var currentUser: User? // current user
     
+    // For user preference theme
+    @Published var currentTheme: ThemeProtocol = DefaultTheme()
+    var themeSets: [ThemeProtocol] = [DefaultTheme(), LightTheme(), DarkTheme(), GreenTheme()]
+    
     init() {
          self.userSession = Auth.auth().currentUser
+        
         Task {
             await fetchUser()
         }
@@ -49,6 +55,7 @@ class UserAccountsManager: ObservableObject {
         let username = snapshot["username"] as? String ?? ""
         let theme = snapshot["theme"] as? String ?? "0"
         self.currentUser = User(id: uid, email: email, username: username, theme: theme)
+        self.currentTheme = themeSets[Int(theme)!] // set theme to user preference
     }
     
     // unset user session and current userß
@@ -57,6 +64,7 @@ class UserAccountsManager: ObservableObject {
             try Auth.auth().signOut()
             self.userSession = nil
             self.currentUser = nil
+            self.currentTheme = themeSets[0] // reset theme to default on signout
         } catch {
             print("ERROR SIGNING OUT USER: \(error.localizedDescription)")
         }
@@ -69,6 +77,11 @@ class UserAccountsManager: ObservableObject {
         } catch {
             print("ERROR UPDATING DATA: \(error.localizedDescription)")
         }
+    }
+    
+    // Set app theme
+    func setTheme(theme: Int) {
+        currentTheme = themeSets[theme]
     }
 }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TextFieldWithLabel: View {
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var userManager: UserAccountsManager
     
     var label: String
     var placeholder: String
@@ -12,7 +12,7 @@ struct TextFieldWithLabel: View {
         VStack (alignment: .leading) {
             HStack {
                 Text(label)
-                    .foregroundStyle(themeManager.currentTheme.fontColor)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
                 Image(systemName: "asterisk")
                     .foregroundStyle(.red)
                     .font(.system(size: 8))
@@ -22,24 +22,24 @@ struct TextFieldWithLabel: View {
                     SecureField(placeholder, text: $textValue)
                         .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                         .padding(12)
-                        .background(themeManager.currentTheme.bgColor)
-                        .foregroundStyle(themeManager.currentTheme.fontColor)
+                        .background(userManager.currentTheme.bgColor)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(themeManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                         )
                 }
             } else {
                 TextField(placeholder, text: $textValue)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding(12)
-                    .background(themeManager.currentTheme.bgColor)
-                    .foregroundStyle(themeManager.currentTheme.fontColor)
+                    .background(userManager.currentTheme.bgColor)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
                     .cornerRadius(20)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(themeManager.currentTheme.secondaryColor, lineWidth: 2)
+                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                     )
             }
         }
@@ -49,6 +49,6 @@ struct TextFieldWithLabel: View {
 struct TextFieldStyles_Previews: PreviewProvider {
     static var previews: some View {
         TextFieldWithLabel(label: "Question", placeholder: "Input", textValue: .constant("Input"))
-            .environmentObject(ThemeManager())
+            .environmentObject(UserAccountsManager())
     }
 }

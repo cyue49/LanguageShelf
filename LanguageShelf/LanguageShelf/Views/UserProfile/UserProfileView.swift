@@ -3,12 +3,11 @@ import Firebase
 
 struct UserProfileView: View {
     @EnvironmentObject var userManager: UserAccountsManager
-    @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
         NavigationStack {
             ZStack {
-                themeManager.currentTheme.bgColor
+                userManager.currentTheme.bgColor
                 
                 VStack {
                     if userManager.userSession != nil {
@@ -27,7 +26,7 @@ struct UserProfileView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text("User Profile")
-                        .foregroundStyle(themeManager.currentTheme.fontColor)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
                 }
                 
                 if userManager.userSession != nil {
@@ -35,11 +34,11 @@ struct UserProfileView: View {
                         Button("Sign Out") {
                             userManager.signOut()
                         }
-                        .foregroundStyle(themeManager.currentTheme.primaryAccentColor)
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                     }
                 }
             }
-            .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .navigationBar)
+            .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
@@ -49,6 +48,5 @@ struct UserProfile_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView()
             .environmentObject(UserAccountsManager())
-            .environmentObject(ThemeManager())
     }
 }

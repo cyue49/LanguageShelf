@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct GameScreenView: View {
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var userManager: UserAccountsManager
     
     var body: some View {
         NavigationStack {
@@ -16,10 +16,10 @@ struct GameScreenView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text("Game Screen")
-                        .foregroundStyle(themeManager.currentTheme.fontColor)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
                 }
             }
-            .toolbarBackground(themeManager.currentTheme.toolbarColor, for: .navigationBar)
+            .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
     }
@@ -28,6 +28,7 @@ struct GameScreenView: View {
 struct GameScreen_Previews: PreviewProvider {
     static var previews: some View {
         GameScreenView()
-            .environmentObject(ThemeManager())
+            .environmentObject(UserAccountsManager())
+            .environmentObject(UserAccountsManager())
     }
 }

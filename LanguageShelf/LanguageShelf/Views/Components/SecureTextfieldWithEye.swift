@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SecureTextFieldWithEye: View {
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var userManager: UserAccountsManager
     
     var label: String
     var placeholder: String
@@ -24,7 +24,7 @@ struct SecureTextFieldWithEye: View {
                     Image(systemName: showInput ? "eye.slash.fill" : "eye.fill")
                         .padding()
                         .offset(y: 15)
-                        .foregroundStyle(themeManager.currentTheme.primaryAccentColor)
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
             })
             }
         }
@@ -34,6 +34,6 @@ struct SecureTextFieldWithEye: View {
 struct SecureTextFieldWithEye_Previews: PreviewProvider {
     static var previews: some View {
         SecureTextFieldWithEye(label: "Question", placeholder: "Input", textValue: .constant("Input"))
-            .environmentObject(ThemeManager())
+            .environmentObject(UserAccountsManager())
     }
 }

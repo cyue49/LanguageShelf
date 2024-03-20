@@ -3,7 +3,6 @@ import Firebase
 
 struct SignedOutView: View {
     @EnvironmentObject var userManager: UserAccountsManager
-    @EnvironmentObject var themeManager: ThemeManager
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -47,7 +46,7 @@ struct SignedOutView: View {
             VStack (alignment: .center, spacing: 25) {
                 Text("Sign In")
                     .font(.system(size: 26, weight: .bold, design: .rounded))
-                    .foregroundStyle(themeManager.currentTheme.fontColor)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
                     .padding(.bottom)
                 
                 ScrollView {
@@ -69,7 +68,7 @@ struct SignedOutView: View {
                 } label: {
                     Text("Don't have an account? Sign up!")
                         .underline()
-                        .foregroundStyle(themeManager.currentTheme.primaryAccentColor)
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                         .multilineTextAlignment(.center)
                 }
             }
@@ -81,7 +80,7 @@ struct SignedOutView: View {
                     dismissButton: .cancel(Text("Ok")) {})
             }
         }
-        .backgroundStyle(themeManager.currentTheme.toolbarColor)
+        .backgroundStyle(userManager.currentTheme.toolbarColor)
         .cornerRadius(30)
     }
     
@@ -90,7 +89,7 @@ struct SignedOutView: View {
             VStack (alignment: .center, spacing: 25) {
                 Text("Sign Up")
                     .font(.system(size: 26, weight: .bold, design: .rounded))
-                    .foregroundStyle(themeManager.currentTheme.fontColor)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
                     .padding(.bottom)
                 ScrollView {
                     TextFieldWithLabel(label: "Enter your email", placeholder: "", textValue: $email)
@@ -111,7 +110,7 @@ struct SignedOutView: View {
                     TextFieldWithLabel(label: "Enter your username", placeholder: "", textValue: $username)
                     Text("Your username is for display only on your profile.")
                         .font(.caption)
-                        .foregroundStyle(themeManager.currentTheme.primaryAccentColor)
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
@@ -129,7 +128,7 @@ struct SignedOutView: View {
                 } label: {
                     Text("Already have an account? Sign in!")
                         .underline()
-                        .foregroundStyle(themeManager.currentTheme.primaryAccentColor)
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                         .multilineTextAlignment(.center)
                 }
             }
@@ -141,7 +140,7 @@ struct SignedOutView: View {
                     dismissButton: .cancel(Text("Ok")) {})
             }
         }
-        .backgroundStyle(themeManager.currentTheme.toolbarColor)
+        .backgroundStyle(userManager.currentTheme.toolbarColor)
         .cornerRadius(30)
     }
 }
@@ -164,6 +163,5 @@ struct SignedOutView_Previews: PreviewProvider {
     static var previews: some View {
         SignedOutView()
             .environmentObject(UserAccountsManager())
-            .environmentObject(ThemeManager())
     }
 }
