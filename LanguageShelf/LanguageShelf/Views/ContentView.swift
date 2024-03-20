@@ -12,12 +12,6 @@ struct ContentView: View {
                 }
                 .toolbarBackground(userManager.currentTheme.toolbarColor, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-//                .onAppear() {
-//                    if userManager.userSession != nil && userManager.currentUser != nil {
-//                        userManager.setTheme(theme: Int(userManager.currentUser!.theme)!)
-//                        print("here")
-//                    }
-//                }
             GameScreenView()
                 .tabItem {
                     Label("Game",systemImage: "gamecontroller.fill")

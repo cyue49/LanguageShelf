@@ -2,6 +2,7 @@ import SwiftUI
 
 // Theme protocol
 protocol ThemeProtocol {
+    var name: String { get }
     var primaryAccentColor: Color { get }
     var secondaryColor: Color { get }
     var toolbarColor: Color { get }
@@ -14,6 +15,7 @@ protocol ThemeProtocol {
 // Themes
 
 struct DefaultTheme: ThemeProtocol {
+    var name: String = "default"
     var primaryAccentColor: Color = Color("1-PrimaryAccentColor")
     var secondaryColor: Color = Color("1-SecondaryColor")
     var toolbarColor: Color = Color("1-ToolbarColor")
@@ -24,6 +26,7 @@ struct DefaultTheme: ThemeProtocol {
 }
 
 struct LightTheme: ThemeProtocol {
+    var name: String = "light"
     var primaryAccentColor: Color = Color("2-PrimaryAccentColor")
     var secondaryColor: Color = Color("2-SecondaryColor")
     var toolbarColor: Color = Color("2-ToolbarColor")
@@ -34,6 +37,7 @@ struct LightTheme: ThemeProtocol {
 }
 
 struct DarkTheme: ThemeProtocol {
+    var name: String = "dark"
     var primaryAccentColor: Color = Color("3-PrimaryAccentColor")
     var secondaryColor: Color = Color("3-SecondaryColor")
     var toolbarColor: Color = Color("3-ToolbarColor")
@@ -44,6 +48,7 @@ struct DarkTheme: ThemeProtocol {
 }
 
 struct GreenTheme: ThemeProtocol {
+    var name: String = "green"
     var primaryAccentColor: Color = Color("4-PrimaryAccentColor")
     var secondaryColor: Color = Color("4-SecondaryColor")
     var toolbarColor: Color = Color("4-ToolbarColor")
