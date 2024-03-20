@@ -1,3 +1,17 @@
+2024/03/20 Chen
+
+Done since last scrum: 
+- Added 4 different themes to the project assets 
+- Added change theme functionality on user profile view
+- Added the "theme" field to the users document on Firebase Firestore
+
+Todo until next scrum:
+- Refactor the UserAcountsManager and ThemeManager into a single manager, then make the theme automatically set up to user's preference each time upon opening app if user is signed in
+- Work on edit username and change profile picture features of the user profile page
+- Start working on bookshelf functionalities (look into dictionary APIs for different languages)
+
+------------------
+
 2024/03/19 Chen
 
 Done since last scrum: 
