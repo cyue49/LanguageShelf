@@ -17,6 +17,7 @@
 		DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572ED2BA4D95100488990 /* GameScreenView.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DED6F7532BA73D5B00F742D0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DED6F7522BA73D5B00F742D0 /* FirebaseDatabaseSwift */; };
+		DEE0F0C72BAB3CD3003F2BC8 /* EditTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */; };
 		DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */; };
 		DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A52BA65D7A0045BA66 /* SignedInView.swift */; };
 		DEE550AB2BA66A460045BA66 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DEE550AA2BA66A460045BA66 /* FirebaseAuth */; };
@@ -42,6 +43,7 @@
 		DE8572EB2BA4B6FB00488990 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DE8572ED2BA4D95100488990 /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
+		DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextFieldView.swift; sourceTree = "<group>"; };
 		DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutView.swift; sourceTree = "<group>"; };
 		DEE550A52BA65D7A0045BA66 /* SignedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInView.swift; sourceTree = "<group>"; };
 		DEE550AE2BA66B130045BA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				DEF0D26E2BA8A26600BA9C8E /* ColorThemeView.swift */,
 				DEF0D2702BA8DD2900BA9C8E /* CheckListView.swift */,
 				DEF0D2722BA945A900BA9C8E /* SecureTextfieldWithEye.swift */,
+				DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
 				DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */,
 				DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */,
+				DEE0F0C72BAB3CD3003F2BC8 /* EditTextFieldView.swift in Sources */,
 				DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */,
 				DEE550B22BA6704B0045BA66 /* ButtonStyles.swift in Sources */,
 				DE8572EC2BA4B6FB00488990 /* ContentView.swift in Sources */,
