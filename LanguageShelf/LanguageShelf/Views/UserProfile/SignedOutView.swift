@@ -12,7 +12,8 @@ struct SignedOutView: View {
     
     @State private var hasAccount: Bool = true
     
-    @State private var showAlert: Bool = false
+    @State private var showLoginAlert: Bool = false
+    @State private var showSignupAlert: Bool = false
     
     private var validEmail: Bool {
         return !email.isEmpty
@@ -56,7 +57,7 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign In", clicked: {
                     Task {
-                        showAlert = try await userManager.signIn(email: email, password: password)
+                        showLoginAlert = try await userManager.signIn(email: email, password: password)
                     }
                 })
                 .padding(.top)
@@ -73,7 +74,7 @@ struct SignedOutView: View {
                 }
             }
             .padding()
-            .alert(isPresented: $showAlert){
+            .alert(isPresented: $showLoginAlert){
                 Alert (
                     title: Text("Sign in failed"),
                     message: Text("Please make sure that you have entered the correct email address and password."),
@@ -116,7 +117,7 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign Up", clicked: {
                     Task {
-                        try await userManager.register(email: email, password: password, username: username)
+                        showSignupAlert = try await userManager.register(email: email, password: password, username: username)
                     }
                 })
                 .padding(.top)
@@ -133,6 +134,12 @@ struct SignedOutView: View {
                 }
             }
             .padding()
+            .alert(isPresented: $showSignupAlert){
+                Alert (
+                    title: Text("Sign up failed"),
+                    message: Text("An account with this email already exists. Please use \"Sign In\" instead if you already have an account"),
+                    dismissButton: .cancel(Text("Ok")) {})
+            }
         }
         .backgroundStyle(themeManager.currentTheme.toolbarColor)
         .cornerRadius(30)
