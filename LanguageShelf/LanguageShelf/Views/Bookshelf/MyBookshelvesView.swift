@@ -5,8 +5,17 @@ struct MyBookshelvesView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("My Bookshelves")
+            ZStack {
+                userManager.currentTheme.bgColor
+                
+                ScrollView {
+                    VStack(spacing: 15) {
+                        BookshelfCardView(title: "The Polar Bear and the Penguin")
+                        BookshelfCardView(title: "The Penguin's Igloo")
+                        Spacer()
+                    }
+                    .padding()
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
