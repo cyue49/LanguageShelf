@@ -6,6 +6,7 @@ struct MyBookshelvesView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
     @State var showAddBookshelfAlert: Bool = false
+    @State var showBookshelfAlreadyExistsAlert: Bool = false
     @State var newShelfName: String = ""
     
     var body: some View {
@@ -85,10 +86,16 @@ struct MyBookshelvesView: View {
                 TextField("Bookshelf", text: $newShelfName)
                 Button("Confirm") {
                     Task {
-                        try await bookshelvesManager.addNewBookshelf(name: newShelfName)
+                        showBookshelfAlreadyExistsAlert = try await bookshelvesManager.addNewBookshelf(name: newShelfName)
                     }
                 }
+                .disabled(newShelfName == "")
                 Button("Cancel", role: .cancel) {}
+            }
+            .alert("A bookshelf of this name already exists.", isPresented: $showBookshelfAlreadyExistsAlert){
+                Button("Ok", role: .cancel) {
+                    showBookshelfAlreadyExistsAlert = false
+                }
             }
         }
     }

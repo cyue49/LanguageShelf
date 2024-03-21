@@ -26,10 +26,15 @@ class BookshelvesManager: ObservableObject {
         await fetchBookshelves()
     }
     
-    func addNewBookshelf(name: String) async throws {
+    // add new bookshelf to user's bookshelves
+    func addNewBookshelf(name: String) async throws -> Bool {
+        if myBookshelves != nil && myBookshelves!.contains(name){
+            return true // if bookshelf of this name already exists, show alert
+        }
         myBookshelves?.append(name)
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return false }
         try await Firestore.firestore().collection("Bookshelves").document(uid).setData(["bookshelves": myBookshelves!])
         await fetchBookshelves()
+        return false
     }
 }
