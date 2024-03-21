@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BookshelfCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
+    @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
     var name: String
     @State var showEditNameAlert: Bool = false
@@ -33,8 +34,9 @@ struct BookshelfCardView: View {
                                     showEditNameAlert.toggle()
                                 }
                                 Button("Delete") {
-                                    //TODO: delete
-                                    print("Deleting")
+                                    Task {
+                                        try await bookshelvesManager.removeBookshelf(name: name)
+                                    }
                                 }
                             } label: {
                                 Image(systemName: "square.and.pencil.circle.fill")
@@ -80,5 +82,6 @@ struct BookshelfCardView_Previews: PreviewProvider {
     static var previews: some View {
         BookshelfCardView(name: "Bookshelf name")
             .environmentObject(UserAccountsManager())
+            .environmentObject(BookshelvesManager())
     }
 }

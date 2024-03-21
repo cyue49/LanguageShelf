@@ -37,4 +37,15 @@ class BookshelvesManager: ObservableObject {
         await fetchBookshelves()
         return false
     }
+    
+    // delete a bookshelf from bookshelves
+    func removeBookshelf(name: String) async throws {
+        myBookshelves!.remove(at: myBookshelves!.firstIndex(of: name)!)
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        try await Firestore.firestore().collection("Bookshelves").document(uid).setData(["bookshelves": myBookshelves!])
+        await fetchBookshelves()
+    }
+    
+    // update the name of a bookshelf
+    
 }
