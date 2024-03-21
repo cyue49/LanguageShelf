@@ -28,13 +28,19 @@ struct BookshelfCardView: View {
                     VStack {
                         HStack {
                             Spacer()
-                            Button (action: {
-                                showEditNameAlert.toggle()
-                            }, label: {
+                            Menu {
+                                Button("Rename") {
+                                    showEditNameAlert.toggle()
+                                }
+                                Button("Delete") {
+                                    //TODO: delete
+                                    print("Deleting")
+                                }
+                            } label: {
                                 Image(systemName: "square.and.pencil.circle.fill")
                                     .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                     .font(.system(size: 28))
-                            })
+                            }
                         }
                         Spacer()
                         Text(name)

@@ -4,6 +4,7 @@ import Firebase
 @main
 struct LanguageShelfApp: App {
     @StateObject var userManager = UserAccountsManager()
+    @StateObject var bookshelvesManager = BookshelvesManager()
     
     init() {
         FirebaseApp.configure()
@@ -13,6 +14,7 @@ struct LanguageShelfApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(userManager)
+                .environmentObject(bookshelvesManager)
         }
     }
     

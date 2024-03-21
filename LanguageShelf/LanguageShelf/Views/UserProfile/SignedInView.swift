@@ -13,12 +13,6 @@ struct SignedInView: View {
                     .frame(width: 150, height: 150)
                     .padding(.top)
                 
-//                Text(user.username)
-//                    .font(.largeTitle)
-//                    .frame(maxWidth: .infinity, maxHeight: 20)
-//                    .foregroundStyle(userManager.currentTheme.fontColor)
-//                    .padding(.bottom)
-                
                 EditTextFieldView(updateField: "username", inputText: user.username)
                 
                 ChooseColorThemeView()

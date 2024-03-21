@@ -1,7 +1,9 @@
 import SwiftUI
+import Firebase
 
 struct MyBookshelvesView: View {
     @EnvironmentObject var userManager: UserAccountsManager
+    @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
     @State var showAddBookshelfAlert: Bool = false
     @State var newShelfName: String = ""
@@ -11,14 +13,19 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                ScrollView {
-                    VStack(spacing: 15) {
-                        // temp cards. instead, show from list from database
-                        BookshelfCardView(name: "The Polar Bear and the Penguin")
-                        BookshelfCardView(name: "The Penguin's Igloo")
-                        Spacer()
+                if let bookshelves = bookshelvesManager.myBookshelves {
+                    ScrollView{
+                        VStack(spacing: 15) {
+                            ForEach(bookshelves, id: \.self) { bookshelf in
+                                BookshelfCardView(name: bookshelf)
+                            }
+                            Spacer()
+                        }
+                        .padding()
                     }
-                    .padding()
+                } else {
+                    Text("Please sign in to view your bookshelves")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -56,16 +63,18 @@ struct MyBookshelvesView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         
-                        VStack {
-                            Button(action: {
-                                showAddBookshelfAlert.toggle()
-                            }, label: {
-                                Image(systemName: "plus")
-                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                    .bold()
-                            })
+                        if userManager.userSession != nil {
+                            VStack {
+                                Button(action: {
+                                    showAddBookshelfAlert.toggle()
+                                }, label: {
+                                    Image(systemName: "plus")
+                                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                        .bold()
+                                })
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
                 
@@ -75,7 +84,8 @@ struct MyBookshelvesView: View {
             .alert("Enter the new bookshelf's name:", isPresented: $showAddBookshelfAlert){
                 TextField("Bookshelf", text: $newShelfName)
                 Button("Confirm") {
-                    // perform database add operations
+                    //TODO: perform database add operations
+                    print("adding bookshelf")
                 }
                 Button("Cancel", role: .cancel) {}
             }
@@ -87,5 +97,6 @@ struct MyBookshelves_Previews: PreviewProvider {
     static var previews: some View {
         MyBookshelvesView()
             .environmentObject(UserAccountsManager())
+            .environmentObject(BookshelvesManager())
     }
 }
