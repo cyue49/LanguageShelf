@@ -1,3 +1,19 @@
+2024/03/21 Chen
+
+Done since last scrum: 
+- Merged user manager and theme manager into one, and implemented the user's preferred theme being automatically set up upon opening app when logged in
+- Edit username is working
+- Added frontend ui of a bookshelf card and added pop ups for editing bookshelf name and adding bookshelf (frontend only, backend access to database not implemented yet)
+- Created a Bookshelf struct model
+- Added app icon visible from the phone's Home Screen, and added logo to the top toolbar, which also matches the theme of the app
+
+Todo until next scrum: 
+- Create the bookshelf manager
+- Implement read, write, and update functions to bookshelves using the bookshelf manager
+- Start working on adding books and chapters inside a bookshelf
+
+------------------
+
 2024/03/20 Chen
 
 Done since last scrum: 
