@@ -3,7 +3,8 @@ import SwiftUI
 struct BookshelfCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
-    @State var title: String
+    var name: String
+    @State var showEditNameAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -25,8 +26,18 @@ struct BookshelfCardView: View {
                     }
                     
                     VStack {
+                        HStack {
+                            Spacer()
+                            Button (action: {
+                                showEditNameAlert.toggle()
+                            }, label: {
+                                Image(systemName: "square.and.pencil.circle.fill")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .font(.system(size: 28))
+                            })
+                        }
                         Spacer()
-                        Text(title)
+                        Text(name)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 15)
                             .foregroundStyle(userManager.currentTheme.fontColor)
@@ -49,12 +60,19 @@ struct BookshelfCardView: View {
             RoundedRectangle(cornerRadius: 30)
                 .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
         )
+        .alert("Enter the bookshelf's name:", isPresented: $showEditNameAlert){
+            TextField("Bookshelf", text: .constant(name))
+            Button("Confirm") {
+                // perform database update operations
+            }
+            Button("Cancel", role: .cancel) {}
+        }
     }
 }
 
 struct BookshelfCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookshelfCardView(title: "Bookshelf title")
+        BookshelfCardView(name: "Bookshelf name")
             .environmentObject(UserAccountsManager())
     }
 }

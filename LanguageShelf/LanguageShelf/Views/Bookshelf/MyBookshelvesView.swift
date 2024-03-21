@@ -3,6 +3,9 @@ import SwiftUI
 struct MyBookshelvesView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
+    @State var showAddBookshelfAlert: Bool = false
+    @State var newShelfName: String = ""
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -10,8 +13,9 @@ struct MyBookshelvesView: View {
                 
                 ScrollView {
                     VStack(spacing: 15) {
-                        BookshelfCardView(title: "The Polar Bear and the Penguin")
-                        BookshelfCardView(title: "The Penguin's Igloo")
+                        // temp cards. instead, show from list from database
+                        BookshelfCardView(name: "The Polar Bear and the Penguin")
+                        BookshelfCardView(name: "The Penguin's Igloo")
                         Spacer()
                     }
                     .padding()
@@ -53,9 +57,13 @@ struct MyBookshelvesView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         
                         VStack {
-                            Image(systemName: "plus")
-                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                .bold()
+                            Button(action: {
+                                showAddBookshelfAlert.toggle()
+                            }, label: {
+                                Image(systemName: "plus")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .bold()
+                            })
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }
@@ -64,6 +72,13 @@ struct MyBookshelvesView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .alert("Enter the new bookshelf's name:", isPresented: $showAddBookshelfAlert){
+                TextField("Bookshelf", text: $newShelfName)
+                Button("Confirm") {
+                    // perform database add operations
+                }
+                Button("Cancel", role: .cancel) {}
+            }
         }
     }
 }
