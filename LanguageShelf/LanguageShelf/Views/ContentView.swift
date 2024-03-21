@@ -3,6 +3,7 @@ import Firebase
 
 struct ContentView: View {
     @EnvironmentObject var userManager: UserAccountsManager
+    @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
     var body: some View {
         TabView {
@@ -32,5 +33,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(UserAccountsManager())
+            .environmentObject(BookshelvesManager())
     }
 }

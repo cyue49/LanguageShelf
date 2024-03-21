@@ -22,6 +22,7 @@ struct EditTextFieldView: View {
                             .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                     )
             } else {
+                Spacer()
                 Text(inputText)
                     .font(.largeTitle)
                     .foregroundStyle(userManager.currentTheme.fontColor)

@@ -119,7 +119,7 @@ struct SignedOutView: View {
                 Button1(label: "Sign Up", clicked: {
                     Task {
                         showSignupAlert = try await userManager.register(email: email, password: password, username: username)
-                        // TODO: create empty document in bookshelves collection using this user's id
+                        try await bookshelvesManager.createNewBookshelves()
                     }
                 })
                 .padding(.top)

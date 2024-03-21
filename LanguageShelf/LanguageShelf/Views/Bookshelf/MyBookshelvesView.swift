@@ -13,7 +13,7 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                if let bookshelves = bookshelvesManager.myBookshelves {
+                if let bookshelves = bookshelvesManager.myBookshelves { // if has bookshelves (user logged in)
                     ScrollView{
                         VStack(spacing: 15) {
                             ForEach(bookshelves, id: \.self) { bookshelf in
@@ -23,7 +23,7 @@ struct MyBookshelvesView: View {
                         }
                         .padding()
                     }
-                } else {
+                } else { // display log in message
                     Text("Please sign in to view your bookshelves")
                         .foregroundStyle(userManager.currentTheme.fontColor)
                 }
@@ -84,8 +84,9 @@ struct MyBookshelvesView: View {
             .alert("Enter the new bookshelf's name:", isPresented: $showAddBookshelfAlert){
                 TextField("Bookshelf", text: $newShelfName)
                 Button("Confirm") {
-                    //TODO: perform database add operations
-                    print("adding bookshelf")
+                    Task {
+                        try await bookshelvesManager.addNewBookshelf(name: newShelfName)
+                    }
                 }
                 Button("Cancel", role: .cancel) {}
             }
