@@ -20,7 +20,9 @@ struct MyBookshelvesView: View {
                     ScrollView{
                         VStack(spacing: 15) {
                             ForEach(bookshelves, id: \.self) { bookshelf in
-                                BookshelfCardView(name: bookshelf)
+                                NavigationLink(destination: MyBooksView(bookshelfName: bookshelf)) {
+                                    BookshelfCardView(name: bookshelf)
+                                }
                             }
                             Spacer()
                         }

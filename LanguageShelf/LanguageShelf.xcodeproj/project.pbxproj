@@ -16,6 +16,8 @@
 		DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572E12BA4995B00488990 /* UserProfileView.swift */; };
 		DE8572EC2BA4B6FB00488990 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572EB2BA4B6FB00488990 /* ContentView.swift */; };
 		DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572ED2BA4D95100488990 /* GameScreenView.swift */; };
+		DE85C44D2BADBD78007721F3 /* MyBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C44C2BADBD78007721F3 /* MyBooksView.swift */; };
+		DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C44E2BADC32B007721F3 /* BookCardView.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */; };
 		DED6F7532BA73D5B00F742D0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DED6F7522BA73D5B00F742D0 /* FirebaseDatabaseSwift */; };
@@ -46,6 +48,8 @@
 		DE8572E12BA4995B00488990 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		DE8572EB2BA4B6FB00488990 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DE8572ED2BA4D95100488990 /* GameScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenView.swift; sourceTree = "<group>"; };
+		DE85C44C2BADBD78007721F3 /* MyBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBooksView.swift; sourceTree = "<group>"; };
+		DE85C44E2BADC32B007721F3 /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
 		DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesManager.swift; sourceTree = "<group>"; };
 		DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextFieldView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 			children = (
 				DE8572DB2BA4986A00488990 /* MyBookshelvesView.swift */,
 				DEE0F0C82BAB7B16003F2BC8 /* BookshelfCardView.swift */,
+				DE85C44C2BADBD78007721F3 /* MyBooksView.swift */,
+				DE85C44E2BADC32B007721F3 /* BookCardView.swift */,
 			);
 			path = Bookshelf;
 			sourceTree = "<group>";
@@ -268,6 +274,7 @@
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
 				DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */,
 				DE10C97D2BAD477300D59EB9 /* DataErrors.swift in Sources */,
+				DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */,
 				DEE0F0C92BAB7B16003F2BC8 /* BookshelfCardView.swift in Sources */,
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
 				DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */,
@@ -284,6 +291,7 @@
 				DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */,
 				DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */,
 				DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */,
+				DE85C44D2BADBD78007721F3 /* MyBooksView.swift in Sources */,
 				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
