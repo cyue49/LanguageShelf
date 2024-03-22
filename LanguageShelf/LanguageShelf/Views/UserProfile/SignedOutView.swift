@@ -57,8 +57,12 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign In", clicked: {
                     Task {
-                        showLoginAlert = try await userManager.signIn(email: email, password: password)
-                        await bookshelvesManager.fetchBookshelves()
+                        do {
+                            try await userManager.signIn(email: email, password: password)
+                            await bookshelvesManager.fetchBookshelves()
+                        } catch {
+                            showLoginAlert.toggle()
+                        }
                     }
                 })
                 .padding(.top)
@@ -118,8 +122,12 @@ struct SignedOutView: View {
                 
                 Button1(label: "Sign Up", clicked: {
                     Task {
-                        showSignupAlert = try await userManager.register(email: email, password: password, username: username)
-                        try await bookshelvesManager.createNewBookshelves()
+                        do {
+                            try await userManager.register(email: email, password: password, username: username)
+                            try await bookshelvesManager.createNewBookshelves()
+                        } catch {
+                            showSignupAlert.toggle()
+                        }
                     }
                 })
                 .padding(.top)

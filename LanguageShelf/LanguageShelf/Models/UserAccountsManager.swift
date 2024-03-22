@@ -20,31 +20,19 @@ class UserAccountsManager: ObservableObject {
     }
     
     // set user session and current user and sign user in
-    func signIn(email: String, password: String) async throws -> Bool {
-        do {
+    func signIn(email: String, password: String) async throws {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
-        } catch {
-            print("ERROR SIGNING IN USER: \(error.localizedDescription)")
-            return true // show failed sign in alert
-        }
-        return false // don't show failed sign in alert
     }
     
     // create new user, add user info in firebase firestore, set user session, set current user
-    func register(email: String, password: String, username: String) async throws -> Bool {
-        do {
+    func register(email: String, password: String, username: String) async throws {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             let user = User(id: result.user.uid, email: email, username: username, theme: "0")
             try await Firestore.firestore().collection("Users").document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0])
             await fetchUser()
-        } catch {
-            print("ERROR CREATING USER: \(error.localizedDescription)")
-            return true // show failed sign up alert
-        }
-        return false // don't show failed sign up alert
     }
     
     // set current user
