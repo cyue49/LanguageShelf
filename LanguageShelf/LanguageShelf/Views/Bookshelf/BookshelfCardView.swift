@@ -6,6 +6,7 @@ struct BookshelfCardView: View {
     
     var name: String
     @State var showEditNameAlert: Bool = false
+    @State var newBookshelfName: String = ""
     
     var body: some View {
         VStack {
@@ -69,10 +70,13 @@ struct BookshelfCardView: View {
                 .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
         )
         .alert("Enter the bookshelf's name:", isPresented: $showEditNameAlert){
-            TextField("Bookshelf", text: .constant(name))
+            TextField("Bookshelf", text: $newBookshelfName)
             Button("Confirm") {
-                // perform database update operations
+                Task {
+                    try await bookshelvesManager.renameBookshelf(oldName: name, newName: newBookshelfName)
+                }
             }
+            .disabled(newBookshelfName == "")
             Button("Cancel", role: .cancel) {}
         }
     }

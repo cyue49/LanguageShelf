@@ -47,5 +47,11 @@ class BookshelvesManager: ObservableObject {
     }
     
     // update the name of a bookshelf
-    
+    func renameBookshelf(oldName: String, newName: String) async throws {
+        let index = myBookshelves!.firstIndex(of: oldName)!
+        myBookshelves![index] = newName
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        try await Firestore.firestore().collection("Bookshelves").document(uid).setData(["bookshelves": myBookshelves!])
+        await fetchBookshelves()
+    }
 }
