@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE10C97D2BAD477300D59EB9 /* DataErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE10C97C2BAD477300D59EB9 /* DataErrors.swift */; };
 		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
 		DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572C82BA497F500488990 /* LanguageShelfApp.swift */; };
 		DE8572CD2BA497F600488990 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CC2BA497F600488990 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE10C97C2BAD477300D59EB9 /* DataErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataErrors.swift; sourceTree = "<group>"; };
 		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		DE8572C52BA497F500488990 /* LanguageShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguageShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8572C82BA497F500488990 /* LanguageShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageShelfApp.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */,
 				DE3299792BA9D21F004A0E0B /* Themes.swift */,
 				DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */,
+				DE10C97C2BAD477300D59EB9 /* DataErrors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
 				DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */,
+				DE10C97D2BAD477300D59EB9 /* DataErrors.swift in Sources */,
 				DEE0F0C92BAB7B16003F2BC8 /* BookshelfCardView.swift in Sources */,
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
 				DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */,

@@ -27,15 +27,19 @@ class BookshelvesManager: ObservableObject {
     }
     
     // add new bookshelf to user's bookshelves
-    func addNewBookshelf(name: String) async throws -> Bool {
-        if myBookshelves != nil && myBookshelves!.contains(name){
-            return true // if bookshelf of this name already exists, show alert
+    func addNewBookshelf(name: String) async throws {
+        if myBookshelves != nil && myBookshelves!.contains(name){ // if bookshelf of this name already exists
+            throw DataErrors.existingBookshelfError
         }
+        
+        if (name.isEmpty){ // if user didn't enter a name for bookshelf
+            throw DataErrors.emptyNameError
+        }
+        
         myBookshelves?.append(name)
-        guard let uid = Auth.auth().currentUser?.uid else { return false }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         try await Firestore.firestore().collection("Bookshelves").document(uid).setData(["bookshelves": myBookshelves!])
         await fetchBookshelves()
-        return false
     }
     
     // delete a bookshelf from bookshelves
@@ -48,6 +52,14 @@ class BookshelvesManager: ObservableObject {
     
     // update the name of a bookshelf
     func renameBookshelf(oldName: String, newName: String) async throws {
+        if myBookshelves != nil && myBookshelves!.contains(newName){ // if bookshelf of this name already exists
+            throw DataErrors.existingBookshelfError
+        }
+        
+        if (newName.isEmpty){ // if user didn't enter a name for bookshelf
+            throw DataErrors.emptyNameError
+        }
+        
         let index = myBookshelves!.firstIndex(of: oldName)!
         myBookshelves![index] = newName
         guard let uid = Auth.auth().currentUser?.uid else { return }

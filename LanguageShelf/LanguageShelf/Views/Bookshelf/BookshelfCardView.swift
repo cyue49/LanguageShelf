@@ -6,6 +6,9 @@ struct BookshelfCardView: View {
     
     var name: String
     @State var showEditNameAlert: Bool = false
+    @State var showBookshelfAlreadyExistsAlert: Bool = false
+    @State var emptyBookshelfNameAlert: Bool = false
+    
     @State var newBookshelfName: String = ""
     
     var body: some View {
@@ -32,6 +35,7 @@ struct BookshelfCardView: View {
                             Spacer()
                             Menu {
                                 Button("Rename") {
+                                    newBookshelfName = name
                                     showEditNameAlert.toggle()
                                 }
                                 Button("Delete") {
@@ -73,11 +77,26 @@ struct BookshelfCardView: View {
             TextField("Bookshelf", text: $newBookshelfName)
             Button("Confirm") {
                 Task {
-                    try await bookshelvesManager.renameBookshelf(oldName: name, newName: newBookshelfName)
+                    do {
+                        try await bookshelvesManager.renameBookshelf(oldName: name, newName: newBookshelfName)
+                    } catch DataErrors.existingBookshelfError {
+                        showBookshelfAlreadyExistsAlert.toggle()
+                    } catch DataErrors.emptyNameError {
+                        emptyBookshelfNameAlert.toggle()
+                    }
                 }
             }
-            .disabled(newBookshelfName == "")
             Button("Cancel", role: .cancel) {}
+        }
+        .alert("A bookshelf of this name already exists.", isPresented: $showBookshelfAlreadyExistsAlert){
+            Button("Ok", role: .cancel) {
+                showBookshelfAlreadyExistsAlert = false
+            }
+        }
+        .alert("You must enter a name for your bookshelf.", isPresented: $emptyBookshelfNameAlert){
+            Button("Ok", role: .cancel) {
+                emptyBookshelfNameAlert = false
+            }
         }
     }
 }

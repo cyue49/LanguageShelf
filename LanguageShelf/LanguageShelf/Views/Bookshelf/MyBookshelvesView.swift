@@ -7,6 +7,8 @@ struct MyBookshelvesView: View {
     
     @State var showAddBookshelfAlert: Bool = false
     @State var showBookshelfAlreadyExistsAlert: Bool = false
+    @State var emptyBookshelfNameAlert: Bool = false
+    
     @State var newShelfName: String = ""
     
     var body: some View {
@@ -67,6 +69,7 @@ struct MyBookshelvesView: View {
                         if userManager.userSession != nil {
                             VStack {
                                 Button(action: {
+                                    newShelfName = ""
                                     showAddBookshelfAlert.toggle()
                                 }, label: {
                                     Image(systemName: "plus")
@@ -86,15 +89,25 @@ struct MyBookshelvesView: View {
                 TextField("Bookshelf", text: $newShelfName)
                 Button("Confirm") {
                     Task {
-                        showBookshelfAlreadyExistsAlert = try await bookshelvesManager.addNewBookshelf(name: newShelfName)
+                        do {
+                            try await bookshelvesManager.addNewBookshelf(name: newShelfName)
+                        } catch DataErrors.existingBookshelfError {
+                            showBookshelfAlreadyExistsAlert.toggle()
+                        } catch DataErrors.emptyNameError {
+                            emptyBookshelfNameAlert.toggle()
+                        }
                     }
                 }
-                .disabled(newShelfName == "")
                 Button("Cancel", role: .cancel) {}
             }
             .alert("A bookshelf of this name already exists.", isPresented: $showBookshelfAlreadyExistsAlert){
                 Button("Ok", role: .cancel) {
                     showBookshelfAlreadyExistsAlert = false
+                }
+            }
+            .alert("You must enter a name for your bookshelf.", isPresented: $emptyBookshelfNameAlert){
+                Button("Ok", role: .cancel) {
+                    emptyBookshelfNameAlert = false
                 }
             }
         }
