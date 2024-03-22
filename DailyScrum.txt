@@ -1,3 +1,19 @@
+2024/03/22 Chen
+
+Done since last scrum: 
+- Implemented user creating and deleting a bookshelf
+- Update Firebase Firestore when user creates, updates, and deletes a bookshelf
+- Added error handling for when user tries to create/update a bookshelf with an empty name, or with an already existing name 
+- Added error handling for user related operations (sign in with wrong password/email, sign up with already existing email, rename username with empty string)
+
+Todo until next scrum:
+- Work on adding books to bookshelves (create book struct model and create book manager)
+- Work on frontend view of adding books 
+- Add database operations when creating/updating/adding books
+- Start working on vocabulary section
+
+------------------
+
 2024/03/21 Chen
 
 Done since last scrum: 
