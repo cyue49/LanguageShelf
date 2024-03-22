@@ -60,8 +60,13 @@ class UserAccountsManager: ObservableObject {
     
     // update attribute with new value for current user
     func updateUser(attribute: String, value: String) async throws {
+        if (attribute == "username" && value.isEmpty){ // if user is editing their username but doesn't enter a new name before submit
+            throw DataErrors.emptyNameError
+        }
+        
         do {
             try await Firestore.firestore().collection("Users").document(userSession!.uid).updateData([attribute: value])
+            await fetchUser()
         } catch {
             print("ERROR UPDATING DATA: \(error.localizedDescription)")
         }

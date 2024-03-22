@@ -4,14 +4,18 @@ struct EditTextFieldView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
     var updateField: String
-    @State var inputText: String
+    var inputText: String
+    
+    @State var editText = ""
     @State var isEdit: Bool = false
+    
+    @State var emptyUsernameAlert: Bool = false
     
     var body: some View {
         HStack {
             Spacer()
             if isEdit {
-                TextField("", text: $inputText)
+                TextField("", text: $editText)
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .padding(12)
                     .background(userManager.currentTheme.bgColor)
@@ -30,16 +34,29 @@ struct EditTextFieldView: View {
             Spacer()
             
             Button (action: {
-                isEdit.toggle()
-                Task {
-                    try await userManager.updateUser(attribute: updateField, value: inputText)
+                if isEdit { // if user is in editing mode and confirms new username
+                    Task {
+                        do {
+                            try await userManager.updateUser(attribute: updateField, value: editText)
+                        } catch DataErrors.emptyNameError {
+                            emptyUsernameAlert.toggle()
+                        }
+                    }
+                } else { // if user not in editing mode and wants to edit username
+                    editText = inputText
                 }
+                isEdit.toggle()
             }, label: {
                 Image(systemName: isEdit ? "checkmark.square" : "square.and.pencil")
                     .font(.title)
                     .foregroundStyle(userManager.currentTheme.primaryAccentColor)
             })
             Spacer()
+        }
+        .alert("Your username can't be empty.", isPresented: $emptyUsernameAlert){
+            Button("Ok", role: .cancel) {
+                emptyUsernameAlert = false
+            }
         }
     }
 }
