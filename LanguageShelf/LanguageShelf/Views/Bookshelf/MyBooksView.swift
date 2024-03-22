@@ -14,10 +14,10 @@ struct MyBooksView: View {
                     
                     ScrollView {
                         let columns = [
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible()),
-                                    GridItem(.flexible())
-                                ]
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ]
                         
                         LazyVGrid(columns: columns, content: {
                             BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
@@ -37,6 +37,16 @@ struct MyBooksView: View {
                 ToolbarItem(placement: .principal){
                     Text(bookshelfName)
                         .foregroundStyle(userManager.currentTheme.fontColor)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing){
+                    Button(action: {
+                        //TODO:
+                    }, label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .bold()
+                    })
                 }
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
