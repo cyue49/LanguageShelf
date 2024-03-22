@@ -7,6 +7,9 @@ struct BookCardView: View {
     var bookshelfName: String
     var bookName: String 
     
+    @State var showEditNameAlert: Bool = false
+    @State var newBookName: String = ""
+    
     var body: some View {
         VStack {
             ZStack {
@@ -15,7 +18,8 @@ struct BookCardView: View {
                         Spacer()
                         Menu {
                             Button("Rename") {
-                                // TODO:
+                                newBookName = bookName
+                                showEditNameAlert.toggle()
                             }
                             Button("Delete") {
                                 // TODO:
@@ -44,6 +48,13 @@ struct BookCardView: View {
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
                 .lineLimit(1)
+        }
+        .alert("Enter the book title:", isPresented: $showEditNameAlert){
+            TextField("Book", text: $newBookName)
+            Button("Confirm") {
+                // TODO: 
+            }
+            Button("Cancel", role: .cancel) {}
         }
     }
 }

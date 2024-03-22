@@ -6,9 +6,11 @@ struct MyBooksView: View {
     
     var bookshelfName: String
     
+    @State var newBookName: String = ""
+    @State var showAddBookAlert: Bool = false
+    
     var body: some View {
         NavigationStack {
-            VStack {
                 ZStack {
                     userManager.currentTheme.bgColor
                     
@@ -31,7 +33,6 @@ struct MyBooksView: View {
                         .padding()
                     }
                 }
-            }
             .toolbar {
                 ToolbarItem(placement: .principal){
                     Text(bookshelfName)
@@ -40,7 +41,8 @@ struct MyBooksView: View {
                 
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
-                        //TODO:
+                        newBookName = ""
+                        showAddBookAlert.toggle()
                     }, label: {
                         Image(systemName: "plus")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -50,6 +52,13 @@ struct MyBooksView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .alert("Enter the new book's title:", isPresented: $showAddBookAlert){
+                TextField("Book", text: $newBookName)
+                Button("Confirm") {
+                    // TODO:
+                }
+                Button("Cancel", role: .cancel) {}
+            }
         }
     }
 }
