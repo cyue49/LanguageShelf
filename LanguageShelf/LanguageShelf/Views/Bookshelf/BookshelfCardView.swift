@@ -16,18 +16,12 @@ struct BookshelfCardView: View {
             VStack {
                 Spacer()
                 HStack {
-                    Rectangle()
-                        .frame(maxWidth: 19, maxHeight: .infinity)
-                        .cornerRadius(5)
-                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
-                    
                     VStack {
                         Spacer()
-                        Rectangle()
-                            .frame(maxWidth: 17, maxHeight: 55)
-                            .cornerRadius(5)
-                            .foregroundColor(userManager.currentTheme.primaryAccentColor)
-                            .rotationEffect(.degrees(-20))
+                        Image(systemName: "books.vertical.fill")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                        .font(.system(size: 60))
+                        .offset(x: -10, y: 10)
                     }
                     
                     VStack {

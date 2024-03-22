@@ -28,9 +28,8 @@ struct MyBooksView: View {
                             BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
                             BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
                         })
-                        
+                        .padding()
                     }
-                    .padding()
                 }
             }
             .toolbar {
