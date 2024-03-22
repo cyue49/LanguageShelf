@@ -9,32 +9,37 @@ struct BookCardView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    Menu {
-                        Button("Rename") {
-                            // TODO:
+            ZStack {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Menu {
+                            Button("Rename") {
+                                // TODO:
+                            }
+                            Button("Delete") {
+                                // TODO:
+                            }
+                        } label: {
+                            Image(systemName: "square.and.pencil.circle.fill")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .font(.system(size: 28))
                         }
-                        Button("Delete") {
-                            // TODO:
-                        }
-                    } label: {
-                        Image(systemName: "square.and.pencil.circle.fill")
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            .font(.system(size: 28))
                     }
+                    Spacer()
                 }
-                Spacer()
+                .padding(6)
+                .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                .backgroundStyle(userManager.currentTheme.bgColor2)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+                Image(systemName: "book.fill")
+                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    .font(.system(size: 28))
             }
-            .padding(6)
-            .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
-            .backgroundStyle(userManager.currentTheme.bgColor2)
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-            )
             Text("The Penguin Detective")
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
