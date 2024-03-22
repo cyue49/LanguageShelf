@@ -19,6 +19,7 @@
 		DE85C44D2BADBD78007721F3 /* MyBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C44C2BADBD78007721F3 /* MyBooksView.swift */; };
 		DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C44E2BADC32B007721F3 /* BookCardView.swift */; };
 		DE85C4512BAE14AB007721F3 /* VocabulariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4502BAE14AB007721F3 /* VocabulariesView.swift */; };
+		DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4522BAE22B6007721F3 /* Bookshelf.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */; };
 		DED6F7532BA73D5B00F742D0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DED6F7522BA73D5B00F742D0 /* FirebaseDatabaseSwift */; };
@@ -52,6 +53,7 @@
 		DE85C44C2BADBD78007721F3 /* MyBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBooksView.swift; sourceTree = "<group>"; };
 		DE85C44E2BADC32B007721F3 /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		DE85C4502BAE14AB007721F3 /* VocabulariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabulariesView.swift; sourceTree = "<group>"; };
+		DE85C4522BAE22B6007721F3 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
 		DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesManager.swift; sourceTree = "<group>"; };
 		DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextFieldView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				DE3299792BA9D21F004A0E0B /* Themes.swift */,
 				DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */,
 				DE10C97C2BAD477300D59EB9 /* DataErrors.swift */,
+				DE85C4522BAE22B6007721F3 /* Bookshelf.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				DE85C4512BAE14AB007721F3 /* VocabulariesView.swift in Sources */,
 				DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */,
 				DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */,
+				DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */,
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
 				DEF0D2732BA945A900BA9C8E /* SecureTextfieldWithEye.swift in Sources */,
