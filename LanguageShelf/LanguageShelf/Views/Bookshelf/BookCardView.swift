@@ -5,7 +5,7 @@ struct BookCardView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
     var bookshelfName: String
-    var bookName: String 
+    var bookName: String
     
     @State var showEditNameAlert: Bool = false
     @State var newBookName: String = ""
@@ -13,6 +13,22 @@ struct BookCardView: View {
     var body: some View {
         VStack {
             ZStack {
+                NavigationLink(destination: VocabulariesView()) {
+                    VStack {
+                        Image(systemName: "book.fill")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                        .font(.system(size: 28))
+                    }
+                    .padding(6)
+                    .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                    .backgroundStyle(userManager.currentTheme.bgColor2)
+                    .cornerRadius(20)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+                }
+                
                 VStack {
                     HStack {
                         Spacer()
@@ -34,17 +50,9 @@ struct BookCardView: View {
                 }
                 .padding(6)
                 .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
-                .backgroundStyle(userManager.currentTheme.bgColor2)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                )
-                Image(systemName: "book.fill")
-                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                    .font(.system(size: 28))
             }
-            Text("The Penguin Detective")
+            
+            Text(bookName)
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
                 .lineLimit(1)
@@ -52,7 +60,7 @@ struct BookCardView: View {
         .alert("Enter the book title:", isPresented: $showEditNameAlert){
             TextField("Book", text: $newBookName)
             Button("Confirm") {
-                // TODO: 
+                // TODO:
             }
             Button("Cancel", role: .cancel) {}
         }
