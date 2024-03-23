@@ -1,3 +1,16 @@
+2024/03/23 Chen
+
+Done since last scrum: 
+- Added frontend of books view and book card view
+- Fixed issue of bookshelf card edit button not clicking properly 
+- Refactored bookshelf operations (fetch, add, delete, update) to use a Bookshelf struct and a separate document for each bookshelf in the Firebase Firestore instead of having it all as an array of string in a single document
+
+Todo until next scrum: 
+- Create books manager and implement functions for fetch/add/remove/update books in a bookshelf
+- Start working on frontend of vocabulary view and adding vocabulary view
+
+------------------
+
 2024/03/22 Chen
 
 Done since last scrum: 
