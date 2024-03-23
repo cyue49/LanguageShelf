@@ -4,7 +4,6 @@ struct BookCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
-    var bookshelfName: String
     var bookName: String
     
     @State var showEditNameAlert: Bool = false
@@ -69,7 +68,7 @@ struct BookCardView: View {
 
 struct BookCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookCardView(bookshelfName: "English Books", bookName: "The Penguin Detective")
+        BookCardView(bookName: "The Penguin Detective")
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
     }

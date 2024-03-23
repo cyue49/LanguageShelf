@@ -14,7 +14,7 @@ struct BookshelfCardView: View {
     var body: some View {
         VStack {
             ZStack {
-                NavigationLink(destination: MyBooksView(bookshelfName: bookshelf.bookshelfName)) { // TODO: change to pass bookshelf object instead of name string
+                NavigationLink(destination: MyBooksView(bookshelf: bookshelf)) { 
                     VStack {
                         VStack {
                             Spacer()

@@ -4,7 +4,7 @@ struct MyBooksView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
-    var bookshelfName: String
+    var bookshelf: Bookshelf
     
     @State var newBookName: String = ""
     @State var showAddBookAlert: Bool = false
@@ -22,20 +22,20 @@ struct MyBooksView: View {
                         ]
                         
                         LazyVGrid(columns: columns, content: {
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
-                            BookCardView(bookshelfName: bookshelfName, bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
+                            BookCardView(bookName: "The Penguin Detective")
                         })
                         .padding()
                     }
                 }
             .toolbar {
                 ToolbarItem(placement: .principal){
-                    Text(bookshelfName)
+                    Text(bookshelf.bookshelfName)
                         .foregroundStyle(userManager.currentTheme.fontColor)
                 }
                 
@@ -65,7 +65,7 @@ struct MyBooksView: View {
 
 struct MyBooks_Previews: PreviewProvider {
     static var previews: some View {
-        MyBooksView(bookshelfName: "English Books")
+        MyBooksView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
     }
