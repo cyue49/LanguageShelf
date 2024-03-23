@@ -4,7 +4,7 @@ struct BookshelfCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
-    var name: String
+    var bookshelf: Bookshelf
     @State var showEditNameAlert: Bool = false
     @State var showBookshelfAlreadyExistsAlert: Bool = false
     @State var emptyBookshelfNameAlert: Bool = false
@@ -14,7 +14,7 @@ struct BookshelfCardView: View {
     var body: some View {
         VStack {
             ZStack {
-                NavigationLink(destination: MyBooksView(bookshelfName: name)) {
+                NavigationLink(destination: MyBooksView(bookshelfName: bookshelf.bookshelfName)) {
                     VStack {
                         VStack {
                             Spacer()
@@ -26,7 +26,7 @@ struct BookshelfCardView: View {
                                 
                                 VStack {
                                     Spacer()
-                                    Text(name)
+                                    Text(bookshelf.bookshelfName)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .foregroundStyle(userManager.currentTheme.fontColor)
                                         .lineLimit(2)
@@ -53,12 +53,12 @@ struct BookshelfCardView: View {
                 VStack {
                     Menu {
                         Button("Rename") {
-                            newBookshelfName = name
+                            newBookshelfName = bookshelf.bookshelfName
                             showEditNameAlert.toggle()
                         }
                         Button("Delete") {
                             Task {
-                                try await bookshelvesManager.removeBookshelf(name: name)
+                                try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
                             }
                         }
                     } label: {
@@ -77,7 +77,7 @@ struct BookshelfCardView: View {
             Button("Confirm") {
                 Task {
                     do {
-                        try await bookshelvesManager.renameBookshelf(oldName: name, newName: newBookshelfName)
+                        try await bookshelvesManager.renameBookshelf(bookshelfID: bookshelf.id, newName: newBookshelfName)
                     } catch DataErrors.existingBookshelfError {
                         showBookshelfAlreadyExistsAlert.toggle()
                     } catch DataErrors.emptyNameError {
@@ -102,7 +102,7 @@ struct BookshelfCardView: View {
 
 struct BookshelfCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookshelfCardView(name: "Bookshelf name")
+        BookshelfCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
     }

@@ -11,6 +11,9 @@ class UserAccountsManager: ObservableObject {
     @Published var currentTheme: ThemeProtocol = DefaultTheme()
     var themeSets: [ThemeProtocol] = [DefaultTheme(), LightTheme(), DarkTheme(), GreenTheme()]
     
+    // database reference
+    private let ref = Firestore.firestore().collection("Users")
+    
     init() {
          self.userSession = Auth.auth().currentUser
         
@@ -31,14 +34,14 @@ class UserAccountsManager: ObservableObject {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             let user = User(id: result.user.uid, email: email, username: username, theme: "0")
-            try await Firestore.firestore().collection("Users").document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0])
+            try await ref.document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0])
             await fetchUser()
     }
     
     // set current user
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let snapshot = try? await Firestore.firestore().collection("Users").document(uid).getDocument() else { return }
+        guard let snapshot = try? await ref.document(uid).getDocument() else { return }
         let email = snapshot["email"] as? String ?? ""
         let username = snapshot["username"] as? String ?? ""
         let theme = snapshot["theme"] as? String ?? "0"
@@ -65,7 +68,7 @@ class UserAccountsManager: ObservableObject {
         }
         
         do {
-            try await Firestore.firestore().collection("Users").document(userSession!.uid).updateData([attribute: value])
+            try await ref.document(userSession!.uid).updateData([attribute: value])
             await fetchUser()
         } catch {
             print("ERROR UPDATING DATA: \(error.localizedDescription)")

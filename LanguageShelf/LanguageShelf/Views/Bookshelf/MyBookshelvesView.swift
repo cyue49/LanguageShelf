@@ -16,15 +16,20 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                if let bookshelves = bookshelvesManager.myBookshelves { // if has bookshelves (user logged in)
-                    ScrollView{
-                        VStack(spacing: 15) {
-                            ForEach(bookshelves, id: \.self) { bookshelf in
-                                BookshelfCardView(name: bookshelf)
+                if let bookshelves = bookshelvesManager.myBookshelves { // if bookshelvesManager.myBookshelves is set (user logged in)
+                    if bookshelves.count == 0 { // No bookshelf yet
+                        Text("You don't have any bookshelf.")
+                            .foregroundStyle(userManager.currentTheme.fontColor)
+                    } else {
+                        ScrollView{
+                            VStack(spacing: 15) {
+                                ForEach(bookshelves) { bookshelf in
+                                    BookshelfCardView(bookshelf: bookshelf)
+                                }
+                                Spacer()
                             }
-                            Spacer()
+                            .padding()
                         }
-                        .padding()
                     }
                 } else { // display log in message
                     Text("Please sign in to view your bookshelves")

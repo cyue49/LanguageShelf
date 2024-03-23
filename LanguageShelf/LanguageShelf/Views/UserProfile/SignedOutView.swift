@@ -124,7 +124,7 @@ struct SignedOutView: View {
                     Task {
                         do {
                             try await userManager.register(email: email, password: password, username: username)
-                            try await bookshelvesManager.createNewBookshelves()
+                            await bookshelvesManager.fetchBookshelves()
                         } catch {
                             showSignupAlert.toggle()
                         }
