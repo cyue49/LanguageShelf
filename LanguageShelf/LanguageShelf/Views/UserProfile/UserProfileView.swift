@@ -58,7 +58,6 @@ struct UserProfileView: View {
                             VStack {
                                 Button(action: {
                                     userManager.signOut()
-                                    bookshelvesManager.myBookshelves = nil
                                 }, label: {
                                     Text("Sign Out")
                                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)

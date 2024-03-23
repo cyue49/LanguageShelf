@@ -3,7 +3,7 @@ import Firebase
 
 @MainActor
 class BookshelvesManager: ObservableObject {
-    @Published var myBookshelves: [Bookshelf]? // list of all bookshelves for this user
+    @Published var myBookshelves: [Bookshelf] = [] // list of all bookshelves for this user
     
     private let ref = Firestore.firestore().collection("Bookshelves")
     
@@ -27,24 +27,19 @@ class BookshelvesManager: ObservableObject {
             let userID = data["userID"] as? String ?? ""
             let bookshelfName = data["bookshelfName"] as? String ?? ""
             let newBookshelf = Bookshelf(bookshelfID: bookshelfID, userID: userID, bookshelfName: bookshelfName)
-            self.myBookshelves?.append(newBookshelf)
+            self.myBookshelves.append(newBookshelf)
         }
-        
-        if myBookshelves!.count > 1 {
-            self.myBookshelves!.sort(by: {$0.bookshelfName < $1.bookshelfName})
-        }
+        sortByName()
     }
     
     // add new bookshelf to user's bookshelves
     func addNewBookshelf(name: String) async throws {
         // if bookshelf of this name already exists throw error
-        if myBookshelves != nil {
-            for bookshelf in myBookshelves! {
+            for bookshelf in myBookshelves {
                 if bookshelf.bookshelfName == name {
                     throw DataErrors.existingBookshelfError
                 }
             }
-        }
         
         // if user didn't enter a name for the new bookshelf throw error
         if (name.isEmpty){
@@ -67,13 +62,11 @@ class BookshelvesManager: ObservableObject {
     // update the name of a bookshelf
     func renameBookshelf(bookshelfID: String, newName: String) async throws {
         // if bookshelf of this name already exists throw error
-        if myBookshelves != nil {
-            for bookshelf in myBookshelves! {
+            for bookshelf in myBookshelves {
                 if bookshelf.bookshelfName == newName {
                     throw DataErrors.existingBookshelfError
                 }
             }
-        }
         
         // if user renames to an empty string throw error
         if (newName.isEmpty){
@@ -82,5 +75,11 @@ class BookshelvesManager: ObservableObject {
         
         try await ref.document(bookshelfID).updateData(["bookshelfName": newName])
         await fetchBookshelves()
+    }
+    
+    func sortByName() {
+        if myBookshelves.count > 1 {
+            self.myBookshelves.sort(by: {$0.bookshelfName < $1.bookshelfName})
+        }
     }
 }

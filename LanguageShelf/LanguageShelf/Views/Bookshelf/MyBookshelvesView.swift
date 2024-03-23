@@ -16,14 +16,14 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                if let bookshelves = bookshelvesManager.myBookshelves { // if bookshelvesManager.myBookshelves is set (user logged in)
-                    if bookshelves.count == 0 { // No bookshelf yet
+                if userManager.userSession != nil { // if bookshelvesManager.myBookshelves is set (user logged in)
+                    if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
                         Text("You don't have any bookshelf.")
                             .foregroundStyle(userManager.currentTheme.fontColor)
                     } else {
                         ScrollView{
                             VStack(spacing: 15) {
-                                ForEach(bookshelves) { bookshelf in
+                                ForEach(bookshelvesManager.myBookshelves) { bookshelf in
                                     BookshelfCardView(bookshelf: bookshelf)
                                 }
                                 Spacer()
