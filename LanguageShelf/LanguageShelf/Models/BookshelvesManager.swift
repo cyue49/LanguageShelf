@@ -29,6 +29,10 @@ class BookshelvesManager: ObservableObject {
             let newBookshelf = Bookshelf(bookshelfID: bookshelfID, userID: userID, bookshelfName: bookshelfName)
             self.myBookshelves?.append(newBookshelf)
         }
+        
+        if myBookshelves!.count > 1 {
+            self.myBookshelves!.sort(by: {$0.bookshelfName < $1.bookshelfName})
+        }
     }
     
     // add new bookshelf to user's bookshelves
