@@ -4,7 +4,7 @@ struct BookCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     
-    var bookName: String
+    var book: Book
     
     @State var showEditNameAlert: Bool = false
     @State var newBookName: String = ""
@@ -33,7 +33,7 @@ struct BookCardView: View {
                         Spacer()
                         Menu {
                             Button("Rename") {
-                                newBookName = bookName
+                                newBookName = book.title
                                 showEditNameAlert.toggle()
                             }
                             Button("Delete") {
@@ -51,7 +51,7 @@ struct BookCardView: View {
                 .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
             }
             
-            Text(bookName)
+            Text(book.title)
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
                 .lineLimit(1)
@@ -68,7 +68,7 @@ struct BookCardView: View {
 
 struct BookCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookCardView(bookName: "The Penguin Detective")
+        BookCardView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
     }

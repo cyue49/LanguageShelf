@@ -16,7 +16,7 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                if userManager.userSession != nil { // if bookshelvesManager.myBookshelves is set (user logged in)
+                if userManager.userSession != nil { 
                     if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
                         Text("You don't have any bookshelf.")
                             .foregroundStyle(userManager.currentTheme.fontColor)

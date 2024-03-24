@@ -3,6 +3,7 @@ import SwiftUI
 struct MyBooksView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
     
     var bookshelf: Bookshelf
     
@@ -11,9 +12,13 @@ struct MyBooksView: View {
     
     var body: some View {
         NavigationStack {
-                ZStack {
-                    userManager.currentTheme.bgColor
-                    
+            ZStack {
+                userManager.currentTheme.bgColor
+                
+                if booksManager.myBooks[bookshelf.id] == nil { // No book in this bookshelf
+                    Text("You don't have any book in this bookshelf.")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                } else {
                     ScrollView {
                         let columns = [
                             GridItem(.flexible()),
@@ -22,17 +27,15 @@ struct MyBooksView: View {
                         ]
                         
                         LazyVGrid(columns: columns, content: {
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
-                            BookCardView(bookName: "The Penguin Detective")
+                            ForEach(booksManager.myBooks[bookshelf.id]!) { book in
+                                BookCardView(book: book)
+                            }
                         })
                         .padding()
                     }
                 }
+                
+            }
             .toolbar {
                 ToolbarItem(placement: .principal){
                     Text(bookshelf.bookshelfName)
@@ -68,5 +71,6 @@ struct MyBooks_Previews: PreviewProvider {
         MyBooksView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
     }
 }

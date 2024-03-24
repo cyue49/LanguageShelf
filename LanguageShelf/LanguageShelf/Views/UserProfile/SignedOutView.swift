@@ -4,6 +4,7 @@ import Firebase
 struct SignedOutView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -60,6 +61,7 @@ struct SignedOutView: View {
                         do {
                             try await userManager.signIn(email: email, password: password)
                             await bookshelvesManager.fetchBookshelves()
+                            await booksManager.fetchBooks()
                         } catch {
                             showLoginAlert.toggle()
                         }
@@ -125,6 +127,7 @@ struct SignedOutView: View {
                         do {
                             try await userManager.register(email: email, password: password, username: username)
                             await bookshelvesManager.fetchBookshelves()
+                            await booksManager.fetchBooks()
                         } catch {
                             showSignupAlert.toggle()
                         }
@@ -175,5 +178,6 @@ struct SignedOutView_Previews: PreviewProvider {
         SignedOutView()
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
     }
 }
