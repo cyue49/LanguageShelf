@@ -3,6 +3,7 @@ import SwiftUI
 struct BookCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
     
     var book: Book
     
@@ -37,7 +38,9 @@ struct BookCardView: View {
                                 showEditNameAlert.toggle()
                             }
                             Button("Delete") {
-                                // TODO:
+                                Task {
+                                    try await booksManager.removeBook(bookID: book.id)
+                                }
                             }
                         } label: {
                             Image(systemName: "square.and.pencil.circle.fill")
@@ -71,5 +74,6 @@ struct BookCardView_Previews: PreviewProvider {
         BookCardView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
     }
 }

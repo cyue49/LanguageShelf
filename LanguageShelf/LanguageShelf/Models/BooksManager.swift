@@ -56,5 +56,10 @@ class BooksManager: ObservableObject {
         try await ref.document(newBook.id).setData(["bookID": newBook.id, "bookshelfID": newBook.bookshelfID, "userID": newBook.userID, "title": newBook.title, "author": newBook.author])
         await fetchBooks()
     }
+    
+    // delete a book from a bookshelf
+    func removeBook(bookID: String) async throws {
+        try await ref.document(bookID).delete()
+        await fetchBooks()
+    }
 }
-
