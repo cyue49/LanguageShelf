@@ -1,3 +1,17 @@
+2024/03/24 Chen
+
+Done since last scrum: 
+- Created a struct model for a Book and created a BooksManager
+- Implemented fetch, add, delete, and update book functions in the BooksManager 
+
+Todo until next scrum: 
+- Add view full book information option including full book title and author name
+- Add add/update/delete optional author name
+- Work on frontend of vocabulary view and adding vocabulary view
+- Start working on vocabulary manager for database fetch/add/delete/update operations
+
+------------------
+
 2024/03/23 Chen
 
 Done since last scrum: 
