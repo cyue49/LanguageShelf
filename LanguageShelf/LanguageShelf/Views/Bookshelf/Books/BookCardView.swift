@@ -11,6 +11,7 @@ struct BookCardView: View {
     @State var showEditNameAlert: Bool = false
     @State var showBookAlreadyExistsAlert: Bool = false
     @State var emptyBookNameAlert: Bool = false
+    @State var showBookInfo: Bool = false
     
     @State var newBookName: String = ""
     
@@ -21,7 +22,10 @@ struct BookCardView: View {
                     VStack {
                         Image(systemName: "book.fill")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                        .font(.system(size: 28))
+                            .font(.system(size: 28))
+                            .onLongPressGesture(minimumDuration: 1) {
+                                showBookInfo.toggle()
+                            }
                     }
                     .padding(6)
                     .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
@@ -30,7 +34,7 @@ struct BookCardView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                )
+                    )
                 }
                 
                 VStack {
@@ -62,6 +66,9 @@ struct BookCardView: View {
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
                 .lineLimit(2)
+        }
+        .sheet(isPresented: $showBookInfo){
+            BookInfoSheetView(book: book, showBookInfo: $showBookInfo)
         }
         .alert("Enter the book title:", isPresented: $showEditNameAlert){
             TextField("Book", text: $newBookName)
@@ -95,8 +102,8 @@ struct BookCardView_Previews: PreviewProvider {
     static var previews: some View {
         BookCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
                      book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
-            .environmentObject(UserAccountsManager())
-            .environmentObject(BookshelvesManager())
-            .environmentObject(BooksManager())
+        .environmentObject(UserAccountsManager())
+        .environmentObject(BookshelvesManager())
+        .environmentObject(BooksManager())
     }
 }
