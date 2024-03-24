@@ -8,7 +8,10 @@ struct MyBooksView: View {
     var bookshelf: Bookshelf
     
     @State var newBookName: String = ""
+    
     @State var showAddBookAlert: Bool = false
+    @State var showBookAlreadyExistsAlert: Bool = false
+    @State var emptyBookNameAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -58,9 +61,27 @@ struct MyBooksView: View {
             .alert("Enter the new book's title:", isPresented: $showAddBookAlert){
                 TextField("Book", text: $newBookName)
                 Button("Confirm") {
-                    // TODO:
+                    Task {
+                        do {
+                            try await booksManager.addNewBook(bookshelfID: bookshelf.id, bookName: newBookName)
+                        } catch DataErrors.existingNameError {
+                            showBookAlreadyExistsAlert.toggle()
+                        } catch DataErrors.emptyNameError {
+                            emptyBookNameAlert.toggle()
+                        }
+                    }
                 }
                 Button("Cancel", role: .cancel) {}
+            }
+            .alert("A book of this name already exists.", isPresented: $showBookAlreadyExistsAlert){
+                Button("Ok", role: .cancel) {
+                    showBookAlreadyExistsAlert = false
+                }
+            }
+            .alert("You must enter a name for your book.", isPresented: $emptyBookNameAlert){
+                Button("Ok", role: .cancel) {
+                    emptyBookNameAlert = false
+                }
             }
         }
     }

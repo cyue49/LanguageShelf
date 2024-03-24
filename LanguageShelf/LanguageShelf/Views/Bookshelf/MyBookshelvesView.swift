@@ -96,7 +96,7 @@ struct MyBookshelvesView: View {
                     Task {
                         do {
                             try await bookshelvesManager.addNewBookshelf(name: newShelfName)
-                        } catch DataErrors.existingBookshelfError {
+                        } catch DataErrors.existingNameError {
                             showBookshelfAlreadyExistsAlert.toggle()
                         } catch DataErrors.emptyNameError {
                             emptyBookshelfNameAlert.toggle()

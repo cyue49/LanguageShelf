@@ -37,7 +37,7 @@ class BookshelvesManager: ObservableObject {
         // if bookshelf of this name already exists throw error
             for bookshelf in myBookshelves {
                 if bookshelf.bookshelfName == name {
-                    throw DataErrors.existingBookshelfError
+                    throw DataErrors.existingNameError
                 }
             }
         
@@ -64,7 +64,7 @@ class BookshelvesManager: ObservableObject {
         // if bookshelf of this name already exists throw error
             for bookshelf in myBookshelves {
                 if bookshelf.bookshelfName == newName {
-                    throw DataErrors.existingBookshelfError
+                    throw DataErrors.existingNameError
                 }
             }
         

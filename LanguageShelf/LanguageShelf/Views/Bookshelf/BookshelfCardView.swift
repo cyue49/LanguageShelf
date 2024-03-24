@@ -78,7 +78,7 @@ struct BookshelfCardView: View {
                 Task {
                     do {
                         try await bookshelvesManager.renameBookshelf(bookshelfID: bookshelf.id, newName: newBookshelfName)
-                    } catch DataErrors.existingBookshelfError {
+                    } catch DataErrors.existingNameError {
                         showBookshelfAlreadyExistsAlert.toggle()
                     } catch DataErrors.emptyNameError {
                         emptyBookshelfNameAlert.toggle()
