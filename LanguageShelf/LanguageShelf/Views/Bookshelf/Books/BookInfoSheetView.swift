@@ -23,51 +23,70 @@ struct BookInfoSheetView: View {
                 userManager.currentTheme.bgColor
                 
                 VStack {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Book Title:")
-                                .font(.subheadline)
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Book Title:")
+                            .font(.subheadline)
                             .foregroundStyle(userManager.currentTheme.fontColor)
-                            
-                            if isEdit {
-                                TextFieldWithoutLabel(placeholder: "title", textValue: $editedBookTitle)
-                            } else {
-                                Text(book.title)
-                                    .font(.title)
-                                    .bold()
-                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            }
-                            
-                            Text("Book Author:")
-                                .font(.subheadline)
+                        
+                        if isEdit {
+                            TextFieldWithoutLabel(placeholder: "Title", textValue: $editedBookTitle)
+                        } else {
+                            Text(book.title)
+                                .padding()
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                )
+                        }
+                        
+                        Text("Book Author:")
+                            .font(.subheadline)
+                            .foregroundStyle(userManager.currentTheme.fontColor)
+                        
+                        if isEdit {
+                            TextFieldWithoutLabel(placeholder: "Author", textValue: $editedAuthor)
+                        } else {
+                            Text(book.author)
                                 .foregroundStyle(userManager.currentTheme.fontColor)
-                            
-                            if isEdit {
-                                TextFieldWithoutLabel(placeholder: "author", textValue: $editedAuthor)
-                            } else {
-                                Text(book.author)
-                                    .font(.title2)
-                                    .foregroundStyle(userManager.currentTheme.fontColor)
-                            }
-                            
-                            Text("Description:")
-                                .font(.subheadline)
-                                .foregroundStyle(userManager.currentTheme.fontColor)
-                            
-                            if isEdit {
-                                TextFieldWithoutLabel(placeholder: "description", textValue: $editedDescription)
-                            } else {
+                                .padding()
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                )
+                        }
+                        
+                        Text("Description:")
+                            .font(.subheadline)
+                            .foregroundStyle(userManager.currentTheme.fontColor)
+                        
+                        if isEdit {
+                            ScrollableTextField(placeholder: "Description", textValue: $editedDescription)
+                        } else {
+                            ScrollView {
                                 Text(book.description)
                                     .foregroundStyle(userManager.currentTheme.fontColor)
+                                    .padding()
+                                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                
+                                
                             }
-                            
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                            )
                         }
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                        
                     }
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                     Spacer()
                     if isEdit {
                         HStack {
-                            Button1(label: "Done") {
+                            Button1(label: "Save Changes") {
                                 Task {
                                     do {
                                         try await booksManager.updateBookInfo(bookshelfID: bookshelf.id, bookID: book.id, title: editedBookTitle, author: editedAuthor, description: editedDescription)
@@ -78,6 +97,7 @@ struct BookInfoSheetView: View {
                                     }
                                 }
                             }
+                            .padding([.bottom], 30)
                         }
                     } else {
                         Button1(label: "Edit") {
@@ -86,13 +106,14 @@ struct BookInfoSheetView: View {
                             editedDescription = book.description
                             isEdit.toggle()
                         }
+                        .padding([.bottom], 30)
                     }
                 }
                 .padding()
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Done") {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Close") {
                             showBookInfo.toggle()
                         }
                     }
@@ -115,6 +136,7 @@ struct BookInfoSheetView: View {
                     }
                 }
             }
+            .ignoresSafeArea(.all, edges: .bottom)
         }
     }
 }
@@ -124,8 +146,8 @@ struct BookInfoSheetView_Previews: PreviewProvider {
         BookInfoSheetView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
                           book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective", author: "Pen Guin", description: "This book follows the adventures of the penguin detective while he solves cases in Antartica."),
                           showBookInfo: .constant(true))
-            .environmentObject(UserAccountsManager())
-            .environmentObject(BookshelvesManager())
-            .environmentObject(BooksManager())
+        .environmentObject(UserAccountsManager())
+        .environmentObject(BookshelvesManager())
+        .environmentObject(BooksManager())
     }
 }
