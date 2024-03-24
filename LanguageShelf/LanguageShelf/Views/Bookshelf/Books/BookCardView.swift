@@ -23,9 +23,6 @@ struct BookCardView: View {
                         Image(systemName: "book.fill")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                             .font(.system(size: 28))
-                            .onLongPressGesture(minimumDuration: 1) {
-                                showBookInfo.toggle()
-                            }
                     }
                     .padding(6)
                     .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
@@ -41,11 +38,10 @@ struct BookCardView: View {
                     HStack {
                         Spacer()
                         Menu {
-                            Button("Rename") {
-                                newBookName = book.title
-                                showEditNameAlert.toggle()
+                            Button("Show Book Info") {
+                                showBookInfo.toggle()
                             }
-                            Button("Delete") {
+                            Button("Delete Book") {
                                 Task {
                                     try await booksManager.removeBook(bookID: book.id)
                                 }
@@ -68,32 +64,7 @@ struct BookCardView: View {
                 .lineLimit(2)
         }
         .sheet(isPresented: $showBookInfo){
-            BookInfoSheetView(book: book, showBookInfo: $showBookInfo)
-        }
-        .alert("Enter the book title:", isPresented: $showEditNameAlert){
-            TextField("Book", text: $newBookName)
-            Button("Confirm") {
-                Task {
-                    do {
-                        try await booksManager.renameBook(bookshelfID: bookshelf.id, bookID: book.id, newName: newBookName)
-                    } catch DataErrors.existingNameError {
-                        showBookAlreadyExistsAlert.toggle()
-                    } catch DataErrors.emptyNameError {
-                        emptyBookNameAlert.toggle()
-                    }
-                }
-            }
-            Button("Cancel", role: .cancel) {}
-        }
-        .alert("A book of this name already exists.", isPresented: $showBookAlreadyExistsAlert){
-            Button("Ok", role: .cancel) {
-                showBookAlreadyExistsAlert = false
-            }
-        }
-        .alert("You must enter a name for your book.", isPresented: $emptyBookNameAlert){
-            Button("Ok", role: .cancel) {
-                emptyBookNameAlert = false
-            }
+            BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo)
         }
     }
 }

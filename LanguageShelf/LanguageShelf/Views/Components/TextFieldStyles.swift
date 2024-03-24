@@ -46,6 +46,26 @@ struct TextFieldWithLabel: View {
     }
 }
 
+struct TextFieldWithoutLabel: View {
+    @EnvironmentObject var userManager: UserAccountsManager
+    
+    var placeholder: String
+    @Binding var textValue: String
+    
+    var body: some View {
+        TextField(placeholder, text: $textValue)
+            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+            .padding(12)
+            .background(userManager.currentTheme.bgColor)
+            .foregroundStyle(userManager.currentTheme.fontColor)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+            )
+    }
+}
+
 struct TextFieldStyles_Previews: PreviewProvider {
     static var previews: some View {
         TextFieldWithLabel(label: "Question", placeholder: "Input", textValue: .constant("Input"))

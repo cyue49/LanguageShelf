@@ -8,13 +8,14 @@ struct MyBooksView: View {
     var bookshelf: Bookshelf
     
     @State var newBookName: String = ""
+    @State var newAuthorName: String = ""
     
     @State var showAddBookAlert: Bool = false
     @State var showBookAlreadyExistsAlert: Bool = false
     @State var emptyBookNameAlert: Bool = false
     
     var body: some View {
-        NavigationStack {
+        //NavigationStack {
             ZStack {
                 userManager.currentTheme.bgColor
                 
@@ -48,6 +49,7 @@ struct MyBooksView: View {
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
                         newBookName = ""
+                        newAuthorName = ""
                         showAddBookAlert.toggle()
                     }, label: {
                         Image(systemName: "plus")
@@ -58,12 +60,13 @@ struct MyBooksView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .alert("Enter the new book's title:", isPresented: $showAddBookAlert){
+            .alert("Enter the new book's information:", isPresented: $showAddBookAlert){
                 TextField("Book", text: $newBookName)
+                TextField("Author (optional)", text: $newAuthorName)
                 Button("Confirm") {
                     Task {
                         do {
-                            try await booksManager.addNewBook(bookshelfID: bookshelf.id, bookName: newBookName)
+                            try await booksManager.addNewBook(bookshelfID: bookshelf.id, bookName: newBookName, author: newAuthorName)
                         } catch DataErrors.existingNameError {
                             showBookAlreadyExistsAlert.toggle()
                         } catch DataErrors.emptyNameError {
@@ -83,7 +86,7 @@ struct MyBooksView: View {
                     emptyBookNameAlert = false
                 }
             }
-        }
+        //}
     }
 }
 

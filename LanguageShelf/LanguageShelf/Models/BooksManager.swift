@@ -29,13 +29,14 @@ class BooksManager: ObservableObject {
             let bookID = data["bookID"] as? String ?? ""
             let title = data["title"] as? String ?? ""
             let author = data["author"] as? String ?? ""
-            let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author)
+            let description = data["description"] as? String ?? ""
+            let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description)
             myBooks[bookshelfID] == nil ? myBooks[bookshelfID] = [newBook] : myBooks[bookshelfID]!.append(newBook)
         }
     }
     
     // add new book to a bookshelf
-    func addNewBook(bookshelfID: String, bookName: String) async throws {
+    func addNewBook(bookshelfID: String, bookName: String, author: String = "") async throws {
         // if book of this name already exists in this bookshelf throw error
         if myBooks[bookshelfID] != nil {
             for book in myBooks[bookshelfID]! {
@@ -51,7 +52,7 @@ class BooksManager: ObservableObject {
         }
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let newBook = Book(bookshelfID: bookshelfID, userID: uid, title: bookName)
+        let newBook = Book(bookshelfID: bookshelfID, userID: uid, title: bookName, author: author)
         
         try await ref.document(newBook.id).setData(["bookID": newBook.id, "bookshelfID": newBook.bookshelfID, "userID": newBook.userID, "title": newBook.title, "author": newBook.author])
         await fetchBooks()
@@ -63,23 +64,43 @@ class BooksManager: ObservableObject {
         await fetchBooks()
     }
     
-    // update the name of a book
-    func renameBook(bookshelfID: String, bookID: String, newName: String) async throws {
+//    // update the name of a book
+//    func renameBook(bookshelfID: String, bookID: String, newName: String) async throws {
+//        // if book of this name already exists in this bookshelf throw error
+//        if myBooks[bookshelfID] != nil {
+//            for book in myBooks[bookshelfID]! {
+//                if book.title == newName {
+//                    throw DataErrors.existingNameError
+//                }
+//            }
+//        }
+//        
+//        // if user didn't enter a name for the new book throw error
+//        if (newName.isEmpty){
+//            throw DataErrors.emptyNameError
+//        }
+//        
+//        try await ref.document(bookID).updateData(["title": newName])
+//        await fetchBooks()
+//    }
+    
+    // update a book's information
+    func updateBookInfo(bookshelfID: String, bookID: String, title: String, author: String, description: String) async throws {
         // if book of this name already exists in this bookshelf throw error
         if myBooks[bookshelfID] != nil {
             for book in myBooks[bookshelfID]! {
-                if book.title == newName {
+                if book.title == title && book.id != bookID { // not same book but same title
                     throw DataErrors.existingNameError
                 }
             }
         }
         
-        // if user didn't enter a name for the new book throw error
-        if (newName.isEmpty){
+        // if user didn't enter a title for the book throw error
+        if (title.isEmpty){
             throw DataErrors.emptyNameError
         }
         
-        try await ref.document(bookID).updateData(["title": newName])
+        try await ref.document(bookID).updateData(["title": title, "author": author, "description": description])
         await fetchBooks()
     }
 }
