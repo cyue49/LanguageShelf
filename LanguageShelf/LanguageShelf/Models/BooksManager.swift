@@ -64,26 +64,6 @@ class BooksManager: ObservableObject {
         await fetchBooks()
     }
     
-//    // update the name of a book
-//    func renameBook(bookshelfID: String, bookID: String, newName: String) async throws {
-//        // if book of this name already exists in this bookshelf throw error
-//        if myBooks[bookshelfID] != nil {
-//            for book in myBooks[bookshelfID]! {
-//                if book.title == newName {
-//                    throw DataErrors.existingNameError
-//                }
-//            }
-//        }
-//        
-//        // if user didn't enter a name for the new book throw error
-//        if (newName.isEmpty){
-//            throw DataErrors.emptyNameError
-//        }
-//        
-//        try await ref.document(bookID).updateData(["title": newName])
-//        await fetchBooks()
-//    }
-    
     // update a book's information
     func updateBookInfo(bookshelfID: String, bookID: String, title: String, author: String, description: String) async throws {
         // if book of this name already exists in this bookshelf throw error
