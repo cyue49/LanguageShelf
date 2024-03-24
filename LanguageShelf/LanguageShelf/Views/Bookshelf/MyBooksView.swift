@@ -31,7 +31,7 @@ struct MyBooksView: View {
                         
                         LazyVGrid(columns: columns, content: {
                             ForEach(booksManager.myBooks[bookshelf.id]!) { book in
-                                BookCardView(book: book)
+                                BookCardView(bookshelf: bookshelf, book: book)
                             }
                         })
                         .padding()

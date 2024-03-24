@@ -5,9 +5,13 @@ struct BookCardView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     
+    var bookshelf: Bookshelf
     var book: Book
     
     @State var showEditNameAlert: Bool = false
+    @State var showBookAlreadyExistsAlert: Bool = false
+    @State var emptyBookNameAlert: Bool = false
+    
     @State var newBookName: String = ""
     
     var body: some View {
@@ -57,21 +61,40 @@ struct BookCardView: View {
             Text(book.title)
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
-                .lineLimit(1)
+                .lineLimit(2)
         }
         .alert("Enter the book title:", isPresented: $showEditNameAlert){
             TextField("Book", text: $newBookName)
             Button("Confirm") {
-                // TODO:
+                Task {
+                    do {
+                        try await booksManager.renameBook(bookshelfID: bookshelf.id, bookID: book.id, newName: newBookName)
+                    } catch DataErrors.existingNameError {
+                        showBookAlreadyExistsAlert.toggle()
+                    } catch DataErrors.emptyNameError {
+                        emptyBookNameAlert.toggle()
+                    }
+                }
             }
             Button("Cancel", role: .cancel) {}
+        }
+        .alert("A book of this name already exists.", isPresented: $showBookAlreadyExistsAlert){
+            Button("Ok", role: .cancel) {
+                showBookAlreadyExistsAlert = false
+            }
+        }
+        .alert("You must enter a name for your book.", isPresented: $emptyBookNameAlert){
+            Button("Ok", role: .cancel) {
+                emptyBookNameAlert = false
+            }
         }
     }
 }
 
 struct BookCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookCardView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
+        BookCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
+                     book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
