@@ -5,7 +5,7 @@ struct ContentView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
-    @EnvironmentObject var vocabsManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
     
     var body: some View {
         TabView {

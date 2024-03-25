@@ -5,6 +5,7 @@ struct UserProfileView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
     
     var body: some View {
         NavigationStack {
@@ -63,6 +64,7 @@ struct UserProfileView: View {
                                     // reset bookshelves, books, vocabularies, etc.
                                     bookshelvesManager.myBookshelves = []
                                     booksManager.myBooks = [:]
+                                    vocabsManager.myVocabularies = [:]
                                 }, label: {
                                     Text("Sign Out")
                                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -85,5 +87,6 @@ struct UserProfile_Previews: PreviewProvider {
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
+            .environmentObject(VocabulariesManager())
     }
 }
