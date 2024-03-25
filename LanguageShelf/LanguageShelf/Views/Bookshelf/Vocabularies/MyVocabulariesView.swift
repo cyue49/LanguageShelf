@@ -9,7 +9,7 @@ struct VocabulariesView: View {
     var book: Book
     
     @State var selectedTab: Int = 0
-    @State var showSheet: Bool = false
+    @State var showVocabSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -57,7 +57,11 @@ struct VocabulariesView: View {
                 
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
-                        showSheet.toggle()
+                        if selectedTab == 0 {
+                            showVocabSheet.toggle()
+                        } else {
+                            // todo sentence part
+                        }
                     }, label: {
                         Image(systemName: "plus")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -67,8 +71,8 @@ struct VocabulariesView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .sheet(isPresented: $showSheet){
-                VocabularySheetView(book: book, showVocabulary: $showSheet)
+            .sheet(isPresented: $showVocabSheet){
+                VocabularySheetView(book: book, showVocabulary: $showVocabSheet)
                     .presentationDetents([.height(600), .large])
                     .presentationDragIndicator(.automatic)
             }

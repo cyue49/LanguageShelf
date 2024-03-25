@@ -14,6 +14,9 @@ struct VocabularySheetView: View {
     @State var newDefinition: String = ""
     @State var newNote: String = ""
     
+    @State var existingVocabAlert: Bool = false
+    @State var emptyFieldAlert: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -36,7 +39,16 @@ struct VocabularySheetView: View {
                 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
-                        // todo
+                        Task {
+                            do {
+                                try await vocabsManager.addNewVocabulary(bookID: book.id, newWord: newWord, newDefinition: newDefinition, newNote: newNote)
+                                showVocabulary.toggle()
+                            } catch DataErrors.existingNameError {
+                                existingVocabAlert.toggle()
+                            } catch DataErrors.emptyNameError {
+                                emptyFieldAlert.toggle()
+                            }
+                        }
                     }
                 }
                 
@@ -47,6 +59,16 @@ struct VocabularySheetView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .alert("You have already created this vocabulary.", isPresented: $existingVocabAlert){
+                Button("Ok", role: .cancel) {
+                    existingVocabAlert = false
+                }
+            }
+            .alert("You must enter a vocabulary and a definition.", isPresented: $emptyFieldAlert){
+                Button("Ok", role: .cancel) {
+                    emptyFieldAlert = false
+                }
+            }
         }
     }
 }

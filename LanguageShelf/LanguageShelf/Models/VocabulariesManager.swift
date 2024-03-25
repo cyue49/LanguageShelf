@@ -34,7 +34,27 @@ class VocabulariesManager: ObservableObject {
         }
     }
     
-    func addNewVocabulary() async throws {}
+    func addNewVocabulary(bookID: String, newWord: String, newDefinition: String, newNote: String = "") async throws {
+        // if vocabulary already exists in this book throw error
+        if myVocabularies[bookID] != nil {
+            for vocab in myVocabularies[bookID]! {
+                if vocab.word == newWord {
+                    throw DataErrors.existingNameError
+                }
+            }
+        }
+        
+        // if user entered empty string for vocab or definition, throw error
+        if (newWord.isEmpty || newDefinition.isEmpty){
+            throw DataErrors.emptyNameError
+        }
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let newVocab = Vocabulary(bookID: bookID, userID: uid, word: newWord, definition: newDefinition, note: newNote)
+        
+        try await ref.document(newVocab.id).setData(["vocabID": newVocab.id, "bookID": newVocab.bookID, "userID": newVocab.userID, "word": newVocab.word, "definition": newVocab.definition, "note": newVocab.note])
+        await fetchVocabularies()
+    }
     
     func removeVocabulary() async throws {}
     
