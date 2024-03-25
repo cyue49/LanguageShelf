@@ -7,6 +7,7 @@ struct BookInfoSheetView: View {
     
     var bookshelf: Bookshelf
     var book: Book
+    
     @Binding var showBookInfo: Bool
     
     @State var isEdit: Bool = false
@@ -86,7 +87,10 @@ struct BookInfoSheetView: View {
                     Spacer()
                     if isEdit {
                         HStack {
-                            Button1(label: "Save Changes") {
+                            Button2(label: "Cancel") {
+                                isEdit.toggle()
+                            }
+                            Button1(label: "Save") {
                                 Task {
                                     do {
                                         try await booksManager.updateBookInfo(bookshelfID: bookshelf.id, bookID: book.id, title: editedBookTitle, author: editedAuthor, description: editedDescription)
@@ -97,10 +101,10 @@ struct BookInfoSheetView: View {
                                     }
                                 }
                             }
-                            .padding([.bottom], 30)
                         }
+                        .padding([.bottom], 30)
                     } else {
-                        Button1(label: "Edit") {
+                        Button1(label: "Edit Book Information") {
                             editedBookTitle = book.title
                             editedAuthor = book.author
                             editedDescription = book.description
