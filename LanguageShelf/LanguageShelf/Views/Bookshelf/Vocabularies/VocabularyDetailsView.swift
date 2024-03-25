@@ -16,6 +16,25 @@ struct VocabularyDetailsView: View {
             Text("Notes")
             Text(vocabulary.note)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal){
+                Text(vocabulary.word)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+            }
+            
+            ToolbarItem(placement: .topBarTrailing){
+                Button(action: {
+                    // Todo
+                }, label: {
+                    Text("Edit")
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                        .bold()
+                })
+            }
+        }
+        .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
 }
 

@@ -9,15 +9,20 @@ struct VocabularyCardView: View {
     var vocabulary: Vocabulary
     
     var body: some View {
-        HStack {
-            Text(vocabulary.word)
-                .foregroundStyle(userManager.currentTheme.fontColor)
-            Spacer()
-            Image(systemName: "arrowtriangle.right.fill")
-                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+        VStack (spacing: 0) {
+            HStack {
+                Text(vocabulary.word)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                Spacer()
+                Image(systemName: "arrowtriangle.right.fill")
+                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+            }
+            .padding()
+            .background(userManager.currentTheme.bgColor)
+            Divider()
+                .frame(minHeight: 2)
+                .background(userManager.currentTheme.primaryAccentColor)
         }
-        .padding()
-        .background(userManager.currentTheme.buttonColor)
     }
 }
 
