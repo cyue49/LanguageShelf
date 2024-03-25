@@ -18,7 +18,7 @@ struct BookCardView: View {
     var body: some View {
         VStack {
             ZStack {
-                NavigationLink(destination: VocabulariesView()) {
+                NavigationLink(destination: VocabulariesView(book: book)) {
                     VStack {
                         Image(systemName: "book.fill")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)

@@ -15,7 +15,7 @@ struct MyBooksView: View {
     @State var emptyBookNameAlert: Bool = false
     
     var body: some View {
-        //NavigationStack {
+        NavigationStack {
             ZStack {
                 userManager.currentTheme.bgColor
                 
@@ -40,6 +40,7 @@ struct MyBooksView: View {
                 }
                 
             }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal){
                     Text(bookshelf.bookshelfName)
@@ -86,7 +87,7 @@ struct MyBooksView: View {
                     emptyBookNameAlert = false
                 }
             }
-        //}
+        }
     }
 }
 
