@@ -9,12 +9,50 @@ struct VocabularyDetailsView: View {
     var vocabulary: Vocabulary
     
     var body: some View {
-        VStack {
-            Text(vocabulary.word)
-            Text("Definition")
-            Text(vocabulary.definition)
-            Text("Notes")
-            Text(vocabulary.note)
+        ZStack {
+            userManager.currentTheme.bgColor
+            VStack (alignment: .leading ,spacing: 20) {
+                Text(vocabulary.word)
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                
+                Text("Definition:")
+                    .font(.subheadline)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                ScrollView {
+                    Text(vocabulary.definition)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    
+                    
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+                
+                Text("Notes:")
+                    .font(.subheadline)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                ScrollView {
+                    Text(vocabulary.note)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    
+                    
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+                
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
