@@ -1,3 +1,17 @@
+2024/03/25 Chen
+
+Done since last scrum: 
+- Redesigned frontend of edit book information sheet view
+- Added database operations for adding/editing book information (title, author, description) on the sheet view
+- Created a struct for Vocabulary and a VocabulariesManager for managing database related operations for vocabularies 
+- Started working on frontend of vocabularies views
+
+Todo until next scrum: 
+- Continue working on the frontend of vocabularies views
+- Add database operations (fetch/add/delete/update) to the vocabularies manager
+
+------------------
+
 2024/03/24 Chen
 
 Done since last scrum: 
