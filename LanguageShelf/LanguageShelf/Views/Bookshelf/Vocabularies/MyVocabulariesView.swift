@@ -16,12 +16,9 @@ struct VocabulariesView: View {
                 userManager.currentTheme.bgColor
                 
                 VStack {
-                    Picker("", selection: $selectedTab) {
-                        Text("Vocabulary").tag(0)
-                        Text("Sentence").tag(1)
-                    }
-                    .pickerStyle(.segmented)
-                    .listRowInsets(.init())
+                    TwoChoicesPicker(choice: $selectedTab, choice1: "Vocabulary", choice2: "Sentence")
+                        .padding(.horizontal, 6)
+                        .padding(.top, 11)
                     
                     if selectedTab == 0 {
                         List {
@@ -33,7 +30,8 @@ struct VocabulariesView: View {
                         .listStyle(.plain)
                     } else {
                         List {
-                            Text("Sentences")
+                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
+                                .listRowInsets(.init())
                         }
                         .frame( maxWidth: .infinity)
                         .listStyle(.plain)

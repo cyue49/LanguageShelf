@@ -25,6 +25,7 @@
 		DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4522BAE22B6007721F3 /* Bookshelf.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DEA883402BB1C53900F1E336 /* VocabularyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */; };
+		DEA883422BB1CC3700F1E336 /* TwoChoicesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */; };
 		DEAC5D502BAF624800EB807E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC5D4F2BAF624800EB807E /* Book.swift */; };
 		DEAC5D522BAF630400EB807E /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC5D512BAF630400EB807E /* BooksManager.swift */; };
 		DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */; };
@@ -65,6 +66,7 @@
 		DE85C4522BAE22B6007721F3 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
 		DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCardView.swift; sourceTree = "<group>"; };
+		DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoChoicesPicker.swift; sourceTree = "<group>"; };
 		DEAC5D4F2BAF624800EB807E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		DEAC5D512BAF630400EB807E /* BooksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
 		DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesManager.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				DEF0D2702BA8DD2900BA9C8E /* CheckListView.swift */,
 				DEF0D2722BA945A900BA9C8E /* SecureTextfieldWithEye.swift */,
 				DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */,
+				DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				DE8572EE2BA4D95100488990 /* GameScreenView.swift in Sources */,
 				DE85C44D2BADBD78007721F3 /* MyBooksView.swift in Sources */,
 				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
+				DEA883422BB1CC3700F1E336 /* TwoChoicesPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
