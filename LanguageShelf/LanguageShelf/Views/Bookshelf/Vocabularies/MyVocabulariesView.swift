@@ -28,6 +28,10 @@ struct VocabulariesView: View {
                             List {
                                 ForEach(vocabsManager.myVocabularies[book.id]!) { vocab in
                                     VocabularyCardView(vocabulary: vocab)
+                                        .overlay(
+                                            NavigationLink("", destination: VocabularyDetailsView(vocabulary: vocab))
+                                                .opacity(0)
+                                        )
                                 }
                                 .listRowInsets(.init())
                             }
