@@ -15,19 +15,24 @@ struct VocabulariesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                VStack {
+                VStack (spacing: 0) {
                     TwoChoicesPicker(choice: $selectedTab, choice1: "Vocabulary", choice2: "Sentence")
-                        .padding(.horizontal, 6)
-                        .padding(.top, 11)
+                        .padding(6)
                     
                     if selectedTab == 0 {
-                        List {
-                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
+                        if vocabsManager.myVocabularies[book.id] == nil { // No vocab in this book
+                            Text("You don't have any vocabulary in this book.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .frame(maxHeight: .infinity)
+                        } else {
+                            List {
+                                ForEach(vocabsManager.myVocabularies[book.id]!) { vocab in
+                                    VocabularyCardView(vocabulary: vocab)
+                                }
                                 .listRowInsets(.init())
-                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "polar bear", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
-                                .listRowInsets(.init())
+                            }
+                            .listStyle(.plain)
                         }
-                        .listStyle(.plain)
                     } else {
                         List {
                             VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
