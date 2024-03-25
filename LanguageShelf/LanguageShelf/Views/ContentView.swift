@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: BooksManager
     
     var body: some View {
         TabView {
@@ -36,5 +37,6 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
+            .environmentObject(VocabulariesManager())
     }
 }

@@ -4,6 +4,7 @@ import Firebase
 struct UserProfileView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
     
     var body: some View {
         NavigationStack {
@@ -57,7 +58,11 @@ struct UserProfileView: View {
                         if userManager.userSession != nil {
                             VStack {
                                 Button(action: {
+                                    // sign out
                                     userManager.signOut()
+                                    // reset bookshelves, books, vocabularies, etc.
+                                    bookshelvesManager.myBookshelves = []
+                                    booksManager.myBooks = [:]
                                 }, label: {
                                     Text("Sign Out")
                                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -79,5 +84,6 @@ struct UserProfile_Previews: PreviewProvider {
         UserProfileView()
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
     }
 }

@@ -3,7 +3,7 @@ import Firebase
 
 @MainActor
 class BooksManager: ObservableObject {
-    @Published var myBooks: [String:[Book]] = [:] // dictionary of all books (key: bookshelfID, value: array of books in that bookshelf)
+    @Published var myBooks: [String:[Book]] = [:] // dictionary of all books for the user (key: bookshelfID, value: array of books in that bookshelf)
     
     private let ref = Firestore.firestore().collection("Books")
     
