@@ -24,6 +24,7 @@
 		DE85C4512BAE14AB007721F3 /* MyVocabulariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4502BAE14AB007721F3 /* MyVocabulariesView.swift */; };
 		DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4522BAE22B6007721F3 /* Bookshelf.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
+		DEA883402BB1C53900F1E336 /* VocabularyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */; };
 		DEAC5D502BAF624800EB807E /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC5D4F2BAF624800EB807E /* Book.swift */; };
 		DEAC5D522BAF630400EB807E /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC5D512BAF630400EB807E /* BooksManager.swift */; };
 		DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */; };
@@ -63,6 +64,7 @@
 		DE85C4502BAE14AB007721F3 /* MyVocabulariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocabulariesView.swift; sourceTree = "<group>"; };
 		DE85C4522BAE22B6007721F3 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
+		DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCardView.swift; sourceTree = "<group>"; };
 		DEAC5D4F2BAF624800EB807E /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		DEAC5D512BAF630400EB807E /* BooksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
 		DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesManager.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				DE85C4502BAE14AB007721F3 /* MyVocabulariesView.swift */,
+				DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */,
 			);
 			path = Vocabularies;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
 				DEAC5D502BAF624800EB807E /* Book.swift in Sources */,
+				DEA883402BB1C53900F1E336 /* VocabularyCardView.swift in Sources */,
 				DEF0D2732BA945A900BA9C8E /* SecureTextfieldWithEye.swift in Sources */,
 				DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */,
 				DE17B2672BB11700000CD9C8 /* Vocabulary.swift in Sources */,

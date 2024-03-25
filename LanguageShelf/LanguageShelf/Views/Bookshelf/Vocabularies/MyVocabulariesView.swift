@@ -8,11 +8,37 @@ struct VocabulariesView: View {
     
     var book: Book
     
+    @State var selectedTab: Int = 0
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 userManager.currentTheme.bgColor
-                Text("Vocabularies")
+                
+                VStack {
+                    Picker("", selection: $selectedTab) {
+                        Text("Vocabulary").tag(0)
+                        Text("Sentence").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    .listRowInsets(.init())
+                    
+                    if selectedTab == 0 {
+                        List {
+                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
+                                .listRowInsets(.init())
+                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "polar bear", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
+                                .listRowInsets(.init())
+                        }
+                        .listStyle(.plain)
+                    } else {
+                        List {
+                            Text("Sentences")
+                        }
+                        .frame( maxWidth: .infinity)
+                        .listStyle(.plain)
+                    }
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
