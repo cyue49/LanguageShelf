@@ -1,21 +1,26 @@
 import SwiftUI
 
-struct TextFieldWithLabel: View {
+struct CustomTextField: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
-    var label: String
+    var label: String = ""
     var placeholder: String
     @Binding var textValue: String
     var isSecureField: Bool = false
+    var optional: Bool = false
     
     var body: some View {
         VStack (alignment: .leading) {
-            HStack {
-                Text(label)
-                    .foregroundStyle(userManager.currentTheme.fontColor)
-                Image(systemName: "asterisk")
-                    .foregroundStyle(.red)
-                    .font(.system(size: 8))
+            if !label.isEmpty {
+                HStack {
+                    Text(label)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                    if !optional {
+                        Image(systemName: "asterisk")
+                            .foregroundStyle(.red)
+                            .font(.system(size: 8))
+                    }
+                }
             }
             if isSecureField {
                 ZStack {
@@ -46,51 +51,46 @@ struct TextFieldWithLabel: View {
     }
 }
 
-struct TextFieldWithoutLabel: View {
+struct ScrollableTextField: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
+    var label: String = ""
     var placeholder: String
     @Binding var textValue: String
+    var optional: Bool = false
     
     var body: some View {
-        TextField(placeholder, text: $textValue)
-            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-            .padding(12)
-            .background(userManager.currentTheme.bgColor)
-            .foregroundStyle(userManager.currentTheme.fontColor)
-            .cornerRadius(20)
+        VStack(alignment: .leading) {
+            if !label.isEmpty {
+                HStack {
+                    Text(label)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                    if !optional {
+                        Image(systemName: "asterisk")
+                            .foregroundStyle(.red)
+                            .font(.system(size: 8))
+                    }
+                }
+            }
+            ScrollView(.vertical) {
+                TextField(placeholder, text: $textValue, axis: .vertical)
+                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    .padding(12)
+                    .background(userManager.currentTheme.bgColor)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                    .cornerRadius(20)
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
             )
-    }
-}
-
-struct ScrollableTextField: View {
-    @EnvironmentObject var userManager: UserAccountsManager
-    
-    var placeholder: String
-    @Binding var textValue: String
-    
-    var body: some View {
-        ScrollView(.vertical) {
-            TextField(placeholder, text: $textValue, axis: .vertical)
-                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                .padding(12)
-                .background(userManager.currentTheme.bgColor)
-                .foregroundStyle(userManager.currentTheme.fontColor)
-                .cornerRadius(20)
         }
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-        )
     }
 }
 
 struct TextFieldStyles_Previews: PreviewProvider {
     static var previews: some View {
-        TextFieldWithLabel(label: "Question", placeholder: "Input", textValue: .constant("Input"))
+        CustomTextField(label: "Question", placeholder: "Input", textValue: .constant("Input"))
             .environmentObject(UserAccountsManager())
     }
 }

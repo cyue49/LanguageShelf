@@ -30,7 +30,7 @@ struct BookInfoSheetView: View {
                             .foregroundStyle(userManager.currentTheme.fontColor)
                         
                         if isEdit {
-                            TextFieldWithoutLabel(placeholder: "Title", textValue: $editedBookTitle)
+                            CustomTextField(placeholder: "Title", textValue: $editedBookTitle)
                         } else {
                             Text(book.title)
                                 .padding()
@@ -49,7 +49,7 @@ struct BookInfoSheetView: View {
                             .foregroundStyle(userManager.currentTheme.fontColor)
                         
                         if isEdit {
-                            TextFieldWithoutLabel(placeholder: "Author", textValue: $editedAuthor)
+                            CustomTextField(placeholder: "Author", textValue: $editedAuthor)
                         } else {
                             Text(book.author)
                                 .foregroundStyle(userManager.currentTheme.fontColor)

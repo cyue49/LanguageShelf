@@ -5,6 +5,7 @@ struct SignedOutView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -52,7 +53,7 @@ struct SignedOutView: View {
                     .padding(.bottom)
                 
                 ScrollView {
-                    TextFieldWithLabel(label: "Enter your email", placeholder: "", textValue: $email)
+                    CustomTextField(label: "Enter your email", placeholder: "", textValue: $email)
                     SecureTextFieldWithEye(label: "Enter your password", placeholder: "", textValue: $password)
                 }
                 
@@ -62,6 +63,7 @@ struct SignedOutView: View {
                             try await userManager.signIn(email: email, password: password)
                             await bookshelvesManager.fetchBookshelves()
                             await booksManager.fetchBooks()
+                            await vocabsManager.fetchVocabularies()
                         } catch {
                             showLoginAlert.toggle()
                         }
@@ -100,7 +102,7 @@ struct SignedOutView: View {
                     .foregroundStyle(userManager.currentTheme.fontColor)
                     .padding(.bottom)
                 ScrollView {
-                    TextFieldWithLabel(label: "Enter your email", placeholder: "", textValue: $email)
+                    CustomTextField(label: "Enter your email", placeholder: "", textValue: $email)
                     if (!email.isEmpty){
                         CheckListView(invalidMessage: "Invalid email format.", validMessage: "Valid email", isValid: validEmail)
                     }
@@ -115,7 +117,7 @@ struct SignedOutView: View {
                         CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Passwords match.", isValid: validConfirmPassword)
                     }
                     
-                    TextFieldWithLabel(label: "Enter your username", placeholder: "", textValue: $username)
+                    CustomTextField(label: "Enter your username", placeholder: "", textValue: $username)
                     Text("Your username is for display only on your profile.")
                         .font(.caption)
                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -128,6 +130,7 @@ struct SignedOutView: View {
                             try await userManager.register(email: email, password: password, username: username)
                             await bookshelvesManager.fetchBookshelves()
                             await booksManager.fetchBooks()
+                            await vocabsManager.fetchVocabularies()
                         } catch {
                             showSignupAlert.toggle()
                         }
@@ -179,5 +182,6 @@ struct SignedOutView_Previews: PreviewProvider {
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
+            .environmentObject(VocabulariesManager())
     }
 }

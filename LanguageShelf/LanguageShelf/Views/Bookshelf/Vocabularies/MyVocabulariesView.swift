@@ -9,6 +9,7 @@ struct VocabulariesView: View {
     var book: Book
     
     @State var selectedTab: Int = 0
+    @State var showSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -56,7 +57,7 @@ struct VocabulariesView: View {
                 
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
-                        // Todo
+                        showSheet.toggle()
                     }, label: {
                         Image(systemName: "plus")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -66,6 +67,11 @@ struct VocabulariesView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .sheet(isPresented: $showSheet){
+                VocabularySheetView(book: book, showVocabulary: $showSheet)
+                    .presentationDetents([.height(600), .large])
+                    .presentationDragIndicator(.automatic)
+            }
         }
     }
 }

@@ -11,9 +11,9 @@ struct SecureTextFieldWithEye: View {
     var body: some View {
         ZStack {
             if showInput {
-                TextFieldWithLabel(label: label, placeholder: "", textValue: $textValue)
+                CustomTextField(label: label, placeholder: "", textValue: $textValue)
             } else {
-                TextFieldWithLabel(label: label, placeholder: "", textValue: $textValue, isSecureField: true)
+                CustomTextField(label: label, placeholder: "", textValue: $textValue, isSecureField: true)
             }
             
             HStack {
