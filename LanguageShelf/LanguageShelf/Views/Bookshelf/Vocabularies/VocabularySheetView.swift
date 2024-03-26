@@ -24,7 +24,7 @@ struct VocabularySheetView: View {
                 
                 VStack(spacing: 20) {
                     CustomTextField(label: "Vocabulary: ", placeholder: "Vocabulary", textValue: $newWord)
-                    CustomTextField(label: "Definition: ", placeholder: "Definition", textValue: $newDefinition)
+                    ScrollableTextField(label: "Definition: ", placeholder: "Definition", textValue: $newDefinition)
                     ScrollableTextField(label: "Notes: ", placeholder: "Notes", textValue: $newNote, optional: true)
                 }
                 .padding()

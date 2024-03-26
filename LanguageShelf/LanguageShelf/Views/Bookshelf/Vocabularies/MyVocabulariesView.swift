@@ -30,7 +30,7 @@ struct VocabulariesView: View {
                                 ForEach(vocabsManager.myVocabularies[book.id]!) { vocab in
                                     VocabularyCardView(vocabulary: vocab)
                                         .overlay(
-                                            NavigationLink("", destination: VocabularyDetailsView(vocabulary: vocab))
+                                            NavigationLink("", destination: VocabularyDetailsView(book: book ,vocabulary: vocab))
                                                 .opacity(0)
                                         )
                                 }
