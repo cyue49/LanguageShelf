@@ -1,3 +1,19 @@
+2024/03/26 Chen
+
+Done since last scrum: 
+- Worked on the frontend of displaying a list of the user's vocabularies
+- Worked on the frontend of displaying the details of a vocabulary entry
+- Added add new vocabulary sheet and edit vocabulary views
+= Implemented fetch, add, delete and update vocabulary database operations
+
+Todo until next scrum: 
+- Fix vocabulary details view not displaying the correct data after updating a vocabulary
+- Work on frontend of adding sentences
+- Work on database operations of adding sentences
+- Work on linking related vocabularies and sentences
+
+------------------
+
 2024/03/25 Chen
 
 Done since last scrum: 
