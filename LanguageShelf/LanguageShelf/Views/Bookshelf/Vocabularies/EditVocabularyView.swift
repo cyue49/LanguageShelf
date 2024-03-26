@@ -35,9 +35,6 @@ struct EditVocabularyView: View {
                         Task {
                             do {
                                 try await vocabsManager.updateVocabulary(bookID: book.id, vocabID: vocabulary.id, newWord: editVocab, newDefinition: editDefinition, newNote: editNote)
-                                editVocab = ""
-                                editDefinition = ""
-                                editNote = ""
                                 isEdit.toggle()
                             } catch DataErrors.existingNameError {
                                 existingVocabAlert.toggle()

@@ -6,6 +6,8 @@ struct VocabularyDetailsView: View {
     @EnvironmentObject var booksManager: BooksManager
     @EnvironmentObject var vocabsManager: VocabulariesManager
     
+    @Environment(\.dismiss) var dismiss
+    
     var book: Book
     var vocabulary: Vocabulary
     
@@ -79,13 +81,25 @@ struct VocabularyDetailsView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing){
-                if !isEdit {
-                    Button ("Edit") {
-                        editVocab = vocabulary.word
-                        editDefinition = vocabulary.definition
-                        editNote = vocabulary.note
-                        isEdit.toggle()
+                Menu {
+                    if !isEdit {
+                        Button ("Edit") {
+                            editVocab = vocabulary.word
+                            editDefinition = vocabulary.definition
+                            editNote = vocabulary.note
+                            isEdit.toggle()
+                        }
                     }
+                    Button("Delete Book") {
+                        Task {
+                            try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
+                        }
+                        dismiss()
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                        .font(.system(size: 24))
                 }
             }
         }
@@ -98,9 +112,9 @@ struct VocabularyDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         VocabularyDetailsView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"),
                               vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
-            .environmentObject(UserAccountsManager())
-            .environmentObject(BookshelvesManager())
-            .environmentObject(BooksManager())
-            .environmentObject(VocabulariesManager())
+        .environmentObject(UserAccountsManager())
+        .environmentObject(BookshelvesManager())
+        .environmentObject(BooksManager())
+        .environmentObject(VocabulariesManager())
     }
 }

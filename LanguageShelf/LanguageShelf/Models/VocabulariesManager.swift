@@ -56,7 +56,10 @@ class VocabulariesManager: ObservableObject {
         await fetchVocabularies()
     }
     
-    func removeVocabulary() async throws {}
+    func removeVocabulary(vocabularyID: String) async throws {
+        try await ref.document(vocabularyID).delete()
+        await fetchVocabularies()
+    }
     
     func updateVocabulary(bookID: String, vocabID: String, newWord: String, newDefinition: String, newNote: String) async throws {
         // if vocabulary already exists in this book throw error
