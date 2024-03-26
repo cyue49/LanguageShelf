@@ -72,7 +72,7 @@ struct VocabulariesView: View {
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .sheet(isPresented: $showVocabSheet){
-                VocabularySheetView(book: book, showVocabulary: $showVocabSheet)
+                NewEditVocabularySheetView(book: book, showSheet: $showVocabSheet, isEdit: false)
                     .presentationDetents([.height(600), .large])
                     .presentationDragIndicator(.automatic)
             }

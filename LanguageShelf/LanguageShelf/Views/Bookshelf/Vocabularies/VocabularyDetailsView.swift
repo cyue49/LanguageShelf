@@ -11,62 +11,54 @@ struct VocabularyDetailsView: View {
     var book: Book
     var vocabulary: Vocabulary
     
-    @State var isEdit: Bool = false
-    
-    @State var editVocab: String = ""
-    @State var editDefinition: String = ""
-    @State var editNote: String = ""
+    @State var showEditSheet: Bool = false
     
     var body: some View {
         ZStack {
             userManager.currentTheme.bgColor
             VStack (alignment: .leading ,spacing: 20) {
-                if !isEdit {
-                    HStack {
-                        Image(systemName: "text.book.closed.fill")
-                            .foregroundColor(userManager.currentTheme.primaryAccentColor)
-                            .font(.system(size: 30))
-                        
-                        Text(vocabulary.word)
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                    }
+                HStack {
+                    Image(systemName: "text.book.closed.fill")
+                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                        .font(.system(size: 30))
                     
-                    Text("Definition:")
-                        .font(.subheadline)
-                        .foregroundStyle(userManager.currentTheme.fontColor)
-                    ScrollView {
-                        Text(vocabulary.definition)
-                            .foregroundStyle(userManager.currentTheme.fontColor)
-                            .padding()
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                        
-                        
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                    )
-                    
-                    Text("Notes:")
-                        .font(.subheadline)
-                        .foregroundStyle(userManager.currentTheme.fontColor)
-                    ScrollView {
-                        Text(vocabulary.note)
-                            .foregroundStyle(userManager.currentTheme.fontColor)
-                            .padding()
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                        
-                        
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                    )
-                } else {
-                    EditVocabularyView(book: book, vocabulary: vocabulary, isEdit: $isEdit, editVocab: $editVocab, editDefinition: $editDefinition, editNote: $editNote)
+                    Text(vocabulary.word)
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                 }
+                
+                Text("Definition:")
+                    .font(.subheadline)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                ScrollView {
+                    Text(vocabulary.definition)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    
+                    
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+                
+                Text("Notes:")
+                    .font(.subheadline)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                ScrollView {
+                    Text(vocabulary.note)
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    
+                    
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
                 
                 Spacer()
             }
@@ -82,13 +74,8 @@ struct VocabularyDetailsView: View {
             
             ToolbarItem(placement: .topBarTrailing){
                 Menu {
-                    if !isEdit {
-                        Button ("Edit") {
-                            editVocab = vocabulary.word
-                            editDefinition = vocabulary.definition
-                            editNote = vocabulary.note
-                            isEdit.toggle()
-                        }
+                    Button ("Edit") {
+                        showEditSheet.toggle()
                     }
                     Button("Delete Book") {
                         Task {
@@ -105,6 +92,11 @@ struct VocabularyDetailsView: View {
         }
         .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .sheet(isPresented: $showEditSheet){
+            NewEditVocabularySheetView(book: book, vocabulary: vocabulary, showSheet: $showEditSheet, isEdit: true)
+                .presentationDetents([.height(600), .large])
+                .presentationDragIndicator(.automatic)
+        }
     }
 }
 
