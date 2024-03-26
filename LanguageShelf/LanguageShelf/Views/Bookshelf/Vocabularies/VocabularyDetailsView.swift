@@ -15,9 +15,6 @@ struct VocabularyDetailsView: View {
     @State var editDefinition: String = ""
     @State var editNote: String = ""
     
-    @State var existingVocabAlert: Bool = false
-    @State var emptyFieldAlert: Bool = false
-    
     var body: some View {
         ZStack {
             userManager.currentTheme.bgColor
@@ -65,34 +62,8 @@ struct VocabularyDetailsView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                     )
-                    Button1(label: "Edit") {
-                        editVocab = vocabulary.word
-                        editDefinition = vocabulary.definition
-                        editNote = vocabulary.note
-                        isEdit.toggle()
-                    }
                 } else {
-                    CustomTextField(label: "Vocabulary: ", placeholder: "Vocabulary", textValue: $editVocab, optional: true)
-                    ScrollableTextField(label: "Definition: ", placeholder: "Definition", textValue: $editDefinition, optional: true)
-                    ScrollableTextField(label: "Notes: ", placeholder: "Notes", textValue: $editNote, optional: true)
-                    HStack {
-                        Button2(label: "Cancel") {
-                            isEdit.toggle()
-                        }
-                        Button1(label: "Save") {
-                            Task {
-                                do {
-                                    try await vocabsManager.updateVocabulary(bookID: book.id, vocabID: vocabulary.id, newWord: editVocab, newDefinition: editDefinition, newNote: editNote)
-                                    isEdit.toggle()
-                                } catch DataErrors.existingNameError {
-                                    existingVocabAlert.toggle()
-                                } catch DataErrors.emptyNameError {
-                                    emptyFieldAlert.toggle()
-                                }
-                            }
-                        }
-                    }
-                    .padding([.bottom], 30)
+                    EditVocabularyView(book: book, vocabulary: vocabulary, isEdit: $isEdit, editVocab: $editVocab, editDefinition: $editDefinition, editNote: $editNote)
                 }
                 
                 Spacer()
@@ -106,19 +77,20 @@ struct VocabularyDetailsView: View {
                 Text(vocabulary.word)
                     .foregroundStyle(userManager.currentTheme.fontColor)
             }
+            
+            ToolbarItem(placement: .topBarTrailing){
+                if !isEdit {
+                    Button ("Edit") {
+                        editVocab = vocabulary.word
+                        editDefinition = vocabulary.definition
+                        editNote = vocabulary.note
+                        isEdit.toggle()
+                    }
+                }
+            }
         }
         .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .alert("You have already created this vocabulary.", isPresented: $existingVocabAlert){
-            Button("Ok", role: .cancel) {
-                existingVocabAlert = false
-            }
-        }
-        .alert("You must enter a vocabulary and a definition.", isPresented: $emptyFieldAlert){
-            Button("Ok", role: .cancel) {
-                emptyFieldAlert = false
-            }
-        }
     }
 }
 
