@@ -5,6 +5,7 @@ struct VocabulariesView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     var book: Book
     
@@ -87,5 +88,6 @@ struct VocabulariesView_Previews: PreviewProvider {
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
             .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }

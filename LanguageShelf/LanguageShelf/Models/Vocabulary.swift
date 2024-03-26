@@ -15,4 +15,5 @@ struct Vocabulary: Identifiable {
         self.word = word
         self.definition = definition
         self.note = note
-    }}
+    }
+}

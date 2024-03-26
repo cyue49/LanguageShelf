@@ -6,6 +6,7 @@ struct SignedOutView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -64,6 +65,7 @@ struct SignedOutView: View {
                             await bookshelvesManager.fetchBookshelves()
                             await booksManager.fetchBooks()
                             await vocabsManager.fetchVocabularies()
+                            await sentencesManager.fetchSentences()
                         } catch {
                             showLoginAlert.toggle()
                         }
@@ -131,6 +133,7 @@ struct SignedOutView: View {
                             await bookshelvesManager.fetchBookshelves()
                             await booksManager.fetchBooks()
                             await vocabsManager.fetchVocabularies()
+                            await sentencesManager.fetchSentences()
                         } catch {
                             showSignupAlert.toggle()
                         }
@@ -183,5 +186,6 @@ struct SignedOutView_Previews: PreviewProvider {
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
             .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }

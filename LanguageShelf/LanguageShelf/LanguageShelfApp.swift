@@ -7,6 +7,7 @@ struct LanguageShelfApp: App {
     @StateObject var bookshelvesManager = BookshelvesManager()
     @StateObject var booksManager = BooksManager()
     @StateObject var vocabsManager = VocabulariesManager()
+    @StateObject var sentencesManager = SentencesManager()
     
     init() {
         FirebaseApp.configure()
@@ -19,6 +20,7 @@ struct LanguageShelfApp: App {
                 .environmentObject(bookshelvesManager)
                 .environmentObject(booksManager)
                 .environmentObject(vocabsManager)
+                .environmentObject(sentencesManager)
         }
     }
     
