@@ -11,6 +11,7 @@ struct VocabulariesView: View {
     
     @State var selectedTab: Int = 0 // 0 for vocabulary, 1 for sentence
     @State var showVocabSheet: Bool = false
+    @State var showSentenceSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -72,7 +73,7 @@ struct VocabulariesView: View {
                         if selectedTab == 0 {
                             showVocabSheet.toggle()
                         } else {
-                            // todo sentence part
+                            showSentenceSheet.toggle()
                         }
                     }, label: {
                         Image(systemName: "plus")
@@ -85,6 +86,11 @@ struct VocabulariesView: View {
             .toolbarBackground(.visible, for: .navigationBar)
             .sheet(isPresented: $showVocabSheet){
                 NewEditVocabularySheetView(book: book, showSheet: $showVocabSheet, isEdit: false)
+                    .presentationDetents([.height(600), .large])
+                    .presentationDragIndicator(.automatic)
+            }
+            .sheet(isPresented: $showSentenceSheet){
+                NewEditSentenceView(book: book, showSheet: $showSentenceSheet, isEdit: false)
                     .presentationDetents([.height(600), .large])
                     .presentationDragIndicator(.automatic)
             }

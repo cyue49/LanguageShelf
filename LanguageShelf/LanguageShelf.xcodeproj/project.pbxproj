@@ -37,6 +37,7 @@
 		DEE1081B2BB370C8008A04D6 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1081A2BB370C8008A04D6 /* Sentence.swift */; };
 		DEE1081D2BB38671008A04D6 /* SentencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1081C2BB38671008A04D6 /* SentencesManager.swift */; };
 		DEE108222BB3A23A008A04D6 /* SentenceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */; };
+		DEE108242BB3CEC1008A04D6 /* NewEditSentenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE108232BB3CEC1008A04D6 /* NewEditSentenceView.swift */; };
 		DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */; };
 		DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A52BA65D7A0045BA66 /* SignedInView.swift */; };
 		DEE550AB2BA66A460045BA66 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DEE550AA2BA66A460045BA66 /* FirebaseAuth */; };
@@ -82,6 +83,7 @@
 		DEE1081A2BB370C8008A04D6 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		DEE1081C2BB38671008A04D6 /* SentencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentencesManager.swift; sourceTree = "<group>"; };
 		DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceDetailsView.swift; sourceTree = "<group>"; };
+		DEE108232BB3CEC1008A04D6 /* NewEditSentenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditSentenceView.swift; sourceTree = "<group>"; };
 		DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutView.swift; sourceTree = "<group>"; };
 		DEE550A52BA65D7A0045BA66 /* SignedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInView.swift; sourceTree = "<group>"; };
 		DEE550AE2BA66B130045BA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */,
+				DEE108232BB3CEC1008A04D6 /* NewEditSentenceView.swift */,
 			);
 			path = Sentences;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,
 				DEE550B72BA68BF90045BA66 /* User.swift in Sources */,
 				DEAC5D502BAF624800EB807E /* Book.swift in Sources */,
+				DEE108242BB3CEC1008A04D6 /* NewEditSentenceView.swift in Sources */,
 				DEA883402BB1C53900F1E336 /* VocabularyCardView.swift in Sources */,
 				DEF0D2732BA945A900BA9C8E /* SecureTextfieldWithEye.swift in Sources */,
 				DEF0D26F2BA8A26600BA9C8E /* ColorThemeView.swift in Sources */,

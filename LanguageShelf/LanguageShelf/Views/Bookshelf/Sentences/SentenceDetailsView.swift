@@ -76,9 +76,9 @@ struct SentenceDetailsView: View {
         .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $showEditSheet){
-//            NewEditVocabularySheetView(book: book, vocabulary: vocabulary, showSheet: $showEditSheet, isEdit: true)
-//                .presentationDetents([.height(600), .large])
-//                .presentationDragIndicator(.automatic)
+            NewEditSentenceView(book: book,sentence: sentence, showSheet: $showEditSheet, isEdit: true)
+                .presentationDetents([.height(600), .large])
+                .presentationDragIndicator(.automatic)
         }
     }
 }
