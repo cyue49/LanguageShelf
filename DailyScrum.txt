@@ -1,3 +1,17 @@
+2024/03/27 Chen
+
+Done since last scrum: 
+- Created sentence structure and sentence manager
+- Implemented fetch a sentence
+- Created frontend view for sentence detail view
+- Created frontend of adding/editing a sentence sheet view
+
+Todo until next scrum: 
+- Work on database operations for add/delete/update sentences
+- Link sentences and related vocabularies together (work on both frontend and backend)
+
+------------------
+
 2024/03/26 Chen
 
 Done since last scrum: 
