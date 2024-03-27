@@ -9,7 +9,7 @@ struct VocabulariesView: View {
     
     var book: Book
     
-    @State var selectedTab: Int = 0
+    @State var selectedTab: Int = 0 // 0 for vocabulary, 1 for sentence
     @State var showVocabSheet: Bool = false
     
     var body: some View {
@@ -21,7 +21,7 @@ struct VocabulariesView: View {
                     TwoChoicesPicker(choice: $selectedTab, choice1: "Vocabulary", choice2: "Sentence")
                         .padding(6)
                     
-                    if selectedTab == 0 {
+                    if selectedTab == 0 { // vocabulary
                         if vocabsManager.myVocabularies[book.id] == nil { // No vocab in this book
                             Text("You don't have any vocabulary in this book.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
@@ -39,13 +39,21 @@ struct VocabulariesView: View {
                             }
                             .listStyle(.plain)
                         }
-                    } else {
-                        List {
-                            VocabularyCardView(vocabulary: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "an animal living in Antartica", note: "penguins live in Antartica"))
+                    } else { // sentence
+                        if sentencesManager.mySentences[book.id] == nil { // No sentence in this book
+                            Text("You don't have any sentence in this book.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .frame(maxHeight: .infinity)
+                        } else {
+                            List {
+                                ForEach(sentencesManager.mySentences[book.id]!) { sentence in
+                                    VocabularyCardView(sentence: sentence, isVocab: false)
+                                    // TODO: Add navigation link overlay
+                                }
                                 .listRowInsets(.init())
+                            }
+                            .listStyle(.plain)
                         }
-                        .frame( maxWidth: .infinity)
-                        .listStyle(.plain)
                     }
                 }
             }
