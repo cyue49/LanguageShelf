@@ -17,7 +17,35 @@ struct SentenceDetailsView: View {
     var body: some View {
         ZStack {
             userManager.currentTheme.bgColor
-            Text("Sentence details view")
+            VStack (alignment: .leading ,spacing: 20) {
+                HStack (alignment: .bottom) {
+                    Label(sentence.sentence,systemImage: "quote.opening")
+                        .font(.title2)
+                        .bold()
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    
+                    Image(systemName: "quote.closing")
+                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                        .font(.title2)
+                }
+                
+                Text("Linked vocabularies:")
+                    .font(.subheadline)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
+                
+                ScrollView {
+                    Text("Temp")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                )
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

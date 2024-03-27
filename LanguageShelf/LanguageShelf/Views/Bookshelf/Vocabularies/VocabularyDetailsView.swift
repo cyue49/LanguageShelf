@@ -36,8 +36,6 @@ struct VocabularyDetailsView: View {
                         .foregroundStyle(userManager.currentTheme.fontColor)
                         .padding()
                         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    
-                    
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
@@ -52,15 +50,11 @@ struct VocabularyDetailsView: View {
                         .foregroundStyle(userManager.currentTheme.fontColor)
                         .padding()
                         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                    
-                    
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                 )
-                
-                Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()

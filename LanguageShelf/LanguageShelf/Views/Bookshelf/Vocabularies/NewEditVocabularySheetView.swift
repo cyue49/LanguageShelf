@@ -23,6 +23,8 @@ struct NewEditVocabularySheetView: View {
         NavigationStack{
             ZStack {
                 userManager.currentTheme.bgColor
+                    .ignoresSafeArea()
+                
                 VStack {
                     VStack(spacing: 20) {
                         CustomTextField(label: "Vocabulary: ", placeholder: "Vocabulary", textValue: $vocabField)

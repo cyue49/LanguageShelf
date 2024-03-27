@@ -5,6 +5,8 @@ struct BookInfoSheetView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     
+    @Environment(\.dismiss) var dismiss
+    
     var bookshelf: Bookshelf
     var book: Book
     
@@ -89,6 +91,7 @@ struct BookInfoSheetView: View {
                         HStack {
                             Button2(label: "Cancel") {
                                 isEdit.toggle()
+                                dismiss()
                             }
                             Button1(label: "Save") {
                                 Task {
