@@ -48,7 +48,10 @@ struct VocabulariesView: View {
                             List {
                                 ForEach(sentencesManager.mySentences[book.id]!) { sentence in
                                     VocabularyCardView(sentence: sentence, isVocab: false)
-                                    // TODO: Add navigation link overlay
+                                        .overlay(
+                                            NavigationLink("", destination: SentenceDetailsView(book: book ,sentence: sentence))
+                                                .opacity(0)
+                                        )
                                 }
                                 .listRowInsets(.init())
                             }

@@ -36,6 +36,7 @@
 		DEE108192BB3211B008A04D6 /* NewEditVocabularySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE108182BB3211B008A04D6 /* NewEditVocabularySheetView.swift */; };
 		DEE1081B2BB370C8008A04D6 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1081A2BB370C8008A04D6 /* Sentence.swift */; };
 		DEE1081D2BB38671008A04D6 /* SentencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1081C2BB38671008A04D6 /* SentencesManager.swift */; };
+		DEE108222BB3A23A008A04D6 /* SentenceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */; };
 		DEE550A42BA65D6A0045BA66 /* SignedOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */; };
 		DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE550A52BA65D7A0045BA66 /* SignedInView.swift */; };
 		DEE550AB2BA66A460045BA66 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DEE550AA2BA66A460045BA66 /* FirebaseAuth */; };
@@ -80,6 +81,7 @@
 		DEE108182BB3211B008A04D6 /* NewEditVocabularySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditVocabularySheetView.swift; sourceTree = "<group>"; };
 		DEE1081A2BB370C8008A04D6 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		DEE1081C2BB38671008A04D6 /* SentencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentencesManager.swift; sourceTree = "<group>"; };
+		DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceDetailsView.swift; sourceTree = "<group>"; };
 		DEE550A32BA65D6A0045BA66 /* SignedOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedOutView.swift; sourceTree = "<group>"; };
 		DEE550A52BA65D7A0045BA66 /* SignedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInView.swift; sourceTree = "<group>"; };
 		DEE550AE2BA66B130045BA66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		DE8572D82BA4983600488990 /* Bookshelf */ = {
 			isa = PBXGroup;
 			children = (
+				DEE108202BB3A221008A04D6 /* Sentences */,
 				DE17B2652BB0F8E6000CD9C8 /* Vocabularies */,
 				DE17B2622BB0896E000CD9C8 /* Bookshelves */,
 				DE17B2612BB08960000CD9C8 /* Books */,
@@ -220,6 +223,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEE108202BB3A221008A04D6 /* Sentences */ = {
+			isa = PBXGroup;
+			children = (
+				DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */,
+			);
+			path = Sentences;
 			sourceTree = "<group>";
 		};
 		DEE550B02BA6701C0045BA66 /* Components */ = {
@@ -344,6 +355,7 @@
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
 				DEAC5D522BAF630400EB807E /* BooksManager.swift in Sources */,
 				DEF0D2712BA8DD2900BA9C8E /* CheckListView.swift in Sources */,
+				DEE108222BB3A23A008A04D6 /* SentenceDetailsView.swift in Sources */,
 				DEE550A62BA65D7A0045BA66 /* SignedInView.swift in Sources */,
 				DEE0F0C72BAB3CD3003F2BC8 /* EditTextFieldView.swift in Sources */,
 				DE17B2692BB11795000CD9C8 /* VocabulariesManager.swift in Sources */,
