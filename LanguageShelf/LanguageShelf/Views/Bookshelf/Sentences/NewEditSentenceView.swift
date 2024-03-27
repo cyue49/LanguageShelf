@@ -5,6 +5,7 @@ struct NewEditSentenceView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     var book: Book
     var sentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
@@ -46,7 +47,7 @@ struct NewEditSentenceView: View {
                                 if isEdit {
                                     // TODO: edit sentence function
                                 } else {
-                                    // TODO: add sentence function
+                                    try await sentencesManager.addNewSentence(bookID: book.id, newSentence: sentenceField, linkedWords: linkedWords)
                                 }
                                 showSheet.toggle()
                             } catch DataErrors.existingNameError {
@@ -99,5 +100,6 @@ struct NewEditSentenceView_Previews: PreviewProvider {
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
             .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }

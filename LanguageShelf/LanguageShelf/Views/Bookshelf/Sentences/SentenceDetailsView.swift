@@ -18,7 +18,7 @@ struct SentenceDetailsView: View {
         ZStack {
             userManager.currentTheme.bgColor
             VStack (alignment: .leading ,spacing: 20) {
-                HStack (alignment: .bottom) {
+                HStack (alignment: .bottom, spacing: 0) {
                     Label(sentence.sentence,systemImage: "quote.opening")
                         .font(.title2)
                         .bold()
@@ -29,15 +29,28 @@ struct SentenceDetailsView: View {
                         .font(.title2)
                 }
                 
-                Text("Linked vocabularies:")
+                Text("Related vocabularies:")
                     .font(.subheadline)
                     .foregroundStyle(userManager.currentTheme.fontColor)
                 
                 ScrollView {
-                    Text("Temp")
-                        .foregroundStyle(userManager.currentTheme.fontColor)
+                    ForEach(sentence.linkedWords, id: \.self) { vocab in
+                        HStack {
+                            Text(vocab)
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                        )
                         .padding()
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    }
+                    Button1(label: "Add a vocabulary"){
+                        // todo
+                    }
+                    .padding(.horizontal)
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
@@ -86,7 +99,7 @@ struct SentenceDetailsView: View {
 struct SentenceDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         SentenceDetailsView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"),
-                            sentence: Sentence(bookID: "bookID", userID: "userID", sentence: "The penguin detective looks out the window from his igloo.", linkedWords: ["vocabID"]))
+                            sentence: Sentence(bookID: "bookID", userID: "userID", sentence: "The penguin detective looks out the window from his igloo.", linkedWords: ["vocab"]))
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())

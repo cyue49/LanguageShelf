@@ -33,7 +33,27 @@ class SentencesManager: ObservableObject {
         }
     }
     
-    func addNewSentence(bookID: String, newSentence: String, linkedWords: [String]) async throws {}
+    func addNewSentence(bookID: String, newSentence: String, linkedWords: [String]) async throws {
+        // if vocabulary already exists in this book throw error
+        if mySentences[bookID] != nil {
+            for sentence in mySentences[bookID]! {
+                if sentence.sentence == newSentence {
+                    throw DataErrors.existingNameError
+                }
+            }
+        }
+        
+        // if user entered empty string for vocab or definition, throw error
+        if (newSentence.isEmpty){
+            throw DataErrors.emptyNameError
+        }
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let aNewSentence = Sentence(bookID: bookID, userID: uid, sentence: newSentence, linkedWords: linkedWords)
+        
+        try await ref.document(aNewSentence.id).setData(["sentenceID": aNewSentence.id, "bookID": aNewSentence.bookID, "userID": aNewSentence.userID, "sentence": aNewSentence.sentence, "linkedWords": aNewSentence.linkedWords])
+        await fetchSentences()
+    }
     
     func removeSentence(sentenceID: String) async throws {}
     
