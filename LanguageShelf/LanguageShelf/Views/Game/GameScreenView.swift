@@ -5,8 +5,12 @@ struct GameScreenView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Game Screen")
+            ZStack {
+                userManager.currentTheme.bgColor
+                    .ignoresSafeArea()
+                VStack {
+                    Text("Coming soon!")
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
