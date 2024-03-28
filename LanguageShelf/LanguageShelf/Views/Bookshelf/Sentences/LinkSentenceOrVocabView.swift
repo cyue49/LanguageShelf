@@ -93,12 +93,12 @@ struct LinkSentenceOrVocabView: View {
             )
         }
         .sheet(isPresented: $showSelectSentencesSheet){
-            SelectSentencesOrVocabsView(book: book, vocabulary: updatedVocab, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
+            SelectSentencesOrVocabsView(book: book, vocabulary: vocabulary, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }
         .sheet(isPresented: $showSelectVocabsSheet){
-            SelectSentencesOrVocabsView(book: book, sentence: updatedSentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: updatedSentence.linkedWords)
+            SelectSentencesOrVocabsView(book: book, sentence: sentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: sentence.linkedWords)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }

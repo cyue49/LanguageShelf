@@ -79,6 +79,7 @@ struct VocabularyDetailsView: View {
                     }
                     Button("Delete vocabulary") {
                         Task {
+                            updateSentencesLinkedVocab()
                             try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
                         }
                         dismiss()
@@ -115,6 +116,21 @@ struct VocabularyDetailsView: View {
         }
         let result = try await task.value
         return result
+    }
+    
+    func updateSentencesLinkedVocab() {
+        guard let allSentencesInThisBook = sentencesManager.mySentences[book.id] else { return }
+        Task {
+            for sentence in allSentencesInThisBook {
+                if sentence.linkedWords.contains(vocabulary.word){
+                    var updatedLinkedWords = sentence.linkedWords
+                    if let index = updatedLinkedWords.firstIndex(of: vocabulary.word){
+                        updatedLinkedWords.remove(at: index)
+                    }
+                    try await sentencesManager.updateSentence(bookID: book.id, sentenceID: sentence.id, newSentence: sentence.sentence, linkedWords: updatedLinkedWords)
+                }
+            }
+        }
     }
 }
 
