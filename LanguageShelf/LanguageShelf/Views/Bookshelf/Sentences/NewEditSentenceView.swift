@@ -82,7 +82,7 @@ struct NewEditSentenceView: View {
                 existingSentenceAlert = false
             }
         }
-        .alert("You must enter a vocabulary and a definition.", isPresented: $emptyFieldAlert){
+        .alert("You must enter a sentence.", isPresented: $emptyFieldAlert){
             Button("Ok", role: .cancel) {
                 emptyFieldAlert = false
             }

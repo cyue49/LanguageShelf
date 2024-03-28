@@ -55,7 +55,10 @@ class SentencesManager: ObservableObject {
         await fetchSentences()
     }
     
-    func removeSentence(sentenceID: String) async throws {}
+    func removeSentence(sentenceID: String) async throws {
+        try await ref.document(sentenceID).delete()
+        await fetchSentences()
+    }
     
     func updateSentence(bookID: String, sentenceID: String, newSentence: String, linkedWords: [String]) async throws {
         // if sentence already exists in this book throw error

@@ -75,7 +75,7 @@ struct SentenceDetailsView: View {
                     }
                     Button("Delete sentence") {
                         Task {
-                            //
+                            try await sentencesManager.removeSentence(sentenceID: sentence.id)
                         }
                         dismiss()
                     }
