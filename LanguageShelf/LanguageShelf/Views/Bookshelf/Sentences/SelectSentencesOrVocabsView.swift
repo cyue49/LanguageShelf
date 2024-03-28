@@ -8,12 +8,15 @@ struct SelectSentencesOrVocabsView: View {
     @EnvironmentObject var sentencesManager: SentencesManager
     
     var book: Book
+    var sentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
+    var vocabulary: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     
     var selectSentence = true // true for selecting sentences, false for selecting vocabularies
     
     @Binding var showSheet: Bool
     
     var alreadyLinkedElements: [String]
+    @State var newlySelectedElements: [String] = []
     
     @State private var searchText = ""
     
@@ -61,9 +64,7 @@ struct SelectSentencesOrVocabsView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             ForEach(filteredSentenceList) { sentence in
-                                if !alreadyLinkedElements.contains(sentence.sentence){
-                                    CheckboxStyle1(label: sentence.sentence, checked: .constant(false))
-                                }
+                                    CheckboxStyle1(label: sentence.sentence, addToList: $newlySelectedElements)
                             }
                         }
                     } else { // sentence selects vocab
@@ -73,13 +74,16 @@ struct SelectSentencesOrVocabsView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             ForEach(filteredVocabList) { vocab in
-                                if !alreadyLinkedElements.contains(vocab.word){
-                                    CheckboxStyle1(label: vocab.word, checked: .constant(false))
-                                }
+                                    CheckboxStyle1(label: vocab.word, addToList: $newlySelectedElements)
                             }
                         }
                     }
                     Spacer()
+//                    VStack {
+//                        ForEach(newlySelectedElements, id: \.self) { string in
+//                            Text(string)
+//                        }
+//                    }
                 }
                 .padding()
                 .searchable(text: $searchText)
@@ -93,17 +97,23 @@ struct SelectSentencesOrVocabsView: View {
                 }
                 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button ("Add") {
-                        if selectSentence {
+                    Button ("Update") {
+                        if selectSentence { // update each sentence in newlySelectedElements with this vocabulary
                             // todo
-                        } else {
-                            // todo
+                        } else { // update this sentence's linked vocabulary with newlySelectedElements
+                            Task {
+                                try await sentencesManager.updateSentence(bookID: book.id, sentenceID: sentence.id, newSentence: sentence.sentence, linkedWords: newlySelectedElements)
+                                showSheet.toggle()
+                            }
                         }
                     }
                 }
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .onAppear(){
+                newlySelectedElements.append(contentsOf: alreadyLinkedElements)
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ class SentencesManager: ObservableObject {
         // if sentence already exists in this book throw error
         if mySentences[bookID] != nil {
             for sentence in mySentences[bookID]! {
-                if sentence.sentence == newSentence {
+                if sentence.sentence == newSentence && sentence.id != sentenceID {
                     throw DataErrors.existingNameError
                 }
             }
