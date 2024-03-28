@@ -50,7 +50,6 @@ struct NewEditVocabularySheetView: View {
                                 if isEdit {
                                     updateSentencesLinkedVocab()
                                     try await vocabsManager.updateVocabulary(bookID: book.id, vocabID: vocabulary.id, newWord: vocabField, newDefinition: definitionField, newNote: noteField)
-                                    // TODO: update the vocab in all sentences that has the old vocab in its linkedVocabs list with the new vocab
                                 } else {
                                     try await vocabsManager.addNewVocabulary(bookID: book.id, newWord: vocabField, newDefinition: definitionField, newNote: noteField)
                                 }
