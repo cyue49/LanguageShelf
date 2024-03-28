@@ -78,4 +78,42 @@ class SentencesManager: ObservableObject {
         try await ref.document(sentenceID).updateData(["sentence": newSentence, "linkedWords": linkedWords])
         await fetchSentences()
     }
+    
+    func updateLinkedSentenceForVocabulary(vocabulary: String, oldSentences: [String], newSentences: [String]) async throws {
+        // remove vocab from sentences
+        for sentence in oldSentences {
+            if !newSentences.contains(sentence){ // if this sentence no longer linked to the vocab, remove
+                let query = ref.whereField("sentence", isEqualTo: sentence)
+                guard let snapshot = try? await query.getDocuments() else { return }
+                
+                for document in snapshot.documents {
+                    let data = document.data()
+                    let sentenceID = data["sentenceID"] as? String ?? ""
+                    var linkedWords = data["linkedWords"] as? [String] ?? []
+                    if let index = linkedWords.firstIndex(of: vocabulary){
+                        linkedWords.remove(at: index)
+                    }
+                    try await ref.document(sentenceID).updateData(["linkedWords": linkedWords])
+                }
+            }
+        }
+        
+        // add vocab to sentences
+        for sentence in newSentences {
+            let query = ref.whereField("sentence", isEqualTo: sentence)
+            guard let snapshot = try? await query.getDocuments() else { return }
+            
+            for document in snapshot.documents {
+                let data = document.data()
+                let sentenceID = data["sentenceID"] as? String ?? ""
+                var linkedWords = data["linkedWords"] as? [String] ?? []
+                if !linkedWords.contains(vocabulary){
+                    linkedWords.append(vocabulary)
+                }
+                try await ref.document(sentenceID).updateData(["linkedWords": linkedWords])
+            }
+        }
+        
+        await fetchSentences()
+    }
 }

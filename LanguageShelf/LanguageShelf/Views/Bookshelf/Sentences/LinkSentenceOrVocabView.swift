@@ -36,9 +36,10 @@ struct LinkSentenceOrVocabView: View {
                         showSelectVocabsSheet.toggle()
                     }
                 }, label: {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "paperclip.circle.fill")
                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                         .bold()
+                        .font(.system(size: 26))
                 })
             }
             
@@ -50,9 +51,10 @@ struct LinkSentenceOrVocabView: View {
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .center)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .background(
+                                    Rectangle()
+                                        .foregroundColor(userManager.currentTheme.buttonColor)
+                                        .cornerRadius(20)
                                 )
                         }
                     }
@@ -64,9 +66,10 @@ struct LinkSentenceOrVocabView: View {
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .center)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .background(
+                                    Rectangle()
+                                        .foregroundColor(userManager.currentTheme.buttonColor)
+                                        .cornerRadius(20)
                                 )
                         }
                     }

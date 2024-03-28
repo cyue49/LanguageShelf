@@ -99,7 +99,10 @@ struct SelectSentencesOrVocabsView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button ("Update") {
                         if selectSentence { // update each sentence in newlySelectedElements with this vocabulary
-                            // todo
+                            Task {
+                                try await sentencesManager.updateLinkedSentenceForVocabulary(vocabulary: vocabulary.word,oldSentences: alreadyLinkedElements, newSentences: newlySelectedElements) // add this vocabulary to linkedWords of all sentences in newlySelectedElements
+                                showSheet.toggle()
+                            }
                         } else { // update this sentence's linked vocabulary with newlySelectedElements
                             Task {
                                 try await sentencesManager.updateSentence(bookID: book.id, sentenceID: sentence.id, newSentence: sentence.sentence, linkedWords: newlySelectedElements)
