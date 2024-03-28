@@ -17,50 +17,52 @@ struct VocabularyDetailsView: View {
     var body: some View {
         ZStack {
             userManager.currentTheme.bgColor
-            VStack (alignment: .leading ,spacing: 20) {
-                HStack {
-                    Image(systemName: "text.book.closed.fill")
-                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
-                        .font(.system(size: 30))
+            ScrollView {
+                VStack (alignment: .leading ,spacing: 20) {
+                    HStack {
+                        Image(systemName: "text.book.closed.fill")
+                            .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                            .font(.system(size: 30))
+                        
+                        Text(vocabulary.word)
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    }
                     
-                    Text(vocabulary.word)
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                }
-                
-                Text("Definition:")
-                    .font(.subheadline)
-                    .foregroundStyle(userManager.currentTheme.fontColor)
-                ScrollView {
-                    Text(vocabulary.definition)
+                    Text("Definition:")
+                        .font(.subheadline)
                         .foregroundStyle(userManager.currentTheme.fontColor)
-                        .padding()
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                )
-                
-                Text("Notes:")
-                    .font(.subheadline)
-                    .foregroundStyle(userManager.currentTheme.fontColor)
-                ScrollView {
-                    Text(vocabulary.note)
+                    VStack {
+                        Text(vocabulary.definition)
+                            .foregroundStyle(userManager.currentTheme.fontColor)
+                            .padding()
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                    )
+                    
+                    Text("Notes:")
+                        .font(.subheadline)
                         .foregroundStyle(userManager.currentTheme.fontColor)
-                        .padding()
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    VStack {
+                        Text(vocabulary.note)
+                            .foregroundStyle(userManager.currentTheme.fontColor)
+                            .padding()
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                    )
+                    
+                    LinkSentenceOrVocabView(book: book, vocabulary: vocabulary)
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                )
-                
-                LinkSentenceOrVocabView(book: book, vocabulary: vocabulary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
