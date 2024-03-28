@@ -77,6 +77,9 @@ struct SignedOutView: View {
                 
                 Button {
                     hasAccount.toggle()
+                    password = ""
+                    username = ""
+                    confirmPassword = ""
                 } label: {
                     Text("Don't have an account? Sign up!")
                         .underline()
@@ -145,6 +148,9 @@ struct SignedOutView: View {
                 
                 Button {
                     hasAccount.toggle()
+                    password = ""
+                    username = ""
+                    confirmPassword = ""
                 } label: {
                     Text("Already have an account? Sign in!")
                         .underline()
