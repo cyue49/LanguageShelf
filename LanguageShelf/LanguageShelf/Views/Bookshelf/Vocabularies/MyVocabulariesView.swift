@@ -13,6 +13,38 @@ struct VocabulariesView: View {
     @State var showVocabSheet: Bool = false
     @State var showSentenceSheet: Bool = false
     
+    @State private var searchText = ""
+    
+    // filtered vocabs from search bar
+    var filteredVocabList: [Vocabulary] {
+        guard let allVocabList = vocabsManager.myVocabularies[book.id] else { return [] }
+        if searchText.isEmpty{
+            return allVocabList
+        }
+        var filteredVocabList: [Vocabulary] = []
+        for vocab in allVocabList {
+            if vocab.word.lowercased().contains(searchText.lowercased()){
+                filteredVocabList.append(vocab)
+            }
+        }
+        return filteredVocabList
+    }
+    
+    // filtered sentences from search bar
+    var filteredSentenceList: [Sentence] {
+        guard let allSentenceList = sentencesManager.mySentences[book.id] else { return [] }
+        if searchText.isEmpty{
+            return allSentenceList
+        }
+        var filteredSentenceList: [Sentence] = []
+        for sentence in allSentenceList {
+            if sentence.sentence.lowercased().contains(searchText.lowercased()){
+                filteredSentenceList.append(sentence)
+            }
+        }
+        return filteredSentenceList
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -29,7 +61,7 @@ struct VocabulariesView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             List {
-                                ForEach(vocabsManager.myVocabularies[book.id]!) { vocab in
+                                ForEach(filteredVocabList) { vocab in
                                     VocabularyCardView(vocabulary: vocab)
                                         .overlay(
                                             NavigationLink("", destination: VocabularyDetailsView(book: book ,vocabulary: vocab))
@@ -47,7 +79,7 @@ struct VocabulariesView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             List {
-                                ForEach(sentencesManager.mySentences[book.id]!) { sentence in
+                                ForEach(filteredSentenceList) { sentence in
                                     VocabularyCardView(sentence: sentence, isVocab: false)
                                         .overlay(
                                             NavigationLink("", destination: SentenceDetailsView(book: book ,sentence: sentence))
@@ -60,6 +92,7 @@ struct VocabulariesView: View {
                         }
                     }
                 }
+                .searchable(text: $searchText)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
