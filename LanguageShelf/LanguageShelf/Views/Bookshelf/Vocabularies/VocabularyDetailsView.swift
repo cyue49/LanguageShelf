@@ -55,6 +55,8 @@ struct VocabularyDetailsView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
                 )
+                
+                LinkSentenceOrVocabView(book: book, vocabulary: vocabulary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()

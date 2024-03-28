@@ -29,33 +29,7 @@ struct SentenceDetailsView: View {
                         .font(.title2)
                 }
                 
-                Text("Related vocabularies:")
-                    .font(.subheadline)
-                    .foregroundStyle(userManager.currentTheme.fontColor)
-                
-                ScrollView {
-                    ForEach(sentence.linkedWords, id: \.self) { vocab in
-                        HStack {
-                            Text(vocab)
-                                .foregroundStyle(userManager.currentTheme.fontColor)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                        )
-                        .padding()
-                    }
-                    Button1(label: "Add a vocabulary"){
-                        // todo
-                    }
-                    .padding()
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                )
+                LinkSentenceOrVocabView(book: book, sentence: sentence, linkingSentences: false)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
