@@ -53,6 +53,11 @@ struct LinkSentenceOrVocabView: View {
             ScrollView {
                 if linkingSentences {
                     VStack {
+                        if linkedSentences.isEmpty {
+                            Text("No linked sentences yet.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .padding()
+                        }
                         ForEach(linkedSentences) { sent in
                             NavigationLink(destination: SentenceDetailsView(book: book, sentence: sent)) {
                                 Text(sent.sentence)
@@ -70,6 +75,11 @@ struct LinkSentenceOrVocabView: View {
                     .padding()
                 } else {
                     VStack {
+                        if linkedVocabs.isEmpty {
+                            Text("No linked vocabularies yet.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .padding()
+                        }
                         ForEach(linkedVocabs) { vocab in
                             NavigationLink(destination: VocabularyDetailsView(book: book, vocabulary: vocab)) {
                                 Text(vocab.word)
