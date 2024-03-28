@@ -48,7 +48,9 @@ struct NewEditVocabularySheetView: View {
                         Task {
                             do {
                                 if isEdit {
+                                    updateSentencesLinkedVocab()
                                     try await vocabsManager.updateVocabulary(bookID: book.id, vocabID: vocabulary.id, newWord: vocabField, newDefinition: definitionField, newNote: noteField)
+                                    // TODO: update the vocab in all sentences that has the old vocab in its linkedVocabs list with the new vocab
                                 } else {
                                     try await vocabsManager.addNewVocabulary(bookID: book.id, newWord: vocabField, newDefinition: definitionField, newNote: noteField)
                                 }
@@ -90,6 +92,22 @@ struct NewEditVocabularySheetView: View {
         .alert("You must enter a vocabulary and a definition.", isPresented: $emptyFieldAlert){
             Button("Ok", role: .cancel) {
                 emptyFieldAlert = false
+            }
+        }
+    }
+    
+    func updateSentencesLinkedVocab() {
+        guard let allSentencesInThisBook = sentencesManager.mySentences[book.id] else { return }
+        Task {
+            for sentence in allSentencesInThisBook {
+                if sentence.linkedWords.contains(vocabulary.word){
+                    var updatedLinkedWords = sentence.linkedWords
+                    if let index = updatedLinkedWords.firstIndex(of: vocabulary.word){
+                        updatedLinkedWords.remove(at: index)
+                    }
+                    updatedLinkedWords.append(vocabField)
+                    try await sentencesManager.updateSentence(bookID: book.id, sentenceID: sentence.id, newSentence: sentence.sentence, linkedWords: updatedLinkedWords)
+                }
             }
         }
     }
