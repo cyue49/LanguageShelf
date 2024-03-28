@@ -13,6 +13,8 @@ struct SelectSentencesOrVocabsView: View {
     
     @Binding var showSheet: Bool
     
+    var alreadyLinkedElements: [String]
+    
     @State private var searchText = ""
     
     // filtered vocabs from search bar
@@ -59,7 +61,9 @@ struct SelectSentencesOrVocabsView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             ForEach(filteredSentenceList) { sentence in
-                                CheckboxStyle1(label: sentence.sentence, checked: .constant(false))
+                                if !alreadyLinkedElements.contains(sentence.sentence){
+                                    CheckboxStyle1(label: sentence.sentence, checked: .constant(false))
+                                }
                             }
                         }
                     } else { // sentence selects vocab
@@ -69,7 +73,9 @@ struct SelectSentencesOrVocabsView: View {
                                 .frame(maxHeight: .infinity)
                         } else {
                             ForEach(filteredVocabList) { vocab in
-                                CheckboxStyle1(label: vocab.word, checked: .constant(false))
+                                if !alreadyLinkedElements.contains(vocab.word){
+                                    CheckboxStyle1(label: vocab.word, checked: .constant(false))
+                                }
                             }
                         }
                     }
@@ -106,7 +112,8 @@ struct SelectSentencesOrVocabsView_Previews: PreviewProvider {
     static var previews: some View {
         SelectSentencesOrVocabsView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"),
                                     selectSentence: true,
-                                    showSheet: .constant(true))
+                                    showSheet: .constant(true),
+                                    alreadyLinkedElements: [])
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())

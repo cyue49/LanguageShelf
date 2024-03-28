@@ -44,23 +44,19 @@ struct LinkSentenceOrVocabView: View {
             
             ScrollView {
                 if linkingSentences {
-                    if let sentencesInThisBook = sentencesManager.mySentences[book.id] {
-                        VStack {
-                            ForEach(sentencesInThisBook) { sent in
-                                if (sent.linkedWords.contains(vocabulary.word)){
-                                    Text(sent.sentence)
-                                        .foregroundStyle(userManager.currentTheme.fontColor)
-                                        .padding()
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                                        )
-                                }
-                            }
+                    VStack {
+                        ForEach(getLinkedSentences(), id: \.self) { sent in
+                            Text(sent)
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                )
                         }
-                        .padding()
                     }
+                    .padding()
                 } else {
                     VStack {
                         ForEach(sentence.linkedWords, id: \.self) { vocab in
@@ -84,15 +80,27 @@ struct LinkSentenceOrVocabView: View {
             )
         }
         .sheet(isPresented: $showSelectSentencesSheet){
-            SelectSentencesOrVocabsView(book: book, selectSentence: true, showSheet: $showSelectSentencesSheet)
+            SelectSentencesOrVocabsView(book: book, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }
         .sheet(isPresented: $showSelectVocabsSheet){
-            SelectSentencesOrVocabsView(book: book, selectSentence: false, showSheet: $showSelectVocabsSheet)
+            SelectSentencesOrVocabsView(book: book, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: sentence.linkedWords)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }
+    }
+    
+    // get all linked sentences for a vocabulary
+    func getLinkedSentences() -> [String] {
+        guard let allSentencesInThisBook = sentencesManager.mySentences[book.id] else { return [] }
+        var linkedSentences: [String] = []
+        for sentence in allSentencesInThisBook {
+            if (sentence.linkedWords.contains(vocabulary.word)){
+                linkedSentences.append(sentence.sentence)
+            }
+        }
+        return linkedSentences
     }
 }
 
