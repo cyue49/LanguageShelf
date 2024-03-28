@@ -34,7 +34,7 @@ class SentencesManager: ObservableObject {
     }
     
     func addNewSentence(bookID: String, newSentence: String, linkedWords: [String]) async throws {
-        // if vocabulary already exists in this book throw error
+        // if sentence already exists in this book throw error
         if mySentences[bookID] != nil {
             for sentence in mySentences[bookID]! {
                 if sentence.sentence == newSentence {
@@ -43,7 +43,7 @@ class SentencesManager: ObservableObject {
             }
         }
         
-        // if user entered empty string for vocab or definition, throw error
+        // if user entered empty string for sentence, throw error
         if (newSentence.isEmpty){
             throw DataErrors.emptyNameError
         }
@@ -57,5 +57,22 @@ class SentencesManager: ObservableObject {
     
     func removeSentence(sentenceID: String) async throws {}
     
-    func updateSentence(bookID: String, sentenceID: String, newSentence: String, linkedWords: [String]) async throws {}
+    func updateSentence(bookID: String, sentenceID: String, newSentence: String, linkedWords: [String]) async throws {
+        // if sentence already exists in this book throw error
+        if mySentences[bookID] != nil {
+            for sentence in mySentences[bookID]! {
+                if sentence.sentence == newSentence {
+                    throw DataErrors.existingNameError
+                }
+            }
+        }
+        
+        // if user entered empty string for sentence, throw error
+        if (newSentence.isEmpty){
+            throw DataErrors.emptyNameError
+        }
+        
+        try await ref.document(sentenceID).updateData(["sentence": newSentence, "linkedWords": linkedWords])
+        await fetchSentences()
+    }
 }

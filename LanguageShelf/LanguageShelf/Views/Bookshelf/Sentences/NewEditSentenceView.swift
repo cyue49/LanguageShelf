@@ -45,7 +45,7 @@ struct NewEditSentenceView: View {
                         Task {
                             do {
                                 if isEdit {
-                                    // TODO: edit sentence function
+                                    try await sentencesManager.updateSentence(bookID: book.id, sentenceID: sentence.id, newSentence: sentenceField, linkedWords: linkedWords)
                                 } else {
                                     try await sentencesManager.addNewSentence(bookID: book.id, newSentence: sentenceField, linkedWords: linkedWords)
                                 }

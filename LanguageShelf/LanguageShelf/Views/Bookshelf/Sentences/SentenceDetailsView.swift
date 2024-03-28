@@ -50,7 +50,7 @@ struct SentenceDetailsView: View {
                     Button1(label: "Add a vocabulary"){
                         // todo
                     }
-                    .padding(.horizontal)
+                    .padding()
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
@@ -73,7 +73,7 @@ struct SentenceDetailsView: View {
                     Button ("Edit") {
                         showEditSheet.toggle()
                     }
-                    Button("Delete Book") {
+                    Button("Delete sentence") {
                         Task {
                             //
                         }

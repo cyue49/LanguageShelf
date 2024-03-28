@@ -71,7 +71,7 @@ struct VocabularyDetailsView: View {
                     Button ("Edit") {
                         showEditSheet.toggle()
                     }
-                    Button("Delete Book") {
+                    Button("Delete vocabulary") {
                         Task {
                             try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
                         }
