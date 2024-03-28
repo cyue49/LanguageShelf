@@ -5,6 +5,7 @@ struct NewEditVocabularySheetView: View {
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
     @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     var book: Book
     var vocabulary: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "", note: "")
@@ -104,5 +105,6 @@ struct NewEditVocabularySheetView_Previews: PreviewProvider {
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())
             .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }

@@ -31,6 +31,8 @@
 		DEAC5D522BAF630400EB807E /* BooksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAC5D512BAF630400EB807E /* BooksManager.swift */; };
 		DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */; };
 		DED2A7C92BB4EF1500954581 /* LinkSentenceOrVocabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED2A7C82BB4EF1500954581 /* LinkSentenceOrVocabView.swift */; };
+		DED2A7CB2BB5156200954581 /* SelectSentencesOrVocabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED2A7CA2BB5156200954581 /* SelectSentencesOrVocabsView.swift */; };
+		DED2A7CD2BB5172200954581 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED2A7CC2BB5172200954581 /* CheckboxView.swift */; };
 		DED6F7532BA73D5B00F742D0 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DED6F7522BA73D5B00F742D0 /* FirebaseDatabaseSwift */; };
 		DEE0F0C72BAB3CD3003F2BC8 /* EditTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */; };
 		DEE0F0C92BAB7B16003F2BC8 /* BookshelfCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0F0C82BAB7B16003F2BC8 /* BookshelfCardView.swift */; };
@@ -79,6 +81,8 @@
 		DEAC5D512BAF630400EB807E /* BooksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksManager.swift; sourceTree = "<group>"; };
 		DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesManager.swift; sourceTree = "<group>"; };
 		DED2A7C82BB4EF1500954581 /* LinkSentenceOrVocabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkSentenceOrVocabView.swift; sourceTree = "<group>"; };
+		DED2A7CA2BB5156200954581 /* SelectSentencesOrVocabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSentencesOrVocabsView.swift; sourceTree = "<group>"; };
+		DED2A7CC2BB5172200954581 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextFieldView.swift; sourceTree = "<group>"; };
 		DEE0F0C82BAB7B16003F2BC8 /* BookshelfCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCardView.swift; sourceTree = "<group>"; };
 		DEE108182BB3211B008A04D6 /* NewEditVocabularySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditVocabularySheetView.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 				DEE108212BB3A23A008A04D6 /* SentenceDetailsView.swift */,
 				DEE108232BB3CEC1008A04D6 /* NewEditSentenceView.swift */,
 				DED2A7C82BB4EF1500954581 /* LinkSentenceOrVocabView.swift */,
+				DED2A7CA2BB5156200954581 /* SelectSentencesOrVocabsView.swift */,
 			);
 			path = Sentences;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				DEF0D2722BA945A900BA9C8E /* SecureTextfieldWithEye.swift */,
 				DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */,
 				DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */,
+				DED2A7CC2BB5172200954581 /* CheckboxView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -356,6 +362,7 @@
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
 				DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */,
 				DE10C97D2BAD477300D59EB9 /* DataErrors.swift in Sources */,
+				DED2A7CB2BB5156200954581 /* SelectSentencesOrVocabsView.swift in Sources */,
 				DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */,
 				DEE0F0C92BAB7B16003F2BC8 /* BookshelfCardView.swift in Sources */,
 				DEE550B42BA670720045BA66 /* TextFieldStyles.swift in Sources */,
@@ -373,6 +380,7 @@
 				DE85C4512BAE14AB007721F3 /* MyVocabulariesView.swift in Sources */,
 				DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */,
 				DEE1081B2BB370C8008A04D6 /* Sentence.swift in Sources */,
+				DED2A7CD2BB5172200954581 /* CheckboxView.swift in Sources */,
 				DEE108192BB3211B008A04D6 /* NewEditVocabularySheetView.swift in Sources */,
 				DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */,
 				DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */,

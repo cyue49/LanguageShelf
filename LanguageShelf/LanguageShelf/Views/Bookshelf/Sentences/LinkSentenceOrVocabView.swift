@@ -13,6 +13,9 @@ struct LinkSentenceOrVocabView: View {
     
     var linkingSentences = true // true if vocab entry wants to link sentences, false if sentence entry wants to link vocab
     
+    @State var showSelectSentencesSheet = false
+    @State var showSelectVocabsSheet = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -27,10 +30,10 @@ struct LinkSentenceOrVocabView: View {
                 }
                 Spacer()
                 Button(action: {
-                    if linkingSentences {
-                        // todo
-                    } else {
-                        // todo
+                    if linkingSentences { // vocab links sentence
+                        showSelectSentencesSheet.toggle()
+                    } else { // sentence links vocab
+                        showSelectVocabsSheet.toggle()
                     }
                 }, label: {
                     Image(systemName: "plus.circle.fill")
@@ -79,6 +82,16 @@ struct LinkSentenceOrVocabView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
             )
+        }
+        .sheet(isPresented: $showSelectSentencesSheet){
+            SelectSentencesOrVocabsView(book: book, selectSentence: true, showSheet: $showSelectSentencesSheet)
+                .presentationDetents([.height(600), .large])
+                .presentationDragIndicator(.automatic)
+        }
+        .sheet(isPresented: $showSelectVocabsSheet){
+            SelectSentencesOrVocabsView(book: book, selectSentence: false, showSheet: $showSelectVocabsSheet)
+                .presentationDetents([.height(600), .large])
+                .presentationDragIndicator(.automatic)
         }
     }
 }
