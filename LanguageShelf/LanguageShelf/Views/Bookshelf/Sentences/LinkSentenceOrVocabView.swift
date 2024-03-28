@@ -13,6 +13,7 @@ struct LinkSentenceOrVocabView: View {
     
     @State var updatedVocab: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     @State var updatedSentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
+    @State var alreadyLinkedElements: [String] = []
     
     var linkingSentences = true // true if vocab entry wants to link sentences, false if sentence entry wants to link vocab
     
@@ -93,25 +94,41 @@ struct LinkSentenceOrVocabView: View {
             )
         }
         .sheet(isPresented: $showSelectSentencesSheet){
-            SelectSentencesOrVocabsView(book: book, vocabulary: vocabulary, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
+            SelectSentencesOrVocabsView(book: book, vocabulary: vocabulary, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: $alreadyLinkedElements)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
+                .onDisappear(){
+                    Task {
+                        updatedVocab = try await getVocabFromDatabase()
+                        linkedSentences = getLinkedSentences2()
+                        alreadyLinkedElements = getLinkedSentences()
+                    }
+                }
         }
         .sheet(isPresented: $showSelectVocabsSheet){
-            SelectSentencesOrVocabsView(book: book, sentence: sentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: sentence.linkedWords)
+            SelectSentencesOrVocabsView(book: book, sentence: sentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: $alreadyLinkedElements)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
+                .onDisappear(){
+                    Task {
+                        updatedSentence = try await getSentenceFromDatabase()
+                        linkedVocabs = try await getLinkedVocabularies()
+                        alreadyLinkedElements = updatedSentence.linkedWords
+                    }
+                }
         }
         .onAppear() {
             if linkingSentences {
                 Task {
                     updatedVocab = try await getVocabFromDatabase()
                     linkedSentences = getLinkedSentences2()
+                    alreadyLinkedElements = getLinkedSentences()
                 }
             } else {
                 Task {
                     updatedSentence = try await getSentenceFromDatabase()
                     linkedVocabs = try await getLinkedVocabularies()
+                    alreadyLinkedElements = updatedSentence.linkedWords
                 }
             }
         }

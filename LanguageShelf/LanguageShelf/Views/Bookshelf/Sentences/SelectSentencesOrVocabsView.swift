@@ -15,7 +15,7 @@ struct SelectSentencesOrVocabsView: View {
     
     @Binding var showSheet: Bool
     
-    var alreadyLinkedElements: [String]
+    @Binding var alreadyLinkedElements: [String]
     @State var newlySelectedElements: [String] = []
     
     @State private var searchText = ""
@@ -126,7 +126,7 @@ struct SelectSentencesOrVocabsView_Previews: PreviewProvider {
         SelectSentencesOrVocabsView(book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"),
                                     selectSentence: true,
                                     showSheet: .constant(true),
-                                    alreadyLinkedElements: [])
+                                    alreadyLinkedElements: .constant([]))
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())
