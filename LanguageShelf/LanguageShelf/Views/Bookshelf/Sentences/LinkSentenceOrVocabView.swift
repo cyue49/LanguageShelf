@@ -11,6 +11,9 @@ struct LinkSentenceOrVocabView: View {
     var sentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
     var vocabulary: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     
+    @State var updatedVocab: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
+    @State var updatedSentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
+    
     var linkingSentences = true // true if vocab entry wants to link sentences, false if sentence entry wants to link vocab
     
     @State var showSelectSentencesSheet = false
@@ -90,20 +93,24 @@ struct LinkSentenceOrVocabView: View {
             )
         }
         .sheet(isPresented: $showSelectSentencesSheet){
-            SelectSentencesOrVocabsView(book: book, vocabulary: vocabulary, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
+            SelectSentencesOrVocabsView(book: book, vocabulary: updatedVocab, selectSentence: true, showSheet: $showSelectSentencesSheet, alreadyLinkedElements: getLinkedSentences())
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }
         .sheet(isPresented: $showSelectVocabsSheet){
-            SelectSentencesOrVocabsView(book: book, sentence: sentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: sentence.linkedWords)
+            SelectSentencesOrVocabsView(book: book, sentence: updatedSentence, selectSentence: false, showSheet: $showSelectVocabsSheet, alreadyLinkedElements: updatedSentence.linkedWords)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
         }
         .onAppear() {
             if linkingSentences {
-                linkedSentences = getLinkedSentences2()
+                Task {
+                    updatedVocab = try await getVocabFromDatabase()
+                    linkedSentences = getLinkedSentences2()
+                }
             } else {
                 Task {
+                    updatedSentence = try await getSentenceFromDatabase()
                     linkedVocabs = try await getLinkedVocabularies()
                 }
             }
@@ -115,7 +122,7 @@ struct LinkSentenceOrVocabView: View {
         guard let allSentencesInThisBook = sentencesManager.mySentences[book.id] else { return [] }
         var linkedSentences: [String] = []
         for sentence in allSentencesInThisBook {
-            if (sentence.linkedWords.contains(vocabulary.word)){
+            if (sentence.linkedWords.contains(updatedVocab.word)){
                 linkedSentences.append(sentence.sentence)
             }
         }
@@ -127,7 +134,7 @@ struct LinkSentenceOrVocabView: View {
         guard let allSentencesInThisBook = sentencesManager.mySentences[book.id] else { return [] }
         var linkedSentences: [Sentence] = []
         for sentence in allSentencesInThisBook {
-            if (sentence.linkedWords.contains(vocabulary.word)){
+            if (sentence.linkedWords.contains(updatedVocab.word)){
                 linkedSentences.append(sentence)
             }
         }
@@ -138,11 +145,27 @@ struct LinkSentenceOrVocabView: View {
     func getLinkedVocabularies() async throws -> [Vocabulary] {
         var linkedVocabs: [Vocabulary] = []
         let task = Task {
-            for vocab in sentence.linkedWords {
+            for vocab in updatedSentence.linkedWords {
                 let v = try await vocabsManager.fetchVocabFromWord(word: vocab)
                 linkedVocabs.append(v)
             }
             return linkedVocabs
+        }
+        let result = try await task.value
+        return result
+    }
+    
+    func getVocabFromDatabase() async throws -> Vocabulary {
+        let task = Task {
+            return try await vocabsManager.fetchVocabFromID(id: vocabulary.id)
+        }
+        let result = try await task.value
+        return result
+    }
+    
+    func getSentenceFromDatabase() async throws -> Sentence {
+        let task = Task {
+            return try await sentencesManager.fetchSentenceFromID(id: sentence.id)
         }
         let result = try await task.value
         return result
