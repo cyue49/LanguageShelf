@@ -116,4 +116,17 @@ class SentencesManager: ObservableObject {
         
         await fetchSentences()
     }
+    
+    func fetchSentenceFromID(id: String) async throws -> Sentence {
+        if let data = try await ref.document(id).getDocument().data() {
+            let sentenceID = data["sentenceID"] as? String ?? ""
+            let userID = data["userID"] as? String ?? ""
+            let bookID = data["bookID"] as? String ?? ""
+            let sentence = data["sentence"] as? String ?? ""
+            let linkedWords = data["linkedWords"] as? [String] ?? []
+            let fetchedSentence = Sentence(id: sentenceID, bookID: bookID, userID: userID, sentence: sentence, linkedWords: linkedWords)
+            return fetchedSentence
+        }
+        return Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
+    }
 }

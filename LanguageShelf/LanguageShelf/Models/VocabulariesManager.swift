@@ -99,4 +99,18 @@ class VocabulariesManager: ObservableObject {
         }
         return vocab
     }
+    
+    func fetchVocabFromID(id: String) async throws -> Vocabulary {
+        if let data = try await ref.document(id).getDocument().data() {
+            let vocabID = data["vocabID"] as? String ?? ""
+            let userID = data["userID"] as? String ?? ""
+            let bookID = data["bookID"] as? String ?? ""
+            let word = data["word"] as? String ?? ""
+            let definition = data["definition"] as? String ?? ""
+            let note = data["note"] as? String ?? ""
+            var vocab = Vocabulary(id: vocabID, bookID: bookID, userID: userID, word: word, definition: definition, note: note)
+            return vocab
+        }
+        return Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
+    }
 }

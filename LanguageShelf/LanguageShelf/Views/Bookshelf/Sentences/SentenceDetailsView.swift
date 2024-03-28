@@ -12,6 +12,7 @@ struct SentenceDetailsView: View {
     var book: Book
     var sentence: Sentence
     
+    @State var updatedSentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
     @State var showEditSheet: Bool = false
     
     var body: some View {
@@ -19,7 +20,7 @@ struct SentenceDetailsView: View {
             userManager.currentTheme.bgColor
             VStack (alignment: .leading ,spacing: 20) {
                 HStack (alignment: .bottom, spacing: 0) {
-                    Label(sentence.sentence,systemImage: "quote.opening")
+                    Label(updatedSentence.sentence,systemImage: "quote.opening")
                         .font(.title2)
                         .bold()
                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -37,7 +38,7 @@ struct SentenceDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal){
-                Text(sentence.sentence)
+                Text(updatedSentence.sentence)
                     .foregroundStyle(userManager.currentTheme.fontColor)
                     .lineLimit(1)
             }
@@ -63,10 +64,28 @@ struct SentenceDetailsView: View {
         .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $showEditSheet){
-            NewEditSentenceView(book: book,sentence: sentence, showSheet: $showEditSheet, isEdit: true)
+            NewEditSentenceView(book: book,sentence: updatedSentence, showSheet: $showEditSheet, isEdit: true)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
+                .onDisappear(){
+                    Task {
+                        updatedSentence = try await getSentenceFromDatabase()
+                    }
+                }
         }
+        .onAppear(){
+            Task {
+                updatedSentence = try await getSentenceFromDatabase()
+            }
+        }
+    }
+    
+    func getSentenceFromDatabase() async throws -> Sentence {
+        let task = Task {
+            return try await sentencesManager.fetchSentenceFromID(id: sentence.id)
+        }
+        let result = try await task.value
+        return result
     }
 }
 

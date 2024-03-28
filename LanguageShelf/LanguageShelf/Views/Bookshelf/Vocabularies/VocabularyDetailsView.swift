@@ -12,6 +12,7 @@ struct VocabularyDetailsView: View {
     var book: Book
     var vocabulary: Vocabulary
     
+    @State var updatedVocab: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     @State var showEditSheet: Bool = false
     
     var body: some View {
@@ -24,7 +25,7 @@ struct VocabularyDetailsView: View {
                             .foregroundColor(userManager.currentTheme.primaryAccentColor)
                             .font(.system(size: 30))
                         
-                        Text(vocabulary.word)
+                        Text(updatedVocab.word)
                             .font(.title)
                             .bold()
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -34,7 +35,7 @@ struct VocabularyDetailsView: View {
                         .font(.subheadline)
                         .foregroundStyle(userManager.currentTheme.fontColor)
                     VStack {
-                        Text(vocabulary.definition)
+                        Text(updatedVocab.definition)
                             .foregroundStyle(userManager.currentTheme.fontColor)
                             .padding()
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
@@ -48,7 +49,7 @@ struct VocabularyDetailsView: View {
                         .font(.subheadline)
                         .foregroundStyle(userManager.currentTheme.fontColor)
                     VStack {
-                        Text(vocabulary.note)
+                        Text(updatedVocab.note)
                             .foregroundStyle(userManager.currentTheme.fontColor)
                             .padding()
                             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
@@ -67,7 +68,7 @@ struct VocabularyDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal){
-                Text(vocabulary.word)
+                Text(updatedVocab.word)
                     .foregroundStyle(userManager.currentTheme.fontColor)
             }
             
@@ -92,10 +93,28 @@ struct VocabularyDetailsView: View {
         .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $showEditSheet){
-            NewEditVocabularySheetView(book: book, vocabulary: vocabulary, showSheet: $showEditSheet, isEdit: true)
+            NewEditVocabularySheetView(book: book, vocabulary: updatedVocab, showSheet: $showEditSheet, isEdit: true)
                 .presentationDetents([.height(600), .large])
                 .presentationDragIndicator(.automatic)
+                .onDisappear(){
+                    Task {
+                        updatedVocab = try await getVocabFromDatabase()
+                    }
+                }
         }
+        .onAppear(){
+            Task {
+                updatedVocab = try await getVocabFromDatabase()
+            }
+        }
+    }
+    
+    func getVocabFromDatabase() async throws -> Vocabulary {
+        let task = Task {
+            return try await vocabsManager.fetchVocabFromID(id: vocabulary.id)
+        }
+        let result = try await task.value
+        return result
     }
 }
 
