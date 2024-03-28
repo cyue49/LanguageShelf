@@ -1,3 +1,19 @@
+2024/03/28 Chen
+
+Done since last scrum: 
+- Implemented database operations for add/delete/update a sentence 
+- Implemented search bar function for searching vocabularies and sentences
+- Added frontend UI of selecting related sentences and vocabularies from vocabulary/sentence details pages
+- Implemented database operations for linking selected related sentences/vocabularies
+
+Todo until next scrum: 
+- Implements redirects to relevant details page when clicking on a linked vocabulary/sentence
+- Fix details page not updating correctly after update unless dismiss and come back
+- Look into dictionary APIs 
+- Look into adding images as bookshelves and books covers
+
+------------------
+
 2024/03/27 Chen
 
 Done since last scrum: 
