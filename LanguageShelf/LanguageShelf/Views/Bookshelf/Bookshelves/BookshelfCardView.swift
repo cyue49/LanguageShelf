@@ -8,6 +8,7 @@ struct BookshelfCardView: View {
     @State var showEditNameAlert: Bool = false
     @State var showBookshelfAlreadyExistsAlert: Bool = false
     @State var emptyBookshelfNameAlert: Bool = false
+    @State var showConfirmDeleteAlert: Bool = false
     
     @State var newBookshelfName: String = ""
     
@@ -57,9 +58,7 @@ struct BookshelfCardView: View {
                             showEditNameAlert.toggle()
                         }
                         Button("Delete") {
-                            Task {
-                                try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
-                            }
+                            showConfirmDeleteAlert.toggle()
                         }
                     } label: {
                         Image(systemName: "square.and.pencil.circle.fill")
@@ -96,6 +95,18 @@ struct BookshelfCardView: View {
             Button("Ok", role: .cancel) {
                 emptyBookshelfNameAlert = false
             }
+        }
+        .alert(isPresented: $showConfirmDeleteAlert) {
+            Alert (
+                title: Text("Confirm delete"),
+                message: Text("Are you sure you want to delete this bookshelf? Everything inside this bookshelf will also be deleted."),
+                primaryButton: .destructive(Text("Delete")) {
+                    Task {
+                        try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
 }

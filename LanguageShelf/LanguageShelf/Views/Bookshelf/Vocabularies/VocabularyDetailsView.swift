@@ -14,6 +14,7 @@ struct VocabularyDetailsView: View {
     
     @State var updatedVocab: Vocabulary = Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     @State var showEditSheet: Bool = false
+    @State var showConfirmDeleteAlert: Bool = false
     
     var body: some View {
         ZStack {
@@ -78,11 +79,7 @@ struct VocabularyDetailsView: View {
                         showEditSheet.toggle()
                     }
                     Button("Delete vocabulary") {
-                        Task {
-                            updateSentencesLinkedVocab()
-                            try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
-                        }
-                        dismiss()
+                        showConfirmDeleteAlert.toggle()
                     }
                 } label: {
                     Image(systemName: "ellipsis")
@@ -107,6 +104,20 @@ struct VocabularyDetailsView: View {
             Task {
                 updatedVocab = try await getVocabFromDatabase()
             }
+        }
+        .alert(isPresented: $showConfirmDeleteAlert) {
+            Alert (
+                title: Text("Confirm delete"),
+                message: Text("Are you sure you want to delete this vocabulary?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    Task {
+                        updateSentencesLinkedVocab()
+                        try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
+                    }
+                    dismiss()
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
     

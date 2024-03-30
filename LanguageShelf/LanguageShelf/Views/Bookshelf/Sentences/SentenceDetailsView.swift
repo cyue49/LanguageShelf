@@ -14,6 +14,7 @@ struct SentenceDetailsView: View {
     
     @State var updatedSentence: Sentence = Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
     @State var showEditSheet: Bool = false
+    @State var showConfirmDeleteAlert: Bool = false
     
     var body: some View {
         ZStack {
@@ -49,10 +50,7 @@ struct SentenceDetailsView: View {
                         showEditSheet.toggle()
                     }
                     Button("Delete sentence") {
-                        Task {
-                            try await sentencesManager.removeSentence(sentenceID: sentence.id)
-                        }
-                        dismiss()
+                        showConfirmDeleteAlert.toggle()
                     }
                 } label: {
                     Image(systemName: "ellipsis")
@@ -77,6 +75,19 @@ struct SentenceDetailsView: View {
             Task {
                 updatedSentence = try await getSentenceFromDatabase()
             }
+        }
+        .alert(isPresented: $showConfirmDeleteAlert) {
+            Alert (
+                title: Text("Confirm delete"),
+                message: Text("Are you sure you want to delete this sentence?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    Task {
+                        try await sentencesManager.removeSentence(sentenceID: sentence.id)
+                    }
+                    dismiss()
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
     

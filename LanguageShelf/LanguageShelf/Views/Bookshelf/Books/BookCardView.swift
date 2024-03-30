@@ -12,6 +12,7 @@ struct BookCardView: View {
     @State var showBookAlreadyExistsAlert: Bool = false
     @State var emptyBookNameAlert: Bool = false
     @State var showBookInfo: Bool = false
+    @State var showConfirmDeleteAlert: Bool = false
     
     @State var newBookName: String = ""
     
@@ -42,9 +43,7 @@ struct BookCardView: View {
                                 showBookInfo.toggle()
                             }
                             Button("Delete Book") {
-                                Task {
-                                    try await booksManager.removeBook(bookID: book.id)
-                                }
+                                showConfirmDeleteAlert.toggle()
                             }
                         } label: {
                             Image(systemName: "square.and.pencil.circle.fill")
@@ -65,6 +64,18 @@ struct BookCardView: View {
         }
         .sheet(isPresented: $showBookInfo){
             BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo)
+        }
+        .alert(isPresented: $showConfirmDeleteAlert) {
+            Alert (
+                title: Text("Confirm delete"),
+                message: Text("Are you sure you want to delete this book? Everything inside this book will also be deleted."),
+                primaryButton: .destructive(Text("Delete")) {
+                    Task {
+                        try await booksManager.removeBook(bookID: book.id)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
         }
     }
 }
