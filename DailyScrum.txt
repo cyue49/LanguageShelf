@@ -1,3 +1,16 @@
+2024/03/30 Chen
+
+Done since last scrum: 
+- Reworked on frontend of vocabulary details page
+- Implemented redirect to different vocabularies/sentences views when clicking on linked vocabularies/sentences
+- Fixed some issues with frontend of vocabularies and sentences details views not updating properly when linking and editing vocabularies/sentences
+
+Todo until next scrum: 
+- Add user confirmation before deleting bookshelf/book/vocabulary/sentence
+- Start working on user adding pictures for profile/bookshelf/book
+
+------------------
+
 2024/03/28 Chen
 
 Done since last scrum: 
