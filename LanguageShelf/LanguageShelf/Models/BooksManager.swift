@@ -83,4 +83,25 @@ class BooksManager: ObservableObject {
         try await ref.document(bookID).updateData(["title": title, "author": author, "description": description])
         await fetchBooks()
     }
+    
+    func fetchAllBooksInThisBookshelf(bookshelfID: String) async throws -> [Book] {
+        let query = ref.whereField("bookshelfID", isEqualTo: bookshelfID)
+        guard let snapshot = try? await query.getDocuments() else { return []}
+        
+        var result: [Book] = []
+        
+        for document in snapshot.documents {
+            let data = document.data()
+            let bookshelfID = data["bookshelfID"] as? String ?? ""
+            let userID = data["userID"] as? String ?? ""
+            let bookID = data["bookID"] as? String ?? ""
+            let title = data["title"] as? String ?? ""
+            let author = data["author"] as? String ?? ""
+            let description = data["description"] as? String ?? ""
+            let book = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description)
+            result.append(book)
+        }
+        
+        return result
+    }
 }

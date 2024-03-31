@@ -3,6 +3,9 @@ import SwiftUI
 struct BookshelfCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     var bookshelf: Bookshelf
     @State var showEditNameAlert: Bool = false
@@ -110,7 +113,27 @@ struct BookshelfCardView: View {
     
     func deleteBookshelf(bookshelfID: String) {
         Task {
-            // TODO: remove all vocabularies/sentences, then all books inside this bookshelf before delete
+            // for all books in this bookshelf
+            let allBooksInThisBookshelf = try await booksManager.fetchAllBooksInThisBookshelf(bookshelfID: bookshelfID)
+            
+            for aBook in allBooksInThisBookshelf {
+                // remove all vocabs in this book
+                let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: aBook.id)
+                for vocab in allVocabsInThisBook {
+                    try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
+                }
+                
+                // remove all sentences in this book
+                let allSentencesInThisBook = try await sentencesManager.fetchAllSentencesInBook(bookID: aBook.id)
+                for sentence in allSentencesInThisBook {
+                    try await sentencesManager.removeSentence(sentenceID: sentence.id)
+                }
+                
+                // delete this book
+                try await booksManager.removeBook(bookID: aBook.id)
+            }
+            
+            // delete this bookshelf
             try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
         }
     }
@@ -121,5 +144,8 @@ struct BookshelfCardView_Previews: PreviewProvider {
         BookshelfCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
+            .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }
