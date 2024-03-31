@@ -4,6 +4,8 @@ struct BookCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     @EnvironmentObject var bookshelvesManager: BookshelvesManager
     @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
     
     var bookshelf: Bookshelf
     var book: Book
@@ -70,12 +72,29 @@ struct BookCardView: View {
                 title: Text("Confirm delete"),
                 message: Text("Are you sure you want to delete this book? Everything inside this book will also be deleted."),
                 primaryButton: .destructive(Text("Delete")) {
-                    Task {
-                        try await booksManager.removeBook(bookID: book.id)
-                    }
+                    deleteBook(bookID: book.id)
                 },
                 secondaryButton: .cancel()
             )
+        }
+    }
+    
+    func deleteBook(bookID: String) {
+        Task {
+            // remove all vocabs in this book
+            let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: bookID)
+            for vocab in allVocabsInThisBook {
+                try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
+            }
+            
+            // remove all sentences in this book
+            let allSentencesInThisBook = try await sentencesManager.fetchAllSentencesInBook(bookID: bookID)
+            for sentence in allSentencesInThisBook {
+                try await sentencesManager.removeSentence(sentenceID: sentence.id)
+            }
+            
+            // remove this book
+            try await booksManager.removeBook(bookID: bookID)
         }
     }
 }
@@ -87,5 +106,7 @@ struct BookCardView_Previews: PreviewProvider {
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())
+        .environmentObject(VocabulariesManager())
+        .environmentObject(SentencesManager())
     }
 }

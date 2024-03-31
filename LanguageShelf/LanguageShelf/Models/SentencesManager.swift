@@ -129,4 +129,24 @@ class SentencesManager: ObservableObject {
         }
         return Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
     }
+    
+    func fetchAllSentencesInBook(bookID: String) async throws -> [Sentence] {
+        let query = ref.whereField("bookID", isEqualTo: bookID)
+        guard let snapshot = try? await query.getDocuments() else { return []}
+        
+        var result: [Sentence] = []
+        
+        for document in snapshot.documents {
+            let data = document.data()
+            let sentenceID = data["sentenceID"] as? String ?? ""
+            let userID = data["userID"] as? String ?? ""
+            let bookID = data["bookID"] as? String ?? ""
+            let sentence = data["sentence"] as? String ?? ""
+            let linkedWords = data["linkedWords"] as? [String] ?? []
+            let fetchedSentence = Sentence(id: sentenceID, bookID: bookID, userID: userID, sentence: sentence, linkedWords: linkedWords)
+            result.append(fetchedSentence)
+        }
+        
+        return result
+    }
 }

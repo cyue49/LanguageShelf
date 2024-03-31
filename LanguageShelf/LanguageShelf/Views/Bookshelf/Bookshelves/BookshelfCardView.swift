@@ -101,12 +101,17 @@ struct BookshelfCardView: View {
                 title: Text("Confirm delete"),
                 message: Text("Are you sure you want to delete this bookshelf? Everything inside this bookshelf will also be deleted."),
                 primaryButton: .destructive(Text("Delete")) {
-                    Task {
-                        try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
-                    }
+                    deleteBookshelf(bookshelfID: bookshelf.id)
                 },
                 secondaryButton: .cancel()
             )
+        }
+    }
+    
+    func deleteBookshelf(bookshelfID: String) {
+        Task {
+            // TODO: remove all vocabularies/sentences, then all books inside this bookshelf before delete
+            try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
         }
     }
 }
