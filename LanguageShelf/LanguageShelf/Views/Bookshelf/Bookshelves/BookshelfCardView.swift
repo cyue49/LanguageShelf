@@ -113,10 +113,15 @@ struct BookshelfCardView: View {
     
     func deleteBookshelf(bookshelfID: String) {
         Task {
+            // delete this bookshelf
+            try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
+            
             // for all books in this bookshelf
             let allBooksInThisBookshelf = try await booksManager.fetchAllBooksInThisBookshelf(bookshelfID: bookshelfID)
-            
             for aBook in allBooksInThisBookshelf {
+                // delete this book
+                try await booksManager.removeBook(bookID: aBook.id)
+                
                 // remove all vocabs in this book
                 let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: aBook.id)
                 for vocab in allVocabsInThisBook {
@@ -128,13 +133,7 @@ struct BookshelfCardView: View {
                 for sentence in allSentencesInThisBook {
                     try await sentencesManager.removeSentence(sentenceID: sentence.id)
                 }
-                
-                // delete this book
-                try await booksManager.removeBook(bookID: aBook.id)
             }
-            
-            // delete this bookshelf
-            try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
         }
     }
 }

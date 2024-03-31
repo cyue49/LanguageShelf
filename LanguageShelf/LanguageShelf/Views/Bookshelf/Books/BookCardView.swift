@@ -81,6 +81,9 @@ struct BookCardView: View {
     
     func deleteBook(bookID: String) {
         Task {
+            // remove this book
+            try await booksManager.removeBook(bookID: bookID)
+            
             // remove all vocabs in this book
             let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: bookID)
             for vocab in allVocabsInThisBook {
@@ -92,9 +95,6 @@ struct BookCardView: View {
             for sentence in allSentencesInThisBook {
                 try await sentencesManager.removeSentence(sentenceID: sentence.id)
             }
-            
-            // remove this book
-            try await booksManager.removeBook(bookID: bookID)
         }
     }
 }
