@@ -1,3 +1,14 @@
+2024/03/31 Chen
+
+Done since last scrum: 
+- Added user confirmation before deleting a bookshelf/book/vocabulary/sentence
+
+Todo until next scrum: 
+- Fix deleting a bookshelf/book to also delete all books/vocabularies/sentences inside of it
+- Work on user adding pictures as bookshelf/book covers
+
+------------------
+
 2024/03/30 Chen
 
 Done since last scrum: 
