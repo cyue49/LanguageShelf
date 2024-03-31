@@ -117,21 +117,24 @@ struct BookshelfCardView: View {
             try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
             
             // for all books in this bookshelf
-            let allBooksInThisBookshelf = try await booksManager.fetchAllBooksInThisBookshelf(bookshelfID: bookshelfID)
-            for aBook in allBooksInThisBookshelf {
-                // delete this book
-                try await booksManager.removeBook(bookID: aBook.id)
-                
-                // remove all vocabs in this book
-                let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: aBook.id)
-                for vocab in allVocabsInThisBook {
-                    try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
-                }
-                
-                // remove all sentences in this book
-                let allSentencesInThisBook = try await sentencesManager.fetchAllSentencesInBook(bookID: aBook.id)
-                for sentence in allSentencesInThisBook {
-                    try await sentencesManager.removeSentence(sentenceID: sentence.id)
+            if let allBooksInThisBookshelf = booksManager.myBooks[bookshelfID] {
+                for aBook in allBooksInThisBookshelf {
+                    // delete this book
+                    try await booksManager.removeBook(bookID: aBook.id)
+                    
+                    // remove all vocabs in this book
+                    if let allVocabsInThisBook = vocabsManager.myVocabularies[aBook.id] {
+                        for vocab in allVocabsInThisBook {
+                            try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
+                        }
+                    }
+                    
+                    // remove all sentences in this book
+                    if let allSentencesInThisBook = sentencesManager.mySentences[aBook.id] {
+                        for sentence in allSentencesInThisBook {
+                            try await sentencesManager.removeSentence(sentenceID: sentence.id)
+                        }
+                    }
                 }
             }
         }

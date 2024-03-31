@@ -85,15 +85,17 @@ struct BookCardView: View {
             try await booksManager.removeBook(bookID: bookID)
             
             // remove all vocabs in this book
-            let allVocabsInThisBook = try await vocabsManager.fetchAllVocabInBook(bookID: bookID)
-            for vocab in allVocabsInThisBook {
-                try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
+            if let allVocabsInThisBook = vocabsManager.myVocabularies[bookID] {
+                for vocab in allVocabsInThisBook {
+                    try await vocabsManager.removeVocabulary(vocabularyID: vocab.id)
+                }
             }
             
             // remove all sentences in this book
-            let allSentencesInThisBook = try await sentencesManager.fetchAllSentencesInBook(bookID: bookID)
-            for sentence in allSentencesInThisBook {
-                try await sentencesManager.removeSentence(sentenceID: sentence.id)
+            if let allSentencesInThisBook = sentencesManager.mySentences[bookID] {
+                for sentence in allSentencesInThisBook {
+                    try await sentencesManager.removeSentence(sentenceID: sentence.id)
+                }
             }
         }
     }

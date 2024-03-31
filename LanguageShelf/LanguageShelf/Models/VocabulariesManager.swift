@@ -113,25 +113,4 @@ class VocabulariesManager: ObservableObject {
         }
         return Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
     }
-    
-    func fetchAllVocabInBook(bookID: String) async throws -> [Vocabulary] {
-        let query = ref.whereField("bookID", isEqualTo: bookID)
-        guard let snapshot = try? await query.getDocuments() else { return []}
-        
-        var result: [Vocabulary] = []
-        
-        for document in snapshot.documents {
-            let data = document.data()
-            let vocabID = data["vocabID"] as? String ?? ""
-            let userID = data["userID"] as? String ?? ""
-            let bookID = data["bookID"] as? String ?? ""
-            let word = data["word"] as? String ?? ""
-            let definition = data["definition"] as? String ?? ""
-            let note = data["note"] as? String ?? ""
-            let vocab = Vocabulary(id: vocabID, bookID: bookID, userID: userID, word: word, definition: definition, note: note)
-            result.append(vocab)
-        }
-        
-        return result
-    }
 }
