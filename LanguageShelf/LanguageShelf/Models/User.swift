@@ -5,4 +5,5 @@ struct User: Identifiable {
     var email: String
     var username: String
     var theme: String
+    var profilePicture: String = ""
 }

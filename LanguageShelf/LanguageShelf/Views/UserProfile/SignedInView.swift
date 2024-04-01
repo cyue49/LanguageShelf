@@ -101,13 +101,16 @@ struct SignedInView: View {
         
         // file path and name
         guard let uid = userManager.currentUser?.id else { return }
-        let fileRef = storageRef.child("profile/\(uid)-profile-pic.jpg")
+        let filePath = "profile/\(uid)-profile-pic.jpg"
+        let fileRef = storageRef.child(filePath)
         
         // upload data
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
             if error == nil && metadata != nil {
                 // save reference to file in firestore database
-                
+                Task {
+                    try await userManager.updateUser(attribute: "profilePicture", value: filePath)
+                }
             }
         }
     }
