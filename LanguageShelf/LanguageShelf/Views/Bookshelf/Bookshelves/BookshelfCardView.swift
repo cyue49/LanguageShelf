@@ -1,4 +1,7 @@
 import SwiftUI
+import Firebase
+import FirebaseStorage
+import PhotosUI
 
 struct BookshelfCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
@@ -15,43 +18,70 @@ struct BookshelfCardView: View {
     
     @State var newBookshelfName: String = ""
     
+    @State private var coverPic: UIImage?
+    @State private var photosPickerItem: PhotosPickerItem?
+    
     var body: some View {
         VStack {
             ZStack {
-                NavigationLink(destination: MyBooksView(bookshelf: bookshelf)) { 
-                    VStack {
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Image(systemName: "books.vertical.fill")
-                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                    .font(.system(size: 60))
-                                    .offset(x: -10, y: 10)
-                                
-                                VStack {
-                                    Spacer()
-                                    Text(bookshelf.bookshelfName)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .foregroundStyle(userManager.currentTheme.fontColor)
-                                        .lineLimit(2)
-                                }
-                            }
-                            .padding(.leading, 25)
-                            
+                NavigationLink(destination: MyBooksView(bookshelf: bookshelf)) {
+                    ZStack {
+                        if coverPic == nil {
                             Rectangle()
-                                .frame(maxWidth : .infinity, maxHeight: 20)
+                                .foregroundColor(userManager.currentTheme.bgColor)
+                                .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
                                 .cornerRadius(30)
-                                .foregroundStyle(userManager.currentTheme.toolbarColor)
+                        } else {
+                            ZStack {
+                                Image(uiImage: coverPic!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
+                                .cornerRadius(30)
+                                
+                                Rectangle()
+                                    .foregroundColor(userManager.currentTheme.bgColor)
+                                    .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
+                                    .cornerRadius(30)
+                                    .opacity(0.5)
+                            }
                         }
-                        .padding()
+                        
+                        VStack {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Image(systemName: "books.vertical.fill")
+                                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                        .font(.system(size: 60))
+                                        .offset(x: -10, y: 10)
+                                    
+                                    VStack {
+                                        Spacer()
+                                        Text(bookshelf.bookshelfName)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundStyle(userManager.currentTheme.fontColor)
+                                            .lineLimit(2)
+                                            .bold()
+                                    }
+                                }
+                                .padding(.leading, 25)
+                                
+                                Rectangle()
+                                    .frame(maxWidth : .infinity, maxHeight: 20)
+                                    .cornerRadius(30)
+                                    .foregroundStyle(userManager.currentTheme.toolbarColor)
+                            }
+                            .padding()
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
+                        .backgroundStyle(userManager.currentTheme.bgColor2)
+                        .cornerRadius(30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                        )
                     }
-                    .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
-                    .backgroundStyle(userManager.currentTheme.bgColor2)
-                    .cornerRadius(30)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                    )
                 }
                 
                 VStack {
@@ -60,6 +90,7 @@ struct BookshelfCardView: View {
                             newBookshelfName = bookshelf.bookshelfName
                             showEditNameAlert.toggle()
                         }
+                        
                         Button("Delete") {
                             showConfirmDeleteAlert.toggle()
                         }
@@ -67,6 +98,26 @@ struct BookshelfCardView: View {
                         Image(systemName: "square.and.pencil.circle.fill")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                             .font(.system(size: 28))
+                    }
+                    PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                        Image(systemName: "camera.circle.fill")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .font(.system(size: 28))
+                    }
+                    .onChange(of: photosPickerItem) {
+                        Task{
+                            if let photosPickerItem,
+                               let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
+                                if let image = UIImage(data: data){
+                                    // update frontend view
+                                    coverPic = image
+                                    
+                                    // save photo to firebase storage
+                                    // todo
+                                }
+                            }
+                            photosPickerItem = nil
+                        }
                     }
                     Spacer()
                 }
