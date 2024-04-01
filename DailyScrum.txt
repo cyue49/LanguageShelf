@@ -1,3 +1,17 @@
+2024/04/01 Chen
+
+Done since last scrum: 
+- Implemented deleting a bookshelf/book also deletes all books/vocabularies/sentences inside
+- Created default user profile pictures for all themes for users that have not chosen their own profile picture
+- Implemented user selects a profile picture by using Photo Picker in the frontend and by saving the photo in Firebase Storage with a reference in the Firestore database in the backend
+- Implemented user's profile picture loaded on appear if user has selected one
+
+Todo until next scrum: 
+- Implement user selects cover picture for a bookshelf
+- Implement user selects cover picture for a book
+
+------------------
+
 2024/03/31 Chen
 
 Done since last scrum: 
