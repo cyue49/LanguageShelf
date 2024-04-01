@@ -86,6 +86,12 @@ struct SignedInView: View {
                 Spacer()
             }
             .padding()
+            .onAppear(){
+                // retrieve and set profile picture if user has a choosen profile picture
+                if !user.profilePicture.isEmpty {
+                    setProfilePicFromStorage()
+                }
+            }
         }
     }
     
@@ -105,7 +111,7 @@ struct SignedInView: View {
         let fileRef = storageRef.child(filePath)
         
         // upload data
-        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        _ = fileRef.putData(imageData!, metadata: nil) { metadata, error in
             if error == nil && metadata != nil {
                 // save reference to file in firestore database
                 Task {
@@ -113,6 +119,27 @@ struct SignedInView: View {
                 }
             }
         }
+    }
+    
+    func setProfilePicFromStorage() {
+        if let user = userManager.currentUser {
+            // storage reference
+            let storageRef = Storage.storage().reference()
+            
+            // file path and name
+            let filePath = user.profilePicture
+            let fileRef = storageRef.child(filePath)
+            
+            // retrieve data
+            fileRef.getData(maxSize: 6 * 1024 * 1024) { data, error in
+                if error == nil && data != nil {
+                    // create UIImage and set it as profilePic
+                    let image = UIImage(data: data!)
+                    profilePic = image
+                }
+            }
+        }
+        
     }
 }
 
