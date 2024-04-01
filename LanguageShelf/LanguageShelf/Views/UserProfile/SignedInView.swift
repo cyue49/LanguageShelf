@@ -1,5 +1,6 @@
 import SwiftUI
 import Firebase
+import FirebaseStorage
 import PhotosUI
 
 struct SignedInView: View {
@@ -67,7 +68,11 @@ struct SignedInView: View {
                         if let photosPickerItem,
                            let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
                             if let image = UIImage(data: data){
+                                // update frontend view
                                 profilePic = image
+                                
+                                // save photo to firebase storage
+                                savePhotoToStorage()
                             }
                         }
                         photosPickerItem = nil
@@ -81,6 +86,29 @@ struct SignedInView: View {
                 Spacer()
             }
             .padding()
+        }
+    }
+    
+    func savePhotoToStorage() {
+        guard profilePic != nil else { return }
+        
+        // storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // turn image into data
+        let imageData = profilePic!.jpegData(compressionQuality: 0.8)
+        guard imageData != nil else { return }
+        
+        // file path and name
+        guard let uid = userManager.currentUser?.id else { return }
+        let fileRef = storageRef.child("profile/\(uid)-profile-pic.jpg")
+        
+        // upload data
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            if error == nil && metadata != nil {
+                // save reference to file in firestore database
+                
+            }
         }
     }
 }
