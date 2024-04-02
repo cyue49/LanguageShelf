@@ -244,30 +244,34 @@ struct BookshelfCardView: View {
             if error == nil && data != nil {
                 // create UIImage and set it as profilePic
                 let image = UIImage(data: data!)
-                coverPic = image
+                DispatchQueue.main.async {
+                    coverPic = image
+                }
             }
         }
     }
     
     func removePicture() {
-            // storage reference
-            let storageRef = Storage.storage().reference()
+        // storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // file path and name
+        let filePath = bookshelf.picture
+        let fileRef = storageRef.child(filePath)
+        
+        // delete
+        Task {
+            // delete file in firebase storage
+            try await fileRef.delete()
             
-            // file path and name
-            let filePath = bookshelf.picture
-            let fileRef = storageRef.child(filePath)
-            
-            // delete
-            Task {
-                // delete file in firebase storage
-                try await fileRef.delete()
-                
-                // remove reference to file in firestore database
-                try await bookshelvesManager.updatePicture(bookshelfID: bookshelf.id, picturePath: "")
-            }
-            
-            // update frontend
+            // remove reference to file in firestore database
+            try await bookshelvesManager.updatePicture(bookshelfID: bookshelf.id, picturePath: "")
+        }
+        
+        // update frontend
+        DispatchQueue.main.async {
             coverPic = nil
+        }
     }
 }
 

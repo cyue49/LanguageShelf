@@ -202,7 +202,9 @@ struct BookCardView: View {
             if error == nil && data != nil {
                 // create UIImage and set it as profilePic
                 let image = UIImage(data: data!)
-                coverPic = image
+                DispatchQueue.main.async {
+                    coverPic = image
+                }
             }
         }
     }
@@ -225,7 +227,9 @@ struct BookCardView: View {
         }
         
         // update frontend
-        coverPic = nil
+        DispatchQueue.main.async {
+            coverPic = nil
+        }
     }
 }
 

@@ -153,7 +153,9 @@ struct SignedInView: View {
                 if error == nil && data != nil {
                     // create UIImage and set it as profilePic
                     let image = UIImage(data: data!)
-                    profilePic = image
+                    DispatchQueue.main.async {
+                        profilePic = image
+                    }
                 }
             }
         }
@@ -178,7 +180,9 @@ struct SignedInView: View {
             }
             
             // update frontend
-            profilePic = nil 
+            DispatchQueue.main.async {
+                profilePic = nil
+            }
         }
     }
 }
