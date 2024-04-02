@@ -4,6 +4,7 @@ struct LoadingSpinnerView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
     @Binding var showLoadingSpinner: Bool
+    var loadTime: Double
     
     var body: some View {
         if showLoadingSpinner {
@@ -16,7 +17,7 @@ struct LoadingSpinnerView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: userManager.currentTheme.primaryAccentColor))
                     .scaleEffect(1.5, anchor: .center)
                     .onAppear(){
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + loadTime) {
                             showLoadingSpinner.toggle()
                         }
                     }
@@ -27,7 +28,7 @@ struct LoadingSpinnerView: View {
 
 struct LoadingSpinnerView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingSpinnerView(showLoadingSpinner: .constant(true))
+        LoadingSpinnerView(showLoadingSpinner: .constant(true), loadTime: 2.0)
             .environmentObject(UserAccountsManager())
     }
 }

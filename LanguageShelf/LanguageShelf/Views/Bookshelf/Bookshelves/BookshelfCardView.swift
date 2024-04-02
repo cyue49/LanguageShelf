@@ -171,7 +171,7 @@ struct BookshelfCardView: View {
         }
         .onAppear(){
             // retrieve and set cover picture if user has a choosen cover picture for this bookshelf
-            if !bookshelf.picture.isEmpty {
+            if !bookshelf.picture.isEmpty && coverPic == nil {
                 setPictureFromStorage()
             }
         }

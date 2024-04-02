@@ -40,7 +40,7 @@ struct MyBooksView: View {
                         .padding()
                     }
                 }
-                LoadingSpinnerView(showLoadingSpinner: $showLoadingSpinner)
+                LoadingSpinnerView(showLoadingSpinner: $showLoadingSpinner, loadTime: 2.0)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

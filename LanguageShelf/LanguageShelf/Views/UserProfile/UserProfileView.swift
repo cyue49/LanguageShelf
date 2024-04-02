@@ -8,6 +8,8 @@ struct UserProfileView: View {
     @EnvironmentObject var vocabsManager: VocabulariesManager
     @EnvironmentObject var sentencesManager: SentencesManager
     
+    @State var showLoadingSpinner: Bool = true
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -15,7 +17,10 @@ struct UserProfileView: View {
                 
                 VStack {
                     if userManager.userSession != nil {
-                        SignedInView()
+                        ZStack {
+                            SignedInView()
+                            LoadingSpinnerView(showLoadingSpinner: $showLoadingSpinner, loadTime: 1.5)
+                        }
                     } else {
                         SignedOutView()
                     }
