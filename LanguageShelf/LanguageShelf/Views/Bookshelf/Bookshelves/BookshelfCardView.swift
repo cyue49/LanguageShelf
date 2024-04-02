@@ -21,6 +21,8 @@ struct BookshelfCardView: View {
     @State private var coverPic: UIImage?
     @State private var photosPickerItem: PhotosPickerItem?
     
+    @Binding var showLoadingSpinner: Bool
+    
     var body: some View {
         VStack {
             ZStack {
@@ -139,6 +141,7 @@ struct BookshelfCardView: View {
             Button("Confirm") {
                 Task {
                     do {
+                        showLoadingSpinner = true
                         try await bookshelvesManager.renameBookshelf(bookshelfID: bookshelf.id, newName: newBookshelfName)
                     } catch DataErrors.existingNameError {
                         showBookshelfAlreadyExistsAlert.toggle()
@@ -164,6 +167,7 @@ struct BookshelfCardView: View {
                 title: Text("Confirm delete"),
                 message: Text("Are you sure you want to delete this bookshelf? Everything inside this bookshelf will also be deleted."),
                 primaryButton: .destructive(Text("Delete")) {
+                    showLoadingSpinner = true
                     deleteBookshelf(bookshelfID: bookshelf.id)
                 },
                 secondaryButton: .cancel()
@@ -293,7 +297,8 @@ struct BookshelfCardView: View {
 
 struct BookshelfCardView_Previews: PreviewProvider {
     static var previews: some View {
-        BookshelfCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"))
+        BookshelfCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
+                          showLoadingSpinner: .constant(false))
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())

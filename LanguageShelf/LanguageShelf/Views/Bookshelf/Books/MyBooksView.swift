@@ -34,7 +34,7 @@ struct MyBooksView: View {
                         
                         LazyVGrid(columns: columns, content: {
                             ForEach(booksManager.myBooks[bookshelf.id]!) { book in
-                                BookCardView(bookshelf: bookshelf, book: book)
+                                BookCardView(bookshelf: bookshelf, book: book, showLoadingSpinner: $showLoadingSpinner)
                             }
                         })
                         .padding()
@@ -69,6 +69,7 @@ struct MyBooksView: View {
                 Button("Confirm") {
                     Task {
                         do {
+                            showLoadingSpinner = true
                             try await booksManager.addNewBook(bookshelfID: bookshelf.id, bookName: newBookName, author: newAuthorName)
                         } catch DataErrors.existingNameError {
                             showBookAlreadyExistsAlert.toggle()

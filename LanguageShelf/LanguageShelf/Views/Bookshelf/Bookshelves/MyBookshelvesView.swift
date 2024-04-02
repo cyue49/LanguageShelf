@@ -26,7 +26,7 @@ struct MyBookshelvesView: View {
                         ScrollView{
                             VStack(spacing: 15) {
                                 ForEach(bookshelvesManager.myBookshelves) { bookshelf in
-                                    BookshelfCardView(bookshelf: bookshelf)
+                                    BookshelfCardView(bookshelf: bookshelf, showLoadingSpinner: $showLoadingSpinner)
                                 }
                                 Spacer()
                             }
@@ -98,6 +98,7 @@ struct MyBookshelvesView: View {
                 Button("Confirm") {
                     Task {
                         do {
+                            showLoadingSpinner = true
                             try await bookshelvesManager.addNewBookshelf(name: newShelfName)
                         } catch DataErrors.existingNameError {
                             showBookshelfAlreadyExistsAlert.toggle()

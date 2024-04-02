@@ -24,6 +24,8 @@ struct BookCardView: View {
     @State private var coverPic: UIImage?
     @State private var photosPickerItem: PhotosPickerItem?
     
+    @Binding var showLoadingSpinner: Bool
+    
     var body: some View {
         VStack {
             ZStack {
@@ -124,13 +126,14 @@ struct BookCardView: View {
             Spacer()
         }
         .sheet(isPresented: $showBookInfo){
-            BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo)
+            BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo, showLoadingSpinner: $showLoadingSpinner)
         }
         .alert(isPresented: $showConfirmDeleteAlert) {
             Alert (
                 title: Text("Confirm delete"),
                 message: Text("Are you sure you want to delete this book? Everything inside this book will also be deleted."),
                 primaryButton: .destructive(Text("Delete")) {
+                    showLoadingSpinner = true
                     deleteBook(bookID: book.id)
                 },
                 secondaryButton: .cancel()
@@ -245,7 +248,8 @@ struct BookCardView: View {
 struct BookCardView_Previews: PreviewProvider {
     static var previews: some View {
         BookCardView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
-                     book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"))
+                     book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective"),
+                     showLoadingSpinner: .constant(false))
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())

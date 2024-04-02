@@ -20,6 +20,8 @@ struct BookInfoSheetView: View {
     @State var showBookAlreadyExistsAlert: Bool = false
     @State var emptyBookNameAlert: Bool = false
     
+    @Binding var showLoadingSpinner: Bool
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -96,6 +98,7 @@ struct BookInfoSheetView: View {
                             Button1(label: "Save") {
                                 Task {
                                     do {
+                                        showLoadingSpinner = true
                                         try await booksManager.updateBookInfo(bookshelfID: bookshelf.id, bookID: book.id, title: editedBookTitle, author: editedAuthor, description: editedDescription)
                                     } catch DataErrors.existingNameError {
                                         showBookAlreadyExistsAlert.toggle()
@@ -152,7 +155,8 @@ struct BookInfoSheetView_Previews: PreviewProvider {
     static var previews: some View {
         BookInfoSheetView(bookshelf: Bookshelf(userID: "123", bookshelfName: "English Books"),
                           book: Book(bookshelfID: "bookshelfID", userID: "userID", title: "The Penguin Detective", author: "Pen Guin", description: "This book follows the adventures of the penguin detective while he solves cases in Antartica."),
-                          showBookInfo: .constant(true))
+                          showBookInfo: .constant(true),
+                          showLoadingSpinner: .constant(false))
         .environmentObject(UserAccountsManager())
         .environmentObject(BookshelvesManager())
         .environmentObject(BooksManager())
