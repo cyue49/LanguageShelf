@@ -146,11 +146,13 @@ struct BookCardView: View {
     
     func deleteBook(bookID: String) {
         Task {
-            // delete cover picture from firebase storage
-            let storageRef = Storage.storage().reference()
-            let filePath = book.picture
-            let fileRef = storageRef.child(filePath)
-            try await fileRef.delete()
+            // delete cover picture from firebase storage if exists
+            if book.picture != "" {
+                let storageRef = Storage.storage().reference()
+                let filePath = book.picture
+                let fileRef = storageRef.child(filePath)
+                try await fileRef.delete()
+            }
             
             // remove this book from database
             try await booksManager.removeBook(bookID: bookID)

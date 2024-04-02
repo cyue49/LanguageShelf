@@ -179,11 +179,13 @@ struct BookshelfCardView: View {
     
     func deleteBookshelf(bookshelfID: String) {
         Task {
-            // delete bookshelf cover picture from firebase storage
-            let storageRef = Storage.storage().reference()
-            let filePath = bookshelf.picture
-            let fileRef = storageRef.child(filePath)
-            try await fileRef.delete()
+            // delete bookshelf cover picture from firebase storage if exists
+            if bookshelf.picture != "" {
+                let storageRef = Storage.storage().reference()
+                let filePath = bookshelf.picture
+                let fileRef = storageRef.child(filePath)
+                try await fileRef.delete()
+            }
             
             // delete this bookshelf from database
             try await bookshelvesManager.removeBookshelf(bookshelfID: bookshelf.id)
@@ -191,11 +193,13 @@ struct BookshelfCardView: View {
             // for all books in this bookshelf
             if let allBooksInThisBookshelf = booksManager.myBooks[bookshelfID] {
                 for aBook in allBooksInThisBookshelf {
-                    // delete book cover picture from firebase storage
-                    let storageRef = Storage.storage().reference()
-                    let filePath = aBook.picture
-                    let fileRef = storageRef.child(filePath)
-                    try await fileRef.delete()
+                    // delete book cover picture from firebase storage if exists
+                    if aBook.picture != "" {
+                        let storageRef = Storage.storage().reference()
+                        let filePath = aBook.picture
+                        let fileRef = storageRef.child(filePath)
+                        try await fileRef.delete()
+                    }
                     
                     // delete this book from database
                     try await booksManager.removeBook(bookID: aBook.id)
