@@ -24,6 +24,7 @@
 		DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C44E2BADC32B007721F3 /* BookCardView.swift */; };
 		DE85C4512BAE14AB007721F3 /* MyVocabulariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4502BAE14AB007721F3 /* MyVocabulariesView.swift */; };
 		DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE85C4522BAE22B6007721F3 /* Bookshelf.swift */; };
+		DE879A742BBBD14600405FA0 /* LoadingSpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE879A732BBBD14600405FA0 /* LoadingSpinnerView.swift */; };
 		DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */; };
 		DEA883402BB1C53900F1E336 /* VocabularyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */; };
 		DEA883422BB1CC3700F1E336 /* TwoChoicesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */; };
@@ -74,6 +75,7 @@
 		DE85C44E2BADC32B007721F3 /* BookCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCardView.swift; sourceTree = "<group>"; };
 		DE85C4502BAE14AB007721F3 /* MyVocabulariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVocabulariesView.swift; sourceTree = "<group>"; };
 		DE85C4522BAE22B6007721F3 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
+		DE879A732BBBD14600405FA0 /* LoadingSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinnerView.swift; sourceTree = "<group>"; };
 		DE9039402BA80C90004B9DDF /* ChooseColorThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseColorThemeView.swift; sourceTree = "<group>"; };
 		DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCardView.swift; sourceTree = "<group>"; };
 		DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoChoicesPicker.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				DEE0F0C62BAB3CD3003F2BC8 /* EditTextFieldView.swift */,
 				DEA883412BB1CC3700F1E336 /* TwoChoicesPicker.swift */,
 				DED2A7CC2BB5172200954581 /* CheckboxView.swift */,
+				DE879A732BBBD14600405FA0 /* LoadingSpinnerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				DEE1081B2BB370C8008A04D6 /* Sentence.swift in Sources */,
 				DED2A7CD2BB5172200954581 /* CheckboxView.swift in Sources */,
 				DEE108192BB3211B008A04D6 /* NewEditVocabularySheetView.swift in Sources */,
+				DE879A742BBBD14600405FA0 /* LoadingSpinnerView.swift in Sources */,
 				DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */,
 				DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */,
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,

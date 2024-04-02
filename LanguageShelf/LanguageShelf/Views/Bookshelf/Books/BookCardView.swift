@@ -121,6 +121,7 @@ struct BookCardView: View {
                 .frame(maxWidth: 100)
                 .lineLimit(2)
                 .bold()
+            Spacer()
         }
         .sheet(isPresented: $showBookInfo){
             BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo)

@@ -14,6 +14,8 @@ struct MyBooksView: View {
     @State var showBookAlreadyExistsAlert: Bool = false
     @State var emptyBookNameAlert: Bool = false
     
+    @State var showLoadingSpinner: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -38,7 +40,7 @@ struct MyBooksView: View {
                         .padding()
                     }
                 }
-                
+                LoadingSpinnerView(showLoadingSpinner: $showLoadingSpinner)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -85,6 +87,11 @@ struct MyBooksView: View {
             .alert("You must enter a name for your book.", isPresented: $emptyBookNameAlert){
                 Button("Ok", role: .cancel) {
                     emptyBookNameAlert = false
+                }
+            }
+            .onAppear(){
+                if booksManager.myBooks[bookshelf.id] != nil{
+                    showLoadingSpinner = true
                 }
             }
         }
