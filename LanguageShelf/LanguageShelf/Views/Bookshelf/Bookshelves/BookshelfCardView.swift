@@ -52,7 +52,7 @@ struct BookshelfCardView: View {
                                 Spacer()
                                 HStack {
                                     Image(systemName: "books.vertical.fill")
-                                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                        .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                                         .font(.system(size: 60))
                                         .offset(x: -10, y: 10)
                                     
@@ -96,12 +96,12 @@ struct BookshelfCardView: View {
                         }
                     } label: {
                         Image(systemName: "square.and.pencil.circle.fill")
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                             .font(.system(size: 28))
                     }
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(systemName: "camera.circle.fill")
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                             .font(.system(size: 28))
                     }
                     .onChange(of: photosPickerItem) {

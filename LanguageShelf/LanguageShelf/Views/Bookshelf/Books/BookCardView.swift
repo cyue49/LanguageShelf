@@ -51,7 +51,7 @@ struct BookCardView: View {
                         }
                         VStack {
                             Image(systemName: "book.fill")
-                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                                 .font(.system(size: 28))
                         }
                         .padding(6)
@@ -77,7 +77,7 @@ struct BookCardView: View {
                             }
                         } label: {
                             Image(systemName: "square.and.pencil.circle.fill")
-                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                                 .font(.system(size: 28))
                         }
                     }
@@ -86,7 +86,7 @@ struct BookCardView: View {
                         Spacer()
                         PhotosPicker(selection: $photosPickerItem, matching: .images) {
                             Image(systemName: "camera.circle.fill")
-                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                                 .font(.system(size: 28))
                         }
                         .onChange(of: photosPickerItem) {
