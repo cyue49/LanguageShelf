@@ -86,22 +86,16 @@ struct BookshelfCardView: View {
                     }
                 }
                 
-                VStack (spacing: 10){
-                    Menu {
-                        Button("Rename") {
-                            newBookshelfName = bookshelf.bookshelfName
-                            showEditNameAlert.toggle()
-                        }
-                        
-                        Button("Delete") {
-                            showConfirmDeleteAlert.toggle()
-                        }
-                    } label: {
+                HStack (alignment: .top, spacing: 5){
+                    Button(action:  {
+                        newBookshelfName = bookshelf.bookshelfName
+                        showEditNameAlert.toggle()
+                    }, label: {
                         Image(systemName: "square.and.pencil.circle.fill")
                             .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                             .font(.system(size: 24))
-                    }
-                    .padding(0)
+                    })
+                    
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(systemName: "camera.circle.fill")
                             .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
@@ -130,10 +124,17 @@ struct BookshelfCardView: View {
                             .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                             .font(.system(size: 24))
                     })
-                    Spacer()
+                    
+                    Button(action: {
+                        showConfirmDeleteAlert.toggle()
+                    }, label: {
+                        Image(systemName: "trash.circle.fill")
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .font(.system(size: 24))
+                    })
                 }
                 .padding(10)
-                .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150, alignment: .trailing)
+                .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150, alignment: .topTrailing)
             }
         }
         .alert("Enter the bookshelf's name:", isPresented: $showEditNameAlert){
