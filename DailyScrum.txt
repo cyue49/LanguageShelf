@@ -1,3 +1,17 @@
+2024/04/02 Chen
+
+Done since last scrum: 
+- Implemented user selects a cover picture for a bookshelf
+- Implemented user selects a cover picture for a book
+- Implemented cover pictures saved to Firebase Storage and are fetched and set on appear of respective frontend view 
+
+Todo until next scrum: 
+- Work on showing loading spinner for My Books, My Bookshelves, and Profile views while data is loading
+- Implement delete cover pictures from Firebase Storage when a bookshelf and book is deleted
+- Look into how to add a launch screen
+
+------------------
+
 2024/04/01 Chen
 
 Done since last scrum: 
