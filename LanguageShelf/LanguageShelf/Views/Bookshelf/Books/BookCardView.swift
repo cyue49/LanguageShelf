@@ -49,13 +49,13 @@ struct BookCardView: View {
                                     .opacity(0.5)
                             }
                         }
-                        VStack {
-                            Image(systemName: "book.fill")
+                        VStack (alignment: .leading) {
+                            Image(systemName: "book.closed.fill")
                                 .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
                                 .font(.system(size: 28))
                         }
                         .padding(6)
-                        .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                        .frame(maxWidth: 100, minHeight: 120, maxHeight: 120, alignment: .leading)
                         .backgroundStyle(userManager.currentTheme.bgColor2)
                         .cornerRadius(20)
                         .overlay(
@@ -65,9 +65,9 @@ struct BookCardView: View {
                     }
                 }
                 
-                VStack {
-                    HStack {
-                        Spacer()
+                HStack {
+                    Spacer()
+                    VStack (spacing: 10) {
                         Menu {
                             Button("Show Book Info") {
                                 showBookInfo.toggle()
@@ -78,16 +78,13 @@ struct BookCardView: View {
                         } label: {
                             Image(systemName: "square.and.pencil.circle.fill")
                                 .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
-                                .font(.system(size: 28))
+                                .font(.system(size: 24))
                         }
-                    }
-                    Spacer()
-                    HStack {
-                        Spacer()
+                        
                         PhotosPicker(selection: $photosPickerItem, matching: .images) {
                             Image(systemName: "camera.circle.fill")
                                 .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
-                                .font(.system(size: 28))
+                                .font(.system(size: 24))
                         }
                         .onChange(of: photosPickerItem) {
                             Task{
@@ -104,6 +101,15 @@ struct BookCardView: View {
                                 photosPickerItem = nil
                             }
                         }
+                        
+                        Button(action: {
+                            // remove profile picture
+                            removePicture()
+                        }, label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                .font(.system(size: 24))
+                        })
                     }
                 }
                 .padding(6)
@@ -114,6 +120,7 @@ struct BookCardView: View {
                 .foregroundStyle(userManager.currentTheme.fontColor)
                 .frame(maxWidth: 100)
                 .lineLimit(2)
+                .bold()
         }
         .sheet(isPresented: $showBookInfo){
             BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo)
@@ -198,6 +205,27 @@ struct BookCardView: View {
                 coverPic = image
             }
         }
+    }
+    
+    func removePicture() {
+        // storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // file path and name
+        let filePath = book.picture
+        let fileRef = storageRef.child(filePath)
+        
+        // delete
+        Task {
+            // delete file in firebase storage
+            try await fileRef.delete()
+            
+            // remove reference to file in firestore database
+            try await booksManager.updatePicture(bookID: book.id, picturePath: "")
+        }
+        
+        // update frontend
+        coverPic = nil
     }
 }
 

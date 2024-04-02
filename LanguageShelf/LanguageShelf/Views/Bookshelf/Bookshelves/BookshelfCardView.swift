@@ -84,7 +84,7 @@ struct BookshelfCardView: View {
                     }
                 }
                 
-                VStack {
+                VStack (spacing: 10){
                     Menu {
                         Button("Rename") {
                             newBookshelfName = bookshelf.bookshelfName
@@ -97,12 +97,13 @@ struct BookshelfCardView: View {
                     } label: {
                         Image(systemName: "square.and.pencil.circle.fill")
                             .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
-                            .font(.system(size: 28))
+                            .font(.system(size: 24))
                     }
+                    .padding(0)
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(systemName: "camera.circle.fill")
                             .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
-                            .font(.system(size: 28))
+                            .font(.system(size: 24))
                     }
                     .onChange(of: photosPickerItem) {
                         Task{
@@ -119,6 +120,14 @@ struct BookshelfCardView: View {
                             photosPickerItem = nil
                         }
                     }
+                    Button(action: {
+                        // remove profile picture
+                        removePicture()
+                    }, label: {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .font(.system(size: 24))
+                    })
                     Spacer()
                 }
                 .padding(10)
@@ -238,6 +247,27 @@ struct BookshelfCardView: View {
                 coverPic = image
             }
         }
+    }
+    
+    func removePicture() {
+            // storage reference
+            let storageRef = Storage.storage().reference()
+            
+            // file path and name
+            let filePath = bookshelf.picture
+            let fileRef = storageRef.child(filePath)
+            
+            // delete
+            Task {
+                // delete file in firebase storage
+                try await fileRef.delete()
+                
+                // remove reference to file in firestore database
+                try await bookshelvesManager.updatePicture(bookshelfID: bookshelf.id, picturePath: "")
+            }
+            
+            // update frontend
+            coverPic = nil
     }
 }
 
