@@ -87,7 +87,7 @@ class BooksManager: ObservableObject {
     
     // update path to cover picture
     func updatePicture(bookID: String, picturePath: String) async throws {
-        try await ref.document(bookID).updateData(["bookshelfName": picturePath])
+        try await ref.document(bookID).updateData(["picture": picturePath])
         await fetchBooks()
     }
 }
