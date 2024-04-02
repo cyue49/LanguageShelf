@@ -107,6 +107,7 @@ struct BookCardView: View {
                         Button(action: {
                             // remove profile picture
                             removePicture()
+                            showLoadingSpinner = true
                         }, label: {
                             Image(systemName: "x.circle.fill")
                                 .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
