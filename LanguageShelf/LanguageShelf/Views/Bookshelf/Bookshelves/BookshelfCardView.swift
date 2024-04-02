@@ -37,10 +37,10 @@ struct BookshelfCardView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
-                                .cornerRadius(30)
+                                    .cornerRadius(30)
                                 
                                 Rectangle()
-                                    .foregroundColor(userManager.currentTheme.bgColor)
+                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, minHeight: 150, maxHeight: 150)
                                     .cornerRadius(30)
                                     .opacity(0.5)

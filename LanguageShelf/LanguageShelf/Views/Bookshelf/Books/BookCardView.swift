@@ -1,4 +1,7 @@
 import SwiftUI
+import Firebase
+import FirebaseStorage
+import PhotosUI
 
 struct BookCardView: View {
     @EnvironmentObject var userManager: UserAccountsManager
@@ -18,23 +21,48 @@ struct BookCardView: View {
     
     @State var newBookName: String = ""
     
+    @State private var coverPic: UIImage?
+    @State private var photosPickerItem: PhotosPickerItem?
+    
     var body: some View {
         VStack {
             ZStack {
                 NavigationLink(destination: VocabulariesView(book: book)) {
-                    VStack {
-                        Image(systemName: "book.fill")
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            .font(.system(size: 28))
+                    ZStack {
+                        if coverPic == nil {
+                            Rectangle()
+                                .foregroundColor(userManager.currentTheme.bgColor)
+                                .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                                .cornerRadius(20)
+                        } else {
+                            ZStack {
+                                Image(uiImage: coverPic!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                                    .cornerRadius(20)
+                                
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                                    .cornerRadius(20)
+                                    .opacity(0.5)
+                            }
+                        }
+                        VStack {
+                            Image(systemName: "book.fill")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .font(.system(size: 28))
+                        }
+                        .padding(6)
+                        .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
+                        .backgroundStyle(userManager.currentTheme.bgColor2)
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                        )
                     }
-                    .padding(6)
-                    .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)
-                    .backgroundStyle(userManager.currentTheme.bgColor2)
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                    )
                 }
                 
                 VStack {
@@ -54,6 +82,29 @@ struct BookCardView: View {
                         }
                     }
                     Spacer()
+                    HStack {
+                        Spacer()
+                        PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                            Image(systemName: "camera.circle.fill")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .font(.system(size: 28))
+                        }
+                        .onChange(of: photosPickerItem) {
+                            Task{
+                                if let photosPickerItem,
+                                   let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
+                                    if let image = UIImage(data: data){
+                                        // update frontend view
+                                        coverPic = image
+                                        
+                                        // save photo to firebase storage
+                                        // todo
+                                    }
+                                }
+                                photosPickerItem = nil
+                            }
+                        }
+                    }
                 }
                 .padding(6)
                 .frame(maxWidth: 100, minHeight: 120, maxHeight: 120)

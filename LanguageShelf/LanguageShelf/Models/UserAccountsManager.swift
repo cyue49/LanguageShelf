@@ -45,7 +45,7 @@ class UserAccountsManager: ObservableObject {
         let email = snapshot["email"] as? String ?? ""
         let username = snapshot["username"] as? String ?? ""
         let theme = snapshot["theme"] as? String ?? "0"
-        let profilePicture = snapshot["profilePicture"] as? String ?? "0"
+        let profilePicture = snapshot["profilePicture"] as? String ?? ""
         self.currentUser = User(id: uid, email: email, username: username, theme: theme, profilePicture: profilePicture)
         self.currentTheme = themeSets[Int(theme)!] // set theme to user preference
     }
