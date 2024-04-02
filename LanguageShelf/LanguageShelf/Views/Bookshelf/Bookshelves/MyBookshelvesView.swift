@@ -11,6 +11,8 @@ struct MyBookshelvesView: View {
     
     @State var newShelfName: String = ""
     
+    @State var showLoadingSpinner: Bool = true
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -35,6 +37,7 @@ struct MyBookshelvesView: View {
                     Text("Please sign in to view your bookshelves")
                         .foregroundStyle(userManager.currentTheme.fontColor)
                 }
+                LoadingSpinnerView(showLoadingSpinner: $showLoadingSpinner, loadTime: 1.5)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
