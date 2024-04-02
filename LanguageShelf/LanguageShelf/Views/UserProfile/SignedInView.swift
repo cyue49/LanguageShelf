@@ -12,55 +12,73 @@ struct SignedInView: View {
     var body: some View {
         if let user = userManager.currentUser {
             VStack (alignment: .center, spacing: 25) {
-                PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                    switch userManager.currentTheme.name {
-                    case "default":
-                        Image(uiImage: profilePic ?? UIImage(resource: .profileBlue))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(.circle)
-                            .overlay(
+                ZStack {
+                    PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                        switch userManager.currentTheme.name {
+                        case "default":
+                            Image(uiImage: profilePic ?? UIImage(resource: .profileBlue))
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(.circle)
+                                .overlay(
                                     Circle()
                                         .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
                                 )
-                    case "light":
-                        Image(uiImage: profilePic ?? UIImage(resource: .profileLight))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(.circle)
-                            .overlay(
+                        case "light":
+                            Image(uiImage: profilePic ?? UIImage(resource: .profileLight))
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(.circle)
+                                .overlay(
                                     Circle()
                                         .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
                                 )
-                    case "dark":
-                        Image(uiImage: profilePic ?? UIImage(resource: .profileDark))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(.circle)
-                            .overlay(
+                        case "dark":
+                            Image(uiImage: profilePic ?? UIImage(resource: .profileDark))
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(.circle)
+                                .overlay(
                                     Circle()
                                         .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
                                 )
-                    case "green":
-                        Image(uiImage: profilePic ?? UIImage(resource: .profileGreen))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(.circle)
-                            .overlay(
+                        case "green":
+                            Image(uiImage: profilePic ?? UIImage(resource: .profileGreen))
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(.circle)
+                                .overlay(
                                     Circle()
                                         .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
                                 )
-                    default:
-                        Circle()
-                            .fill(userManager.currentTheme.buttonColor)
-                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                            .frame(width: 150, height: 150)
-                            .padding(.top)
+                        default:
+                            Circle()
+                                .fill(userManager.currentTheme.buttonColor)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .frame(width: 150, height: 150)
+                                .padding(.top)
+                        }
                     }
+                    
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                // remove profile picture
+                                removeProfilePicture()
+                            }, label: {
+                                Image(systemName: "x.circle.fill")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .font(.system(size: 28))
+                            })
+                        }
+                        Spacer()
+                    }
+                    .frame(width: 250, height: 150)
                 }
                 .padding(.top)
                 .onChange(of: photosPickerItem) {
@@ -139,7 +157,29 @@ struct SignedInView: View {
                 }
             }
         }
-        
+    }
+    
+    func removeProfilePicture() {
+        if let user = userManager.currentUser {
+            // storage reference
+            let storageRef = Storage.storage().reference()
+            
+            // file path and name
+            let filePath = user.profilePicture
+            let fileRef = storageRef.child(filePath)
+            
+            // delete
+            Task {
+                // delete file in firebase storage
+                try await fileRef.delete()
+                
+                // remove reference to file in firestore database
+                try await userManager.updateUser(attribute: "profilePicture", value: "")
+            }
+            
+            // update frontend
+            profilePic = nil 
+        }
     }
 }
 
