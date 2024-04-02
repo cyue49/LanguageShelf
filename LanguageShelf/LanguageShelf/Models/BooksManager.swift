@@ -30,7 +30,8 @@ class BooksManager: ObservableObject {
             let title = data["title"] as? String ?? ""
             let author = data["author"] as? String ?? ""
             let description = data["description"] as? String ?? ""
-            let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description)
+            let picture = data["picture"] as? String ?? ""
+            let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description, picture: picture)
             myBooks[bookshelfID] == nil ? myBooks[bookshelfID] = [newBook] : myBooks[bookshelfID]!.append(newBook)
         }
     }
@@ -81,6 +82,12 @@ class BooksManager: ObservableObject {
         }
         
         try await ref.document(bookID).updateData(["title": title, "author": author, "description": description])
+        await fetchBooks()
+    }
+    
+    // update path to cover picture
+    func updatePicture(bookID: String, picturePath: String) async throws {
+        try await ref.document(bookID).updateData(["bookshelfName": picturePath])
         await fetchBooks()
     }
 }

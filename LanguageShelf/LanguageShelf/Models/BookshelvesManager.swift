@@ -26,7 +26,8 @@ class BookshelvesManager: ObservableObject {
             let bookshelfID = data["bookshelfID"] as? String ?? ""
             let userID = data["userID"] as? String ?? ""
             let bookshelfName = data["bookshelfName"] as? String ?? ""
-            let newBookshelf = Bookshelf(bookshelfID: bookshelfID, userID: userID, bookshelfName: bookshelfName)
+            let picture = data["picture"] as? String ?? ""
+            let newBookshelf = Bookshelf(bookshelfID: bookshelfID, userID: userID, bookshelfName: bookshelfName, picture: picture)
             self.myBookshelves.append(newBookshelf)
         }
         sortByName()
@@ -81,5 +82,11 @@ class BookshelvesManager: ObservableObject {
         if myBookshelves.count > 1 {
             self.myBookshelves.sort(by: {$0.bookshelfName < $1.bookshelfName})
         }
+    }
+    
+    // update path to cover picture
+    func updatePicture(bookshelfID: String, picturePath: String) async throws {
+        try await ref.document(bookshelfID).updateData(["bookshelfName": picturePath])
+        await fetchBookshelves()
     }
 }
