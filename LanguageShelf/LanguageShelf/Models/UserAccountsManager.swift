@@ -34,7 +34,7 @@ class UserAccountsManager: ObservableObject {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
             let user = User(id: result.user.uid, email: email, username: username, theme: "0")
-            try await ref.document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0])
+        try await ref.document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0, "profilePicture": ""])
             await fetchUser()
     }
     

@@ -208,8 +208,7 @@ struct BookshelfCardView: View {
         guard imageData != nil else { return }
         
         // file path and name
-        guard let uid = userManager.currentUser?.id else { return }
-        let filePath = "bookshelf/\(uid)-cover-pic.jpg"
+        let filePath = "bookshelf/\(bookshelf.id)-cover-pic.jpg"
         let fileRef = storageRef.child(filePath)
         
         // upload data

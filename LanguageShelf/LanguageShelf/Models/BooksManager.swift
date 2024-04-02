@@ -55,7 +55,7 @@ class BooksManager: ObservableObject {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let newBook = Book(bookshelfID: bookshelfID, userID: uid, title: bookName, author: author)
         
-        try await ref.document(newBook.id).setData(["bookID": newBook.id, "bookshelfID": newBook.bookshelfID, "userID": newBook.userID, "title": newBook.title, "author": newBook.author])
+        try await ref.document(newBook.id).setData(["bookID": newBook.id, "bookshelfID": newBook.bookshelfID, "userID": newBook.userID, "title": newBook.title, "author": newBook.author, "picture": newBook.picture])
         await fetchBooks()
     }
     

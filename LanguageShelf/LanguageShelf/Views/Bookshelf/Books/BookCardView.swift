@@ -98,7 +98,7 @@ struct BookCardView: View {
                                         coverPic = image
                                         
                                         // save photo to firebase storage
-                                        // todo
+                                        savePhotoToStorage()
                                     }
                                 }
                                 photosPickerItem = nil
@@ -128,6 +128,12 @@ struct BookCardView: View {
                 secondaryButton: .cancel()
             )
         }
+        .onAppear(){
+            // retrieve and set cover picture if user has a choosen cover picture for this bookshelf
+            if !book.picture.isEmpty {
+                setPictureFromStorage()
+            }
+        }
     }
     
     func deleteBook(bookID: String) {
@@ -147,6 +153,49 @@ struct BookCardView: View {
                 for sentence in allSentencesInThisBook {
                     try await sentencesManager.removeSentence(sentenceID: sentence.id)
                 }
+            }
+        }
+    }
+    
+    func savePhotoToStorage() {
+        guard coverPic != nil else { return }
+        
+        // storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // turn image into data
+        let imageData = coverPic!.jpegData(compressionQuality: 0.8)
+        guard imageData != nil else { return }
+        
+        // file path and name
+        let filePath = "book/\(book.id)-cover-pic.jpg"
+        let fileRef = storageRef.child(filePath)
+        
+        // upload data
+        _ = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            if error == nil && metadata != nil {
+                // save reference to file in firestore database
+                Task {
+                    try await booksManager.updatePicture(bookID: book.id, picturePath: filePath)
+                }
+            }
+        }
+    }
+    
+    func setPictureFromStorage() {
+        // storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // file path and name
+        let filePath = book.picture
+        let fileRef = storageRef.child(filePath)
+        
+        // retrieve data
+        fileRef.getData(maxSize: 6 * 1024 * 1024) { data, error in
+            if error == nil && data != nil {
+                // create UIImage and set it as profilePic
+                let image = UIImage(data: data!)
+                coverPic = image
             }
         }
     }

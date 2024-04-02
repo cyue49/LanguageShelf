@@ -50,7 +50,7 @@ class BookshelvesManager: ObservableObject {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let newBookshelf = Bookshelf(userID: uid, bookshelfName: name)
         
-        try await ref.document(newBookshelf.id).setData(["bookshelfID": newBookshelf.id, "userID": newBookshelf.userID, "bookshelfName": newBookshelf.bookshelfName])
+        try await ref.document(newBookshelf.id).setData(["bookshelfID": newBookshelf.id, "userID": newBookshelf.userID, "bookshelfName": newBookshelf.bookshelfName, "picture": newBookshelf.picture])
         await fetchBookshelves()
     }
     
