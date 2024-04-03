@@ -10,6 +10,7 @@ protocol ThemeProtocol {
     var bgColor: Color { get }
     var bgColor2: Color { get }
     var fontColor: Color { get }
+    var iconColor: Color { get }
 }
 
 // Themes
@@ -23,6 +24,7 @@ struct DefaultTheme: ThemeProtocol {
     var bgColor: Color = Color("1-BackgroundColor")
     var bgColor2: Color = Color("1-BackgroundColor2")
     var fontColor: Color = Color("1-FontColor")
+    var iconColor: Color = Color("1-IconColor")
 }
 
 struct LightTheme: ThemeProtocol {
@@ -34,6 +36,7 @@ struct LightTheme: ThemeProtocol {
     var bgColor: Color = Color("2-BackgroundColor")
     var bgColor2: Color = Color("2-BackgroundColor2")
     var fontColor: Color = Color("2-FontColor")
+    var iconColor: Color = Color("2-IconColor")
 }
 
 struct DarkTheme: ThemeProtocol {
@@ -45,6 +48,7 @@ struct DarkTheme: ThemeProtocol {
     var bgColor: Color = Color("3-BackgroundColor")
     var bgColor2: Color = Color("3-BackgroundColor2")
     var fontColor: Color = Color("3-FontColor")
+    var iconColor: Color = Color("3-IconColor")
 }
 
 struct GreenTheme: ThemeProtocol {
@@ -56,4 +60,5 @@ struct GreenTheme: ThemeProtocol {
     var bgColor: Color = Color("4-BackgroundColor")
     var bgColor2: Color = Color("4-BackgroundColor2")
     var fontColor: Color = Color("4-FontColor")
+    var iconColor: Color = Color("4-IconColor")
 }

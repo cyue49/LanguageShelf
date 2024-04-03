@@ -53,7 +53,7 @@ struct BookCardView: View {
                         }
                         VStack (alignment: .leading) {
                             Image(systemName: "book.closed.fill")
-                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                                 .font(.system(size: 28))
                         }
                         .padding(6)
@@ -79,13 +79,13 @@ struct BookCardView: View {
                             }
                         } label: {
                             Image(systemName: "square.and.pencil.circle.fill")
-                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                                 .font(.system(size: 24))
                         }
                         
                         PhotosPicker(selection: $photosPickerItem, matching: .images) {
                             Image(systemName: "camera.circle.fill")
-                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                                 .font(.system(size: 24))
                         }
                         .onChange(of: photosPickerItem) {
@@ -110,7 +110,7 @@ struct BookCardView: View {
                             showLoadingSpinner = true
                         }, label: {
                             Image(systemName: "x.circle.fill")
-                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                                 .font(.system(size: 24))
                         })
                     }

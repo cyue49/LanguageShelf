@@ -54,7 +54,7 @@ struct BookshelfCardView: View {
                                 Spacer()
                                 HStack {
                                     Image(systemName: "books.vertical.fill")
-                                        .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                                        .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                                         .font(.system(size: 60))
                                         .offset(x: -10, y: 10)
                                     
@@ -92,13 +92,13 @@ struct BookshelfCardView: View {
                         showEditNameAlert.toggle()
                     }, label: {
                         Image(systemName: "square.and.pencil.circle.fill")
-                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                             .font(.system(size: 24))
                     })
                     
                     PhotosPicker(selection: $photosPickerItem, matching: .images) {
                         Image(systemName: "camera.circle.fill")
-                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                             .font(.system(size: 24))
                     }
                     .onChange(of: photosPickerItem) {
@@ -122,7 +122,7 @@ struct BookshelfCardView: View {
                         showLoadingSpinner = true
                     }, label: {
                         Image(systemName: "x.circle.fill")
-                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                             .font(.system(size: 24))
                     })
                     
@@ -130,7 +130,7 @@ struct BookshelfCardView: View {
                         showConfirmDeleteAlert.toggle()
                     }, label: {
                         Image(systemName: "trash.circle.fill")
-                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.bgColor)
+                            .foregroundStyle(coverPic == nil ? userManager.currentTheme.primaryAccentColor : userManager.currentTheme.iconColor)
                             .font(.system(size: 24))
                     })
                 }
