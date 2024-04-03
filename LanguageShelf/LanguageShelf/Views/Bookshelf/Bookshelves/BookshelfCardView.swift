@@ -81,7 +81,7 @@ struct BookshelfCardView: View {
                         .cornerRadius(30)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2.5)
                         )
                     }
                 }

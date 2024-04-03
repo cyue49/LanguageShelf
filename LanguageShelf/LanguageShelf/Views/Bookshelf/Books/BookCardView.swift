@@ -62,7 +62,7 @@ struct BookCardView: View {
                         .cornerRadius(20)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2.5)
                         )
                     }
                 }
