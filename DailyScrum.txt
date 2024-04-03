@@ -1,3 +1,17 @@
+2024/04/03 Chen
+
+Done since last scrum: 
+- Implemented deleting photos from Firebase Storage when deleting a bookshelf/book
+- Added loading spinners to creating/updating/deleting a bookshelf/book
+- Added a launch screen
+- Implemented books, vocabularies, and sentences being displayed in alphabetical order 
+
+Todo until next scrum: 
+- Rework on color themes to make them more readable, especially when used with a cover picture on a bookshelf/book
+- Look into dictionary APIs and how to integrate it into my app
+
+------------------
+
 2024/04/02 Chen
 
 Done since last scrum: 
