@@ -13,6 +13,7 @@
 		DE17B2692BB11795000CD9C8 /* VocabulariesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */; };
 		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
 		DE37B0D32BBA59C200E42212 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DE37B0D22BBA59C200E42212 /* FirebaseStorage */; };
+		DE50E2C42BBD105D00B66CC1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */; };
 		DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572C82BA497F500488990 /* LanguageShelfApp.swift */; };
 		DE8572CD2BA497F600488990 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CC2BA497F600488990 /* Assets.xcassets */; };
 		DE8572D02BA497F600488990 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CF2BA497F600488990 /* Preview Assets.xcassets */; };
@@ -63,6 +64,8 @@
 		DE17B2662BB11700000CD9C8 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabulariesManager.swift; sourceTree = "<group>"; };
 		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
+		DE50E2C22BBD01AE00B66CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		DE8572C52BA497F500488990 /* LanguageShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguageShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8572C82BA497F500488990 /* LanguageShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageShelfApp.swift; sourceTree = "<group>"; };
 		DE8572CC2BA497F600488990 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,12 +173,14 @@
 		DE8572C72BA497F500488990 /* LanguageShelf */ = {
 			isa = PBXGroup;
 			children = (
+				DE50E2C22BBD01AE00B66CC1 /* Info.plist */,
 				DEE550B52BA68BE40045BA66 /* Models */,
 				DE8572D62BA4981B00488990 /* Views */,
 				DE8572C82BA497F500488990 /* LanguageShelfApp.swift */,
 				DE8572CC2BA497F600488990 /* Assets.xcassets */,
 				DEE550AE2BA66B130045BA66 /* GoogleService-Info.plist */,
 				DE8572CE2BA497F600488990 /* Preview Content */,
+				DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */,
 			);
 			path = LanguageShelf;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 			files = (
 				DE8572D02BA497F600488990 /* Preview Assets.xcassets in Resources */,
 				DE8572CD2BA497F600488990 /* Assets.xcassets in Resources */,
+				DE50E2C42BBD105D00B66CC1 /* Launch Screen.storyboard in Resources */,
 				DEE550AF2BA66B130045BA66 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,9 +545,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LanguageShelf/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguageShelf/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -567,9 +574,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LanguageShelf/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguageShelf/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
