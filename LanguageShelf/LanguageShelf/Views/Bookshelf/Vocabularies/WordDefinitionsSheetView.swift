@@ -21,7 +21,7 @@ struct WordDefinitionsSheetView: View {
                 VStack {
                     Text(word)
                     if !wordDefs.isEmpty {
-                        Text(wordDefs[0].entry[0].meanings[0].definitions[0].definition)
+                        Text(wordDefs[0].phonetic)
                     }
                 }
                 .padding()
@@ -46,11 +46,10 @@ struct WordDefinitionsSheetView: View {
     
     func fetchData() async throws{
         guard let url = URL(string: "https://api.dictionaryapi.dev/api/v2/entries/en/\(word)") else { return }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        print("here")
-        let result = try JSONDecoder().decode(WordDefinitions.self, from: data)
-        print("here2")
-        wordDefs.append(result)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return } // code 200 means everything's ok
+        let result = try JSONDecoder().decode([WordDefinitions].self, from: data)
+        wordDefs = result
     }
 }
 

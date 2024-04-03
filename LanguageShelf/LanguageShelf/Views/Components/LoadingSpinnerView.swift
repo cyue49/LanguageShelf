@@ -9,9 +9,9 @@ struct LoadingSpinnerView: View {
     var body: some View {
         if showLoadingSpinner {
             ZStack {
-                Color(.white)
-                    .opacity(0.9)
-                    .ignoresSafeArea()
+//                Color(.white)
+//                    .opacity(0.9)
+//                    .ignoresSafeArea()
                 
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: userManager.currentTheme.primaryAccentColor))
