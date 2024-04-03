@@ -31,6 +31,8 @@ class SentencesManager: ObservableObject {
             let newSentence = Sentence(id: sentenceID, bookID: bookID, userID: userID, sentence: sentence, linkedWords: linkedWords)
             mySentences[bookID] == nil ? mySentences[bookID] = [newSentence] : mySentences[bookID]!.append(newSentence)
         }
+        
+        sortAlphabetically()
     }
     
     func addNewSentence(bookID: String, newSentence: String, linkedWords: [String]) async throws {
@@ -128,5 +130,15 @@ class SentencesManager: ObservableObject {
             return fetchedSentence
         }
         return Sentence(id: "", bookID: "", userID: "", sentence: "", linkedWords: [])
+    }
+    
+    func sortAlphabetically() {
+        if !self.mySentences.isEmpty {
+            for (book, sentencesArr) in mySentences{
+                var sortedSentences = sentencesArr
+                sortedSentences.sort(by: {$0.sentence < $1.sentence})
+                self.mySentences[book] = sortedSentences
+            }
+        }
     }
 }
