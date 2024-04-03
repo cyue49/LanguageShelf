@@ -16,6 +16,8 @@ struct VocabularyDetailsView: View {
     @State var showEditSheet: Bool = false
     @State var showConfirmDeleteAlert: Bool = false
     
+    @State var showWordDefinitionsSheet: Bool = false
+    
     var body: some View {
         ZStack {
             userManager.currentTheme.bgColor
@@ -30,6 +32,9 @@ struct VocabularyDetailsView: View {
                             .font(.title)
                             .bold()
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .onLongPressGesture {
+                                showWordDefinitionsSheet.toggle()
+                            }
                     }
                     
                     Text("Definition:")
@@ -118,6 +123,9 @@ struct VocabularyDetailsView: View {
                 },
                 secondaryButton: .cancel()
             )
+        }
+        .sheet(isPresented: $showWordDefinitionsSheet) {
+            WordDefinitionsSheetView(word: updatedVocab.word, showSheet: $showWordDefinitionsSheet)
         }
     }
     

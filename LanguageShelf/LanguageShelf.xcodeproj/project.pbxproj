@@ -11,6 +11,8 @@
 		DE17B2642BB08ACE000CD9C8 /* BookInfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE17B2632BB08ACE000CD9C8 /* BookInfoSheetView.swift */; };
 		DE17B2672BB11700000CD9C8 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE17B2662BB11700000CD9C8 /* Vocabulary.swift */; };
 		DE17B2692BB11795000CD9C8 /* VocabulariesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */; };
+		DE232BAB2BBDBA8C000AD8A7 /* WordDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE232BAA2BBDBA8C000AD8A7 /* WordDefinitions.swift */; };
+		DE232BAD2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE232BAC2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift */; };
 		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
 		DE37B0D32BBA59C200E42212 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DE37B0D22BBA59C200E42212 /* FirebaseStorage */; };
 		DE50E2C42BBD105D00B66CC1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */; };
@@ -63,6 +65,8 @@
 		DE17B2632BB08ACE000CD9C8 /* BookInfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInfoSheetView.swift; sourceTree = "<group>"; };
 		DE17B2662BB11700000CD9C8 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabulariesManager.swift; sourceTree = "<group>"; };
+		DE232BAA2BBDBA8C000AD8A7 /* WordDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDefinitions.swift; sourceTree = "<group>"; };
+		DE232BAC2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDefinitionsSheetView.swift; sourceTree = "<group>"; };
 		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		DE50E2C22BBD01AE00B66CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 				DEA8833F2BB1C53900F1E336 /* VocabularyCardView.swift */,
 				DEA883432BB1DC9A00F1E336 /* VocabularyDetailsView.swift */,
 				DEE108182BB3211B008A04D6 /* NewEditVocabularySheetView.swift */,
+				DE232BAC2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift */,
 			);
 			path = Vocabularies;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				DEE550B62BA68BF90045BA66 /* User.swift */,
+				DE232BAA2BBDBA8C000AD8A7 /* WordDefinitions.swift */,
 				DEE550B82BA68CC70045BA66 /* UserAccountsManager.swift */,
 				DE3299792BA9D21F004A0E0B /* Themes.swift */,
 				DEB33FF52BAC6B3100D0D8B7 /* BookshelvesManager.swift */,
@@ -373,6 +379,7 @@
 				DE17B2642BB08ACE000CD9C8 /* BookInfoSheetView.swift in Sources */,
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
 				DEE550B92BA68CC70045BA66 /* UserAccountsManager.swift in Sources */,
+				DE232BAB2BBDBA8C000AD8A7 /* WordDefinitions.swift in Sources */,
 				DE10C97D2BAD477300D59EB9 /* DataErrors.swift in Sources */,
 				DED2A7CB2BB5156200954581 /* SelectSentencesOrVocabsView.swift in Sources */,
 				DE85C44F2BADC32B007721F3 /* BookCardView.swift in Sources */,
@@ -410,6 +417,7 @@
 				DE85C44D2BADBD78007721F3 /* MyBooksView.swift in Sources */,
 				DE9039412BA80C90004B9DDF /* ChooseColorThemeView.swift in Sources */,
 				DEA883422BB1CC3700F1E336 /* TwoChoicesPicker.swift in Sources */,
+				DE232BAD2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
