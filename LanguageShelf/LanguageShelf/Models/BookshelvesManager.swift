@@ -30,7 +30,7 @@ class BookshelvesManager: ObservableObject {
             let newBookshelf = Bookshelf(bookshelfID: bookshelfID, userID: userID, bookshelfName: bookshelfName, picture: picture)
             self.myBookshelves.append(newBookshelf)
         }
-        sortByName()
+        sortAlphabetically()
     }
     
     // add new bookshelf to user's bookshelves
@@ -78,7 +78,7 @@ class BookshelvesManager: ObservableObject {
         await fetchBookshelves()
     }
     
-    func sortByName() {
+    func sortAlphabetically() {
         if myBookshelves.count > 1 {
             self.myBookshelves.sort(by: {$0.bookshelfName < $1.bookshelfName})
         }

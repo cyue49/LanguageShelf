@@ -32,6 +32,8 @@ class VocabulariesManager: ObservableObject {
             let newVocab = Vocabulary(id: vocabID, bookID: bookID, userID: userID, word: word, definition: definition, note: note)
             myVocabularies[bookID] == nil ? myVocabularies[bookID] = [newVocab] : myVocabularies[bookID]!.append(newVocab)
         }
+        
+        sortAlphabetically()
     }
     
     func addNewVocabulary(bookID: String, newWord: String, newDefinition: String, newNote: String = "") async throws {
@@ -112,5 +114,15 @@ class VocabulariesManager: ObservableObject {
             return vocab
         }
         return Vocabulary(id: "", bookID: "", userID: "", word: "", definition: "")
+    }
+    
+    func sortAlphabetically() {
+        if !self.myVocabularies.isEmpty {
+            for (book, vocabsArr) in myVocabularies{
+                var sortedVocabs = vocabsArr
+                sortedVocabs.sort(by: {$0.word < $1.word})
+                self.myVocabularies[book] = sortedVocabs
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@ class BooksManager: ObservableObject {
             let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description, picture: picture)
             myBooks[bookshelfID] == nil ? myBooks[bookshelfID] = [newBook] : myBooks[bookshelfID]!.append(newBook)
         }
-        sortByName()
+        sortAlphabetically()
     }
     
     // add new book to a bookshelf
@@ -86,7 +86,7 @@ class BooksManager: ObservableObject {
         await fetchBooks()
     }
     
-    func sortByName() {
+    func sortAlphabetically() {
         if !self.myBooks.isEmpty {
             for (bookshelf, booksArr) in myBooks{
                 var sortedBooks = booksArr
