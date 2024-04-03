@@ -18,13 +18,46 @@ struct WordDefinitionsSheetView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                VStack {
-                    Text(word)
-                    if !wordDefs.isEmpty {
-                        Text(wordDefs[0].phonetic)
+                ScrollView {
+                    VStack (alignment: .leading, spacing: 20) {
+                        HStack {
+                            Image(systemName: "text.book.closed.fill")
+                                .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                                .font(.system(size: 30))
+                            
+                            Text(word)
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                        }
+                        
+                        if !wordDefs.isEmpty {
+                            ForEach(wordDefs) { wordEntry in
+                                HStack {
+                                    Text("Phonetic:")
+                                        .font(.subheadline)
+                                        .foregroundStyle(userManager.currentTheme.fontColor)
+                                    Text(wordEntry.phonetic)
+                                }
+                                
+                                Text("Definitions:")
+                                    .font(.subheadline)
+                                    .foregroundStyle(userManager.currentTheme.fontColor)
+                                
+                                ForEach(wordEntry.meanings){ meaning in
+                                    Text(meaning.partOfSpeech)
+                                    ForEach(meaning.definitions) { def in
+                                        Text(def.definition)
+                                    }
+                                }
+                            }
+                        } else {
+                            Text("Unavailable")
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
                 }
-                .padding()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
