@@ -34,6 +34,7 @@ class BooksManager: ObservableObject {
             let newBook = Book(id: bookID, bookshelfID: bookshelfID, userID: userID, title: title, author: author, description: description, picture: picture)
             myBooks[bookshelfID] == nil ? myBooks[bookshelfID] = [newBook] : myBooks[bookshelfID]!.append(newBook)
         }
+        sortByName()
     }
     
     // add new book to a bookshelf
@@ -83,6 +84,16 @@ class BooksManager: ObservableObject {
         
         try await ref.document(bookID).updateData(["title": title, "author": author, "description": description])
         await fetchBooks()
+    }
+    
+    func sortByName() {
+        if !self.myBooks.isEmpty {
+            for (bookshelf, booksArr) in myBooks{
+                var sortedBooks = booksArr
+                sortedBooks.sort(by: {$0.title < $1.title})
+                self.myBooks[bookshelf] = sortedBooks
+            }
+        }
     }
     
     // update path to cover picture
