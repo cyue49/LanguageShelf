@@ -248,6 +248,7 @@ struct BookshelfCardView: View {
                 // save reference to file in firestore database
                 Task {
                     try await bookshelvesManager.updatePicture(bookshelfID: bookshelf.id, picturePath: filePath)
+                    showLoadingSpinner = true
                 }
             }
         }

@@ -197,6 +197,7 @@ struct BookCardView: View {
                 // save reference to file in firestore database
                 Task {
                     try await booksManager.updatePicture(bookID: book.id, picturePath: filePath)
+                    showLoadingSpinner = true
                 }
             }
         }
