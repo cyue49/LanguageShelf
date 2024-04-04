@@ -34,21 +34,58 @@ struct WordDefinitionsSheetView: View {
                         if !wordDefs.isEmpty {
                             ForEach(wordDefs) { wordEntry in
                                 HStack {
+                                    Rectangle()
+                                        .frame(width: 150, height: 3)
+                                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                                    Image(systemName: "leaf.fill")
+                                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                                        .font(.system(size: 20))
+                                    Rectangle()
+                                        .frame(width: 150, height: 3)
+                                        .foregroundColor(userManager.currentTheme.primaryAccentColor)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                // Phonetic
+                                HStack {
                                     Text("Phonetic:")
                                         .font(.subheadline)
                                         .foregroundStyle(userManager.currentTheme.fontColor)
                                     Text(wordEntry.phonetic)
+                                        .foregroundStyle(userManager.currentTheme.fontColor)
                                 }
                                 
                                 Text("Definitions:")
                                     .font(.subheadline)
                                     .foregroundStyle(userManager.currentTheme.fontColor)
                                 
+                                // all definitions
                                 ForEach(wordEntry.meanings){ meaning in
-                                    Text(meaning.partOfSpeech)
-                                    ForEach(meaning.definitions) { def in
-                                        Text(def.definition)
+                                    VStack (alignment: .leading, spacing: 20) {
+                                        // Part of speech
+                                        Text(meaning.partOfSpeech)
+                                            .italic()
+                                            .bold()
+                                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                        
+                                        // all meanings
+                                        ForEach(0..<meaning.definitions.count, id: \.self) { i in
+                                            HStack (alignment: .top) {
+                                                Text("\(i) -")
+                                                    .bold()
+                                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                                Text(meaning.definitions[i].definition)
+                                                    .foregroundStyle(userManager.currentTheme.fontColor)
+                                            }
+                                        }
                                     }
+                                    .padding()
+                                    .frame( maxWidth: .infinity, alignment: .leading)
+                                    .background(userManager.currentTheme.buttonColor)
+                                    .cornerRadius(20)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                                    )
                                 }
                             }
                         } else {
