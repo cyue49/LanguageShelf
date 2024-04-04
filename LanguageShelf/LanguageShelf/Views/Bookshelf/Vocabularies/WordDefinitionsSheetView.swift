@@ -89,7 +89,11 @@ struct WordDefinitionsSheetView: View {
                                 }
                             }
                         } else {
-                            Text("Unavailable")
+                            VStack (alignment: .center) {
+                                Text("Online dictionary unavailable")
+                                    .foregroundStyle(userManager.currentTheme.fontColor)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .center)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
