@@ -93,6 +93,21 @@ struct NewEditVocabularySheetView: View {
                 emptyFieldAlert = false
             }
         }
+        .onChange(of: vocabField) {
+            if vocabField.count > 20 {
+                vocabField = String(vocabField.prefix(20))
+            }
+        }
+        .onChange(of: definitionField) {
+            if definitionField.count > 100 {
+                definitionField = String(definitionField.prefix(100))
+            }
+        }
+        .onChange(of: noteField) {
+            if noteField.count > 500 {
+                noteField = String(noteField.prefix(500))
+            }
+        }
     }
     
     func updateSentencesLinkedVocab() {
