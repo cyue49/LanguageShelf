@@ -94,8 +94,8 @@ struct NewEditVocabularySheetView: View {
             }
         }
         .onChange(of: vocabField) {
-            if vocabField.count > 20 {
-                vocabField = String(vocabField.prefix(20))
+            if vocabField.count > 18 {
+                vocabField = String(vocabField.prefix(18))
             }
         }
         .onChange(of: definitionField) {

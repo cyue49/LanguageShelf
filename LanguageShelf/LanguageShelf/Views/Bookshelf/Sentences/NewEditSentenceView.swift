@@ -88,8 +88,8 @@ struct NewEditSentenceView: View {
             }
         }
         .onChange(of: sentenceField) {
-            if sentenceField.count > 200 {
-                sentenceField = String(sentenceField.prefix(200))
+            if sentenceField.count > 190 {
+                sentenceField = String(sentenceField.prefix(190))
             }
         }
     }
