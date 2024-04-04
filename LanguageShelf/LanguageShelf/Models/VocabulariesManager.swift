@@ -7,6 +7,8 @@ class VocabulariesManager: ObservableObject {
     
     private let ref = Firestore.firestore().collection("Vocabularies")
     
+    private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+    
     init() {
         Task {
             await fetchVocabularies()
@@ -47,7 +49,7 @@ class VocabulariesManager: ObservableObject {
         }
         
         // if user entered empty string for vocab or definition, throw error
-        if (newWord.isEmpty || newDefinition.isEmpty){
+        if (newWord.isEmpty || newDefinition.isEmpty || allSpaceRegex.evaluate(with: newWord) || allSpaceRegex.evaluate(with: newDefinition)){
             throw DataErrors.emptyNameError
         }
         
@@ -74,7 +76,7 @@ class VocabulariesManager: ObservableObject {
         }
         
         // if user entered empty string for vocab or definition, throw error
-        if (newWord.isEmpty || newDefinition.isEmpty){
+        if (newWord.isEmpty || newDefinition.isEmpty || allSpaceRegex.evaluate(with: newWord) || allSpaceRegex.evaluate(with: newDefinition)){
             throw DataErrors.emptyNameError
         }
         

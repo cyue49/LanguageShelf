@@ -7,6 +7,8 @@ class BooksManager: ObservableObject {
     
     private let ref = Firestore.firestore().collection("Books")
     
+    private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+    
     init() {
         Task {
             await fetchBooks()
@@ -49,7 +51,7 @@ class BooksManager: ObservableObject {
         }
         
         // if user didn't enter a name for the new book throw error
-        if (bookName.isEmpty){
+        if (bookName.isEmpty || allSpaceRegex.evaluate(with: bookName)){
             throw DataErrors.emptyNameError
         }
         
@@ -78,7 +80,7 @@ class BooksManager: ObservableObject {
         }
         
         // if user didn't enter a title for the book throw error
-        if (title.isEmpty){
+        if (title.isEmpty || allSpaceRegex.evaluate(with: title)){
             throw DataErrors.emptyNameError
         }
         

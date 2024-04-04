@@ -7,6 +7,8 @@ class SentencesManager: ObservableObject {
     
     private let ref = Firestore.firestore().collection("Sentences")
     
+    private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+    
     init() {
         Task {
             await fetchSentences()
@@ -46,7 +48,7 @@ class SentencesManager: ObservableObject {
         }
         
         // if user entered empty string for sentence, throw error
-        if (newSentence.isEmpty){
+        if (newSentence.isEmpty || allSpaceRegex.evaluate(with: newSentence)){
             throw DataErrors.emptyNameError
         }
         
@@ -73,7 +75,7 @@ class SentencesManager: ObservableObject {
         }
         
         // if user entered empty string for sentence, throw error
-        if (newSentence.isEmpty){
+        if (newSentence.isEmpty || allSpaceRegex.evaluate(with: newSentence)){
             throw DataErrors.emptyNameError
         }
         

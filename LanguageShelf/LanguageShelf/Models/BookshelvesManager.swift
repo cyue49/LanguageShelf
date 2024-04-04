@@ -7,6 +7,8 @@ class BookshelvesManager: ObservableObject {
     
     private let ref = Firestore.firestore().collection("Bookshelves")
     
+    private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+    
     init() {
         Task {
             await fetchBookshelves()
@@ -43,7 +45,7 @@ class BookshelvesManager: ObservableObject {
             }
         
         // if user didn't enter a name for the new bookshelf throw error
-        if (name.isEmpty){
+        if (name.isEmpty || allSpaceRegex.evaluate(with: name)){
             throw DataErrors.emptyNameError
         }
         
@@ -70,7 +72,7 @@ class BookshelvesManager: ObservableObject {
             }
         
         // if user renames to an empty string throw error
-        if (newName.isEmpty){
+        if (newName.isEmpty  || allSpaceRegex.evaluate(with: newName)){
             throw DataErrors.emptyNameError
         }
         
