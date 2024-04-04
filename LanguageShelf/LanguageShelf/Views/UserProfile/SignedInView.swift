@@ -97,7 +97,7 @@ struct SignedInView: View {
                     }
                 }
                 
-                EditTextFieldView(updateField: "username", inputText: user.username)
+                EditTextFieldView(updateField: "username", inputText: user.username, maxLength: 12)
                 
                 ChooseColorThemeView()
                 

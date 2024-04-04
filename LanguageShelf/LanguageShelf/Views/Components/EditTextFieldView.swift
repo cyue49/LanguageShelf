@@ -5,6 +5,7 @@ struct EditTextFieldView: View {
     
     var updateField: String
     var inputText: String
+    var maxLength: Int
     
     @State var editText = ""
     @State var isEdit: Bool = false
@@ -58,12 +59,17 @@ struct EditTextFieldView: View {
                 emptyUsernameAlert = false
             }
         }
+        .onChange(of: editText) {
+            if editText.count > maxLength {
+                editText = String(editText.prefix(maxLength))
+            }
+        }
     }
 }
 
 struct EditTextField_Previews: PreviewProvider {
     static var previews: some View {
-        EditTextFieldView(updateField: "username", inputText: "Username")
+        EditTextFieldView(updateField: "username", inputText: "Username", maxLength: 12)
             .environmentObject(UserAccountsManager())
     }
 }
