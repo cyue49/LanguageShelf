@@ -175,6 +175,11 @@ struct SignedOutView: View {
         }
         .backgroundStyle(userManager.currentTheme.toolbarColor)
         .cornerRadius(30)
+        .onChange(of: username) {
+            if username.count > 12 {
+                username = String(username.prefix(12))
+            }
+        }
     }
 }
 
