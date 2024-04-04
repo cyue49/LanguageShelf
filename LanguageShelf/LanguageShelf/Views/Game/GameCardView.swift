@@ -7,7 +7,7 @@ struct GameCardView: View {
     @EnvironmentObject var vocabsManager: VocabulariesManager
     @EnvironmentObject var sentencesManager: SentencesManager
     
-    var vocabItem: Vocabulary
+    var gameCardItem: String
     var isDefinition: Bool = false
     
     @State var isSelected: Bool = false
@@ -16,18 +16,18 @@ struct GameCardView: View {
         HStack (alignment: .center, spacing: 10) {
             if isDefinition {
                 Image(systemName: "text.book.closed.fill")
-                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    .foregroundStyle(isSelected ? userManager.currentTheme.bgColor : userManager.currentTheme.primaryAccentColor)
                     .font(.system(size: 28))
                 Spacer()
-                Text(vocabItem.definition)
+                Text(gameCardItem)
                 Spacer()
             } else {
+                Spacer()
+                Text(gameCardItem)
+                Spacer()
                 Image(systemName: "character.book.closed.fill")
-                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    .foregroundStyle(isSelected ? userManager.currentTheme.bgColor : userManager.currentTheme.primaryAccentColor)
                     .font(.system(size: 28))
-                Spacer()
-                Text(vocabItem.word)
-                Spacer()
             }
         }
         .padding()
@@ -41,7 +41,8 @@ struct GameCardView: View {
 
 struct GameCardView_Previews: PreviewProvider {
     static var previews: some View {
-        GameCardView(vocabItem: Vocabulary(bookID: "bookID", userID: "userID", word: "penguin", definition: "a large flightless seabird of the southern hemisphere, with black upper parts and white underparts and wings developed into flippers for swimming under water.", note: "penguins live in Antartica"))
+        GameCardView(gameCardItem: "penguin")
+//        GameCardView(gameCardItem: "a large flightless seabird of the southern hemisphere, with black upper parts and white underparts and wings developed into flippers for swimming under water.")
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())
             .environmentObject(BooksManager())

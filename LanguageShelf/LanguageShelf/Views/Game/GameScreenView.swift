@@ -7,7 +7,8 @@ struct GameScreenView: View {
     @EnvironmentObject var vocabsManager: VocabulariesManager
     @EnvironmentObject var sentencesManager: SentencesManager
     
-    @State var currentGameVocabs: [Vocabulary] = []
+    @State var currentGameSet: [String : String] = [:] // dictionary of matching words and definitions (key: word, value: matching definition)
+    @State var currentGameItems: [(String, Int)] = [] // array of tuples (word or definition string, int where 0 = word and 1 = definition)
     
     var body: some View {
         NavigationStack {
@@ -15,21 +16,39 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 VStack {
-                    List {
-                        ForEach(currentGameVocabs) { vocab in
-                            Text(vocab.word)
-                            Text(vocab.definition)
+                    ScrollView {
+                        ForEach(currentGameItems, id: \.0) { (item, type) in
+                            GameCardView(gameCardItem: item, isDefinition: (type == 0) ? false : true)
                         }
                     }
+                    .padding()
                 }
             }
             .onAppear(){
+                // reset current game set and current game items on appear
+                currentGameSet = [:]
+                currentGameItems = []
+                
+                // get all of user's vocabs, shuffled
                 let allVocabs = vocabsManager.getVocabsOfAllBooks().shuffled()
+                
+                // choose first 5 Vocabulary, put words and definitions as key value pairs in dictionary, and put word/definition strings in current game items array
                 if (allVocabs.count <= 5) {
-                    currentGameVocabs = allVocabs
+                    for vocab in allVocabs {
+                        currentGameSet[vocab.word] = vocab.definition
+                        currentGameItems.append((vocab.word, 0))
+                        currentGameItems.append((vocab.definition, 1))
+                    }
                 } else {
-                    currentGameVocabs.append(contentsOf: allVocabs[0..<5])
+                    for i in 0...4 {
+                        currentGameSet[allVocabs[i].word] = allVocabs[i].definition
+                        currentGameItems.append((allVocabs[i].word, 0))
+                        currentGameItems.append((allVocabs[i].definition, 1))
+                    }
                 }
+                
+                // shuffle the game items
+                currentGameItems.shuffle()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
