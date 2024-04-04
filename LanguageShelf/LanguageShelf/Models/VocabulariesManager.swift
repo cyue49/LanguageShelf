@@ -127,4 +127,14 @@ class VocabulariesManager: ObservableObject {
             }
         }
     }
+    
+    func getVocabsOfAllBooks() -> [Vocabulary] {
+        var allVocabs: [Vocabulary] = []
+        for key in myVocabularies.keys {
+            for vocab in myVocabularies[key]!{
+                allVocabs.append(vocab)
+            }
+        }
+        return allVocabs
+    }
 }

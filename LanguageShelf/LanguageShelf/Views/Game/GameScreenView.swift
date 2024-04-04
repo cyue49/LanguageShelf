@@ -2,6 +2,12 @@ import SwiftUI
 
 struct GameScreenView: View {
     @EnvironmentObject var userManager: UserAccountsManager
+    @EnvironmentObject var bookshelvesManager: BookshelvesManager
+    @EnvironmentObject var booksManager: BooksManager
+    @EnvironmentObject var vocabsManager: VocabulariesManager
+    @EnvironmentObject var sentencesManager: SentencesManager
+    
+    @State var currentGameVocabs: [Vocabulary] = []
     
     var body: some View {
         NavigationStack {
@@ -9,7 +15,20 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 VStack {
-                    Text("Coming soon!")
+                    List {
+                        ForEach(currentGameVocabs) { vocab in
+                            Text(vocab.word)
+                            Text(vocab.definition)
+                        }
+                    }
+                }
+            }
+            .onAppear(){
+                let allVocabs = vocabsManager.getVocabsOfAllBooks().shuffled()
+                if (allVocabs.count <= 5) {
+                    currentGameVocabs = allVocabs
+                } else {
+                    currentGameVocabs.append(contentsOf: allVocabs[0..<5])
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -59,6 +78,9 @@ struct GameScreen_Previews: PreviewProvider {
     static var previews: some View {
         GameScreenView()
             .environmentObject(UserAccountsManager())
-            .environmentObject(UserAccountsManager())
+            .environmentObject(BookshelvesManager())
+            .environmentObject(BooksManager())
+            .environmentObject(VocabulariesManager())
+            .environmentObject(SentencesManager())
     }
 }

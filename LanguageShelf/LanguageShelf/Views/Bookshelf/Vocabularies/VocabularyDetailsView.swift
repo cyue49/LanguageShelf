@@ -24,15 +24,18 @@ struct VocabularyDetailsView: View {
             ScrollView {
                 VStack (alignment: .leading ,spacing: 20) {
                     HStack (alignment: .top) {
-                        Image(systemName: "text.book.closed.fill")
+                        Image(systemName: "magnifyingglass.circle.fill")
                             .foregroundColor(userManager.currentTheme.primaryAccentColor)
                             .font(.system(size: 30))
+                            .onTapGesture {
+                                showWordDefinitionsSheet.toggle()
+                            }
                         
                         Text(updatedVocab.word)
                             .font(.title)
                             .bold()
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            .onLongPressGesture {
+                            .onTapGesture {
                                 showWordDefinitionsSheet.toggle()
                             }
                     }

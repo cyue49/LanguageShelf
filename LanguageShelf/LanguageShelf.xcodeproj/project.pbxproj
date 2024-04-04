@@ -13,6 +13,7 @@
 		DE17B2692BB11795000CD9C8 /* VocabulariesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */; };
 		DE232BAB2BBDBA8C000AD8A7 /* WordDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE232BAA2BBDBA8C000AD8A7 /* WordDefinitions.swift */; };
 		DE232BAD2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE232BAC2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift */; };
+		DE2596452BBF55F7002ED31F /* GameCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2596442BBF55F7002ED31F /* GameCardView.swift */; };
 		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
 		DE37B0D32BBA59C200E42212 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DE37B0D22BBA59C200E42212 /* FirebaseStorage */; };
 		DE50E2C42BBD105D00B66CC1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */; };
@@ -67,6 +68,7 @@
 		DE17B2682BB11795000CD9C8 /* VocabulariesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabulariesManager.swift; sourceTree = "<group>"; };
 		DE232BAA2BBDBA8C000AD8A7 /* WordDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDefinitions.swift; sourceTree = "<group>"; };
 		DE232BAC2BBDC35B000AD8A7 /* WordDefinitionsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDefinitionsSheetView.swift; sourceTree = "<group>"; };
+		DE2596442BBF55F7002ED31F /* GameCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCardView.swift; sourceTree = "<group>"; };
 		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		DE50E2C22BBD01AE00B66CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				DE8572ED2BA4D95100488990 /* GameScreenView.swift */,
+				DE2596442BBF55F7002ED31F /* GameCardView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE2596452BBF55F7002ED31F /* GameCardView.swift in Sources */,
 				DEE1081D2BB38671008A04D6 /* SentencesManager.swift in Sources */,
 				DE17B2642BB08ACE000CD9C8 /* BookInfoSheetView.swift in Sources */,
 				DE8572DC2BA4986A00488990 /* MyBookshelvesView.swift in Sources */,
