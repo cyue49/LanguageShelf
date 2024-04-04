@@ -23,7 +23,7 @@ struct VocabularyDetailsView: View {
             userManager.currentTheme.bgColor
             ScrollView {
                 VStack (alignment: .leading ,spacing: 20) {
-                    HStack {
+                    HStack (alignment: .top) {
                         Image(systemName: "text.book.closed.fill")
                             .foregroundColor(userManager.currentTheme.primaryAccentColor)
                             .font(.system(size: 30))

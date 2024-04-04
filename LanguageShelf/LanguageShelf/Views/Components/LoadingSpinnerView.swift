@@ -13,14 +13,24 @@ struct LoadingSpinnerView: View {
 //                    .opacity(0.9)
 //                    .ignoresSafeArea()
                 
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: userManager.currentTheme.primaryAccentColor))
-                    .scaleEffect(1.5, anchor: .center)
-                    .onAppear(){
-                        DispatchQueue.main.asyncAfter(deadline: .now() + loadTime) {
-                            showLoadingSpinner.toggle()
-                        }
+                Rectangle()
+                    .foregroundColor(userManager.currentTheme.toolbarColor)
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(30)
+                    .opacity(0.5)
+                
+                VStack(spacing: 20) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: userManager.currentTheme.primaryAccentColor))
+                        .scaleEffect(1.5, anchor: .center)
+                        .onAppear(){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + loadTime) {
+                                showLoadingSpinner.toggle()
+                            }
                     }
+                    Text("Loading")
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                }
             }
         }
     }
