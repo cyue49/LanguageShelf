@@ -1,3 +1,17 @@
+2024/04/04 Chen
+
+Done since last scrum: 
+- Modified colors to be more readable
+- Learned about Dictionary API 
+- Created struct model for decoding Json result from Dictionary API and implemented getting result from Dictionary API
+- Created frontend for displaying result from Dictionary API
+
+Todo until next scrum: 
+- Rework on the frontend of the loading spinner
+- Fix some problems such as a single space getting accepted as a vocabulary entry
+
+------------------
+
 2024/04/03 Chen
 
 Done since last scrum: 
