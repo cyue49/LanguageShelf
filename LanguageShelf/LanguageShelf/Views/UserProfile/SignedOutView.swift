@@ -121,7 +121,7 @@ struct SignedOutView: View {
                     
                     SecureTextFieldWithEye(label: "Enter your password", placeholder: "", textValue: $password)
                     if (!password.isEmpty){
-                        CheckListView(invalidMessage: "Password must be at be at least 8 characters long and contain an uppercase letter, a number, and a special character.", validMessage: "Valid password", isValid: validPassword)
+                        CheckListView(invalidMessage: "Your password must be between 8-20 characters long and contain an uppercase letter, a number, and a special character.", validMessage: "Valid password", isValid: validPassword)
                     }
                     
                     SecureTextFieldWithEye(label: "Confirm your password", placeholder: "", textValue: $confirmPassword)
@@ -178,6 +178,11 @@ struct SignedOutView: View {
         .onChange(of: username) {
             if username.count > 12 {
                 username = String(username.prefix(12))
+            }
+        }
+        .onChange(of: password) {
+            if password.count > 20 {
+                password = String(password.prefix(20))
             }
         }
     }
