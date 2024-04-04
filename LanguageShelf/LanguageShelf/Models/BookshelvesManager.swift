@@ -72,7 +72,7 @@ class BookshelvesManager: ObservableObject {
             }
         
         // if user renames to an empty string throw error
-        if (newName.isEmpty  || allSpaceRegex.evaluate(with: newName)){
+        if (newName.isEmpty || allSpaceRegex.evaluate(with: newName)){
             throw DataErrors.emptyNameError
         }
         

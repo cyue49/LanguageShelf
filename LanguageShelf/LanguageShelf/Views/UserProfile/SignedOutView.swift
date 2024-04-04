@@ -37,6 +37,13 @@ struct SignedOutView: View {
         && confirmPassword == password
     }
     
+    private var validUsername: Bool {
+        let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+        
+        return !password.isEmpty
+        && !allSpaceRegex.evaluate(with: username)
+    }
+    
     var body: some View {
         if hasAccount {
             signIn
@@ -180,7 +187,7 @@ extension SignedOutView: FormAuthProtocol {
             return validEmail
             && validPassword
             && validConfirmPassword
-            && !username.isEmpty
+            && validUsername
         }
     }
 }

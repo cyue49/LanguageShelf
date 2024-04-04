@@ -14,6 +14,8 @@ class UserAccountsManager: ObservableObject {
     // database reference
     private let ref = Firestore.firestore().collection("Users")
     
+    private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
+    
     init() {
          self.userSession = Auth.auth().currentUser
         
@@ -64,7 +66,7 @@ class UserAccountsManager: ObservableObject {
     
     // update attribute with new value for current user
     func updateUser(attribute: String, value: String) async throws {
-        if (attribute == "username" && value.isEmpty){ // if user is editing their username but doesn't enter a new name before submit
+        if (attribute == "username" && (value.isEmpty || allSpaceRegex.evaluate(with: value))){ // if user is editing their username but doesn't enter a new name before submit
             throw DataErrors.emptyNameError
         }
         
