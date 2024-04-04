@@ -119,6 +119,11 @@ struct MyBookshelvesView: View {
                     emptyBookshelfNameAlert = false
                 }
             }
+            .onChange(of: newShelfName) {
+                if newShelfName.count > 30 {
+                    newShelfName = String(newShelfName.prefix(30))
+                }
+            }
         }
     }
 }

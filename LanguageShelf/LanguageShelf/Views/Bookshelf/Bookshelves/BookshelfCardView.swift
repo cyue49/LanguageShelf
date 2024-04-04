@@ -181,6 +181,11 @@ struct BookshelfCardView: View {
                 setPictureFromStorage()
             }
         }
+        .onChange(of: newBookshelfName) {
+            if newBookshelfName.count > 30 {
+                newBookshelfName = String(newBookshelfName.prefix(30))
+            }
+        }
     }
     
     func deleteBookshelf(bookshelfID: String) {
