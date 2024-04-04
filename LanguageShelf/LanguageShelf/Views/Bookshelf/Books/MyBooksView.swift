@@ -90,6 +90,16 @@ struct MyBooksView: View {
                     emptyBookNameAlert = false
                 }
             }
+            .onChange(of: newBookName) {
+                if newBookName.count > 30 {
+                    newBookName = String(newBookName.prefix(30))
+                }
+            }
+            .onChange(of: newAuthorName) {
+                if newAuthorName.count > 20 {
+                    newAuthorName = String(newAuthorName.prefix(20))
+                }
+            }
         }
     }
 }

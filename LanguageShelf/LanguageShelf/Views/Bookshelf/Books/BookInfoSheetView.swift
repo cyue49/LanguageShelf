@@ -147,6 +147,21 @@ struct BookInfoSheetView: View {
                 }
             }
             .ignoresSafeArea(.all, edges: .bottom)
+            .onChange(of: editedBookTitle) {
+                if editedBookTitle.count > 30 {
+                    editedBookTitle = String(editedBookTitle.prefix(30))
+                }
+            }
+            .onChange(of: editedAuthor) {
+                if editedAuthor.count > 20 {
+                    editedAuthor = String(editedAuthor.prefix(20))
+                }
+            }
+            .onChange(of: editedDescription) {
+                if editedDescription.count > 500 {
+                    editedDescription = String(editedDescription.prefix(500))
+                }
+            }
         }
     }
 }
