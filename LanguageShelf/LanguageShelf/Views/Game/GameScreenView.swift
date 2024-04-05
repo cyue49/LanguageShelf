@@ -17,13 +17,14 @@ struct GameScreenView: View {
     
     @State var correct: Bool = false
     
-    @State var showIncorrectAlert: Bool = false
+    @State var showGamePlayAlert: Bool = false
     
     var body: some View {
         NavigationStack {
             ZStack {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
+                
                 VStack {
                     ScrollView {
                         ForEach((0..<currentGameItems.count), id: \.self) { i in
@@ -42,15 +43,11 @@ struct GameScreenView: View {
                     }
                     .padding()
                 }
+                
+                GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
             }
             .onAppear(){
                 prepareGame()
-            }
-            .alert("Incorrect! Please try again.", isPresented: $showIncorrectAlert){
-                Button("Ok", role: .cancel) {
-                    resetGameState()
-                    showIncorrectAlert = false
-                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -127,30 +124,30 @@ struct GameScreenView: View {
         if selection1!.1 == 0 { // selection 1 is word, selection 2 is definition
             if currentGameSet[selection1!.0] == selection2!.0 { // correct matches
                 correct = true
-                updateGameBoard()
-            } else {
-                showIncorrectAlert.toggle()
             }
         } else { // selection 2 is word, selection 1 is definition
             if currentGameSet[selection2!.0] == selection1!.0 { // correct matches
                 correct = true
-                updateGameBoard()
-            } else {
-                showIncorrectAlert.toggle()
             }
+        }
+        showGamePlayAlert.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            updateGameBoard()
         }
     }
     
     // update view by removing selected game card items when correctly matches and update game states accordingly
     func updateGameBoard() {
-        var tempItems: [(String, Int)] = []
-        for item in currentGameItems {
-            if (item.0 == selection1!.0 || item.0 == selection2!.0){
-                continue
+        if correct {
+            var tempItems: [(String, Int)] = []
+            for item in currentGameItems {
+                if (item.0 == selection1!.0 || item.0 == selection2!.0){
+                    continue
+                }
+                tempItems.append(item)
             }
-            tempItems.append(item)
+            currentGameItems = tempItems
         }
-        currentGameItems = tempItems
         
         resetGameState()
     }
@@ -159,7 +156,6 @@ struct GameScreenView: View {
         selection1 = nil
         selection2 = nil
         itemSelected = [false, false, false, false, false, false, false, false, false, false]
-        correct = false
     }
 }
 
