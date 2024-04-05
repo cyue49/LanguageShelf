@@ -2,6 +2,8 @@
 
 ### Table of Contents
 
+---
+
 1. [Description](#description)
 2. [Functionalities](#functionalities)
     1. [Bookshelf Tab](#bookshelf)
@@ -23,8 +25,7 @@ Language Shelf is a vocabulary learning note taking app specially geared towards
 
 The app is made up of three main tabs:
 
-<a name="bookshelf"></a>
-1. Bookshelf tab
+1. Bookshelf tab <a name="bookshelf"></a>
     * Once signed in, the bookshelf tab shows a list of all of the user's bookshelves. 
     * The user can add, delete, rename, and add a cover image to a bookshelf.
     * Inside a bookshelf, the user can add books.
@@ -35,16 +36,14 @@ The app is made up of three main tabs:
     * The user can add, delete, and edit vocabulary and sentence entries.
     * All bookshelves, books, vocabularies, and sentnces are ordered in alphabetical order.
 
-<a name="game"></a>
-2. Game tab
+2. Game tab <a name="game"></a>
     * The game tab is where the user can have fun while learning vocabularies
     * Upon starting the game, five random vocabulary cards and their matching definition cards are shown on the screen. 
     * The user taps on two matching cards to make them disapear.
     * The game completes upon all cards disappearing.
     * At the end of a game, a result screen shows the game result and some user statistics.
 
-<a name="profile"></a>
-3. User Profile tab
+3. User Profile tab <a name="profile"></a>
     * The user profile tab shows the user's profile, including an username and a profile picture.
     * The user can also change the theme of the app on the user profile tab. 
     * If not signed in, the profile tab shows the sign in or sign up views. 
