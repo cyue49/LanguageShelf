@@ -25,24 +25,22 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                VStack {
-                    ScrollView {
-                        ForEach((0..<currentGameItems.count), id: \.self) { i in
-                            GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
-                                .onTapGesture {
-                                    if selection1 == nil {
-                                        selection1 = currentGameItems[i]
-                                        itemSelected[i].toggle()
-                                    } else if selection2 == nil {
-                                        selection2 = currentGameItems[i]
-                                        itemSelected[i].toggle()
-                                        checkAnswer()
-                                    }
+                ScrollView {
+                    ForEach((0..<currentGameItems.count), id: \.self) { i in
+                        GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
+                            .onTapGesture {
+                                if selection1 == nil {
+                                    selection1 = currentGameItems[i]
+                                    itemSelected[i].toggle()
+                                } else if selection2 == nil {
+                                    selection2 = currentGameItems[i]
+                                    itemSelected[i].toggle()
+                                    checkAnswer()
                                 }
-                        }
+                            }
                     }
-                    .padding()
                 }
+                .padding()
                 
                 GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
             }
@@ -88,7 +86,7 @@ struct GameScreenView: View {
                 
                 ToolbarItem(placement: .topBarTrailing){
                     Button(action: {
-                        // TODO: refresh game set
+                        prepareGame()
                     }, label: {
                         Image(systemName: "arrow.clockwise")
                             .foregroundStyle(userManager.currentTheme.primaryAccentColor)
