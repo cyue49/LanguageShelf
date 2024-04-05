@@ -20,7 +20,7 @@ struct GamePlayCorrectIncorrectView: View {
                     .opacity(0.9)
                     .overlay(
                         RoundedRectangle(cornerRadius: 30)
-                            .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 2)
+                            .stroke(correct ? userManager.currentTheme.primaryAccentColor : .red, lineWidth: 2)
                     )
                 
                 VStack(spacing: 20) {

@@ -16,7 +16,7 @@ struct ContentView: View {
                 }
                 .toolbarBackground(userManager.currentTheme.toolbarColor, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-            GameScreenView()
+            GameStartScreenView()
                 .tabItem {
                     Label("Game",systemImage: "gamecontroller.fill")
                 }

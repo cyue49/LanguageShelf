@@ -18,6 +18,7 @@
 		DE32997A2BA9D21F004A0E0B /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3299792BA9D21F004A0E0B /* Themes.swift */; };
 		DE37B0D32BBA59C200E42212 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DE37B0D22BBA59C200E42212 /* FirebaseStorage */; };
 		DE50E2C42BBD105D00B66CC1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */; };
+		DE6079672BC082CF00CC5479 /* GameStartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6079662BC082CF00CC5479 /* GameStartScreenView.swift */; };
 		DE8572C92BA497F500488990 /* LanguageShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8572C82BA497F500488990 /* LanguageShelfApp.swift */; };
 		DE8572CD2BA497F600488990 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CC2BA497F600488990 /* Assets.xcassets */; };
 		DE8572D02BA497F600488990 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE8572CF2BA497F600488990 /* Preview Assets.xcassets */; };
@@ -74,6 +75,7 @@
 		DE3299792BA9D21F004A0E0B /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		DE50E2C22BBD01AE00B66CC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE50E2C32BBD105D00B66CC1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DE6079662BC082CF00CC5479 /* GameStartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartScreenView.swift; sourceTree = "<group>"; };
 		DE8572C52BA497F500488990 /* LanguageShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguageShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8572C82BA497F500488990 /* LanguageShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageShelfApp.swift; sourceTree = "<group>"; };
 		DE8572CC2BA497F600488990 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				DE8572ED2BA4D95100488990 /* GameScreenView.swift */,
 				DE2596482BBFA5EF002ED31F /* GamePlayCorrectIncorrectView.swift */,
 				DE2596442BBF55F7002ED31F /* GameCardView.swift */,
+				DE6079662BC082CF00CC5479 /* GameStartScreenView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				DED2A7CD2BB5172200954581 /* CheckboxView.swift in Sources */,
 				DEE108192BB3211B008A04D6 /* NewEditVocabularySheetView.swift in Sources */,
 				DE879A742BBBD14600405FA0 /* LoadingSpinnerView.swift in Sources */,
+				DE6079672BC082CF00CC5479 /* GameStartScreenView.swift in Sources */,
 				DEB33FF62BAC6B3100D0D8B7 /* BookshelvesManager.swift in Sources */,
 				DE85C4532BAE22B6007721F3 /* Bookshelf.swift in Sources */,
 				DE8572E22BA4995B00488990 /* UserProfileView.swift in Sources */,

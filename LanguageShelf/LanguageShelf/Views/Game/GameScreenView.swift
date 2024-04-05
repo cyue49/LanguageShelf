@@ -25,7 +25,6 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                if userManager.userSession != nil {
                     ScrollView {
                         ForEach((0..<currentGameItems.count), id: \.self) { i in
                             GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
@@ -44,10 +43,6 @@ struct GameScreenView: View {
                     .padding()
                     
                     GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
-                } else { // display log in message
-                    Text("Please sign in to play a game")
-                        .foregroundStyle(userManager.currentTheme.fontColor)
-                }
             }
             .onAppear(){
                 prepareGame()
