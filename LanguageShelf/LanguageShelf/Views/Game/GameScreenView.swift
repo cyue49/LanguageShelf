@@ -87,16 +87,18 @@ struct GameScreenView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         
-                        VStack {
-                            Button(action: {
-                                prepareGame()
-                            }, label: {
-                                Image(systemName: "arrow.clockwise")
-                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                    .font(.system(size: 18))
-                                    .bold()
-                            })
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        if userManager.userSession != nil {
+                            VStack {
+                                Button(action: {
+                                    prepareGame()
+                                }, label: {
+                                    Image(systemName: "arrow.clockwise")
+                                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                        .font(.system(size: 18))
+                                        .bold()
+                                })
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
                         }
                     }
                 }
