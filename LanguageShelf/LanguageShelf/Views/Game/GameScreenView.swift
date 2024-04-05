@@ -25,24 +25,29 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                ScrollView {
-                    ForEach((0..<currentGameItems.count), id: \.self) { i in
-                        GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
-                            .onTapGesture {
-                                if selection1 == nil {
-                                    selection1 = currentGameItems[i]
-                                    itemSelected[i].toggle()
-                                } else if selection2 == nil {
-                                    selection2 = currentGameItems[i]
-                                    itemSelected[i].toggle()
-                                    checkAnswer()
+                if userManager.userSession != nil {
+                    ScrollView {
+                        ForEach((0..<currentGameItems.count), id: \.self) { i in
+                            GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
+                                .onTapGesture {
+                                    if selection1 == nil {
+                                        selection1 = currentGameItems[i]
+                                        itemSelected[i].toggle()
+                                    } else if selection2 == nil {
+                                        selection2 = currentGameItems[i]
+                                        itemSelected[i].toggle()
+                                        checkAnswer()
+                                    }
                                 }
-                            }
+                        }
                     }
+                    .padding()
+                    
+                    GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
+                } else { // display log in message
+                    Text("Please sign in to play a game")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
                 }
-                .padding()
-                
-                GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
             }
             .onAppear(){
                 prepareGame()
