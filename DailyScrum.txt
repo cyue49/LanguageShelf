@@ -1,6 +1,22 @@
 2024/04/04 Chen
 
 Done since last scrum: 
+- Added checking user didn't input only spaces for required input fields
+- Added textfield input length limit for user inputs
+- Added frontend of game play view
+- Added functionality of game play
+- Added refresh button to toolbar of game view to get another set of game cards
+
+Todo until next scrum: 
+- Continue working on the game section
+- Add start screen and instructions for game section
+- Add show results after a game play
+
+------------------
+
+2024/04/04 Chen
+
+Done since last scrum: 
 - Modified colors to be more readable
 - Learned about Dictionary API 
 - Created struct model for decoding Json result from Dictionary API and implemented getting result from Dictionary API
