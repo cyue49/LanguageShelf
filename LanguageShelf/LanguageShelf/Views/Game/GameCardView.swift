@@ -10,7 +10,7 @@ struct GameCardView: View {
     var gameCardItem: String
     var isDefinition: Bool = false
     
-    @State var isSelected: Bool = false
+    @Binding var isSelected: Bool
     
     var body: some View {
         HStack (alignment: .center, spacing: 10) {
@@ -41,7 +41,7 @@ struct GameCardView: View {
 
 struct GameCardView_Previews: PreviewProvider {
     static var previews: some View {
-        GameCardView(gameCardItem: "penguin")
+        GameCardView(gameCardItem: "penguin", isSelected: .constant(false))
 //        GameCardView(gameCardItem: "a large flightless seabird of the southern hemisphere, with black upper parts and white underparts and wings developed into flippers for swimming under water.")
             .environmentObject(UserAccountsManager())
             .environmentObject(BookshelvesManager())

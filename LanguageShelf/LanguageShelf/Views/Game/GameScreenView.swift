@@ -10,6 +10,13 @@ struct GameScreenView: View {
     @State var currentGameSet: [String : String] = [:] // dictionary of matching words and definitions (key: word, value: matching definition)
     @State var currentGameItems: [(String, Int)] = [] // array of tuples (word or definition string, int where 0 = word and 1 = definition)
     
+    @State var selection1: (String, Int)?
+    @State var selection2: (String, Int)?
+    
+    @State var itemSelected: [Bool] = [false, false, false, false, false, false, false, false, false, false]
+    
+    @State var correct: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -17,38 +24,26 @@ struct GameScreenView: View {
                     .ignoresSafeArea()
                 VStack {
                     ScrollView {
-                        ForEach(currentGameItems, id: \.0) { (item, type) in
-                            GameCardView(gameCardItem: item, isDefinition: (type == 0) ? false : true)
+                        Text(correct ? "yes" : "no")
+                        ForEach((0..<currentGameItems.count), id: \.self) { i in
+                            GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
+                                .onTapGesture {
+                                    if selection1 == nil {
+                                        selection1 = currentGameItems[i]
+                                        itemSelected[i].toggle()
+                                    } else if selection2 == nil {
+                                        selection2 = currentGameItems[i]
+                                        itemSelected[i].toggle()
+                                        checkAnswer()
+                                    }
+                                }
                         }
                     }
                     .padding()
                 }
             }
             .onAppear(){
-                // reset current game set and current game items on appear
-                currentGameSet = [:]
-                currentGameItems = []
-                
-                // get all of user's vocabs, shuffled
-                let allVocabs = vocabsManager.getVocabsOfAllBooks().shuffled()
-                
-                // choose first 5 Vocabulary, put words and definitions as key value pairs in dictionary, and put word/definition strings in current game items array
-                if (allVocabs.count <= 5) {
-                    for vocab in allVocabs {
-                        currentGameSet[vocab.word] = vocab.definition
-                        currentGameItems.append((vocab.word, 0))
-                        currentGameItems.append((vocab.definition, 1))
-                    }
-                } else {
-                    for i in 0...4 {
-                        currentGameSet[allVocabs[i].word] = allVocabs[i].definition
-                        currentGameItems.append((allVocabs[i].word, 0))
-                        currentGameItems.append((allVocabs[i].definition, 1))
-                    }
-                }
-                
-                // shuffle the game items
-                currentGameItems.shuffle()
+                prepareGame()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -89,6 +84,50 @@ struct GameScreenView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+        }
+    }
+    
+    func prepareGame() {
+        // reset game states
+        currentGameSet = [:]
+        currentGameItems = []
+        selection1 = nil
+        selection2 = nil
+        itemSelected = [false, false, false, false, false, false, false, false, false, false]
+        correct = false
+        
+        // get all of user's vocabs, shuffled
+        let allVocabs = vocabsManager.getVocabsOfAllBooks().shuffled()
+        
+        // choose first 5 Vocabulary, put words and definitions as key value pairs in dictionary, and put word/definition strings in current game items array
+        if (allVocabs.count <= 5) {
+            for vocab in allVocabs {
+                currentGameSet[vocab.word] = vocab.definition
+                currentGameItems.append((vocab.word, 0))
+                currentGameItems.append((vocab.definition, 1))
+            }
+        } else {
+            for i in 0...4 {
+                currentGameSet[allVocabs[i].word] = allVocabs[i].definition
+                currentGameItems.append((allVocabs[i].word, 0))
+                currentGameItems.append((allVocabs[i].definition, 1))
+            }
+        }
+        
+        // shuffle the game items
+        currentGameItems.shuffle()
+    }
+    
+    func checkAnswer() {
+        guard selection1 != nil && selection2 != nil else { return }
+        if selection1!.1 == 0 { // selection 1 is word, selection 2 is definition
+            if currentGameSet[selection1!.0] == selection2!.0 { // correct matches
+                correct = true
+            }
+        } else { // selection 2 is word, selection 1 is definition
+            if currentGameSet[selection2!.0] == selection1!.0 { // correct matches
+                correct = true
+            }
         }
     }
 }
