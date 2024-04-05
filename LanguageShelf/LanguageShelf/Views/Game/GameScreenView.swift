@@ -17,6 +17,8 @@ struct GameScreenView: View {
     
     @State var correct: Bool = false
     
+    @State var showIncorrectAlert: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -24,7 +26,6 @@ struct GameScreenView: View {
                     .ignoresSafeArea()
                 VStack {
                     ScrollView {
-                        Text(correct ? "yes" : "no")
                         ForEach((0..<currentGameItems.count), id: \.self) { i in
                             GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
                                 .onTapGesture {
@@ -44,6 +45,12 @@ struct GameScreenView: View {
             }
             .onAppear(){
                 prepareGame()
+            }
+            .alert("Incorrect! Please try again.", isPresented: $showIncorrectAlert){
+                Button("Ok", role: .cancel) {
+                    resetGameState()
+                    showIncorrectAlert = false
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -91,10 +98,7 @@ struct GameScreenView: View {
         // reset game states
         currentGameSet = [:]
         currentGameItems = []
-        selection1 = nil
-        selection2 = nil
-        itemSelected = [false, false, false, false, false, false, false, false, false, false]
-        correct = false
+        resetGameState()
         
         // get all of user's vocabs, shuffled
         let allVocabs = vocabsManager.getVocabsOfAllBooks().shuffled()
@@ -124,11 +128,15 @@ struct GameScreenView: View {
             if currentGameSet[selection1!.0] == selection2!.0 { // correct matches
                 correct = true
                 updateGameBoard()
+            } else {
+                showIncorrectAlert.toggle()
             }
         } else { // selection 2 is word, selection 1 is definition
             if currentGameSet[selection2!.0] == selection1!.0 { // correct matches
                 correct = true
                 updateGameBoard()
+            } else {
+                showIncorrectAlert.toggle()
             }
         }
     }
@@ -144,6 +152,10 @@ struct GameScreenView: View {
         }
         currentGameItems = tempItems
         
+        resetGameState()
+    }
+    
+    func resetGameState() {
         selection1 = nil
         selection2 = nil
         itemSelected = [false, false, false, false, false, false, false, false, false, false]
