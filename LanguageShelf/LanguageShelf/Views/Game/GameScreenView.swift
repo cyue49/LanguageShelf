@@ -81,18 +81,19 @@ struct GameScreenView: View {
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        VStack {
+                            Button(action: {
+                                prepareGame()
+                            }, label: {
+                                Image(systemName: "arrow.clockwise")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .font(.system(size: 18))
+                                    .bold()
+                            })
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
-                }
-                
-                ToolbarItem(placement: .topBarTrailing){
-                    Button(action: {
-                        prepareGame()
-                    }, label: {
-                        Image(systemName: "arrow.clockwise")
-                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            .font(.system(size: 20))
-                            .bold()
-                    })
                 }
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
