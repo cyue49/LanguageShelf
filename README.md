@@ -34,3 +34,13 @@ The app is made up of three main tabs:
     * The user profile tab shows the user's profile, including an username and a profile picture.
     * The user can also change the theme of the app on the user profile tab. 
     * If not signed in, the profile tab shows the sign in or sign up views. 
+
+### Technologies Used
+
+---
+
+* Swift and SwiftUI - Language used for writing the app and for building the user interface
+* Firebase Authentication - Used for user authentication
+* Firebase Storage - Used for storing user profile pictures and bookshelves/books cover pictures
+* Firestore Database - Used for storing data for the app (user, bookshelf, book, vocabulary, sentence)
+* [Dictionary API](https://dictionaryapi.dev/) - Used to show phonetics and additional definitions for a vocabulary
