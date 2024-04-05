@@ -28,7 +28,7 @@ struct GamePlayCorrectIncorrectView: View {
                         .foregroundStyle(correct ? userManager.currentTheme.primaryAccentColor : .red)
                         .font(.system(size: 30))
                         .onAppear(){
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 showAlert.toggle()
                                 correct = false
                             }

@@ -19,81 +19,60 @@ struct GameScreenView: View {
     
     @State var showGamePlayAlert: Bool = false
     
+    @State var gameComplete: Bool  = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                    ScrollView {
-                        ForEach((0..<currentGameItems.count), id: \.self) { i in
-                            GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
-                                .onTapGesture {
-                                    if selection1 == nil {
-                                        selection1 = currentGameItems[i]
-                                        itemSelected[i].toggle()
-                                    } else if selection2 == nil {
-                                        selection2 = currentGameItems[i]
-                                        itemSelected[i].toggle()
-                                        checkAnswer()
+                    if !gameComplete {
+                        ScrollView {
+                            ForEach((0..<currentGameItems.count), id: \.self) { i in
+                                GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
+                                    .onTapGesture {
+                                        if selection1 == nil {
+                                            selection1 = currentGameItems[i]
+                                            itemSelected[i].toggle()
+                                        } else if selection2 == nil {
+                                            selection2 = currentGameItems[i]
+                                            itemSelected[i].toggle()
+                                            checkAnswer()
+                                        }
                                     }
-                                }
+                            }
                         }
+                        .padding()
+                        
+                        GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
+                    } else {
+                        GameResultView()
                     }
-                    .padding()
-                    
-                    GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
             }
             .onAppear(){
                 prepareGame()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading){
-                    ZStack {
+                ToolbarItem(placement: .principal){
+                    Text("Game Screen")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    if userManager.userSession != nil {
                         VStack {
-                            switch userManager.currentTheme.name {
-                            case "default":
-                                Image(.logo1024Blue)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            case "light":
-                                Image(.logo1024Light)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            case "dark":
-                                Image(.logo1024Dark)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            case "green":
-                                Image(.logo1024Green)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            default:
-                                Text("LanguageShelf")
+                            Button(action: {
+                                prepareGame()
+                                gameComplete = false
+                            }, label: {
+                                Image(systemName: "arrow.clockwise")
                                     .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        VStack {
-                            Text("Game Screen")
-                                .foregroundStyle(userManager.currentTheme.fontColor)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        if userManager.userSession != nil {
-                            VStack {
-                                Button(action: {
-                                    prepareGame()
-                                }, label: {
-                                    Image(systemName: "arrow.clockwise")
-                                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                        .font(.system(size: 18))
-                                        .bold()
-                                })
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                            }
+                                    .font(.system(size: 18))
+                                    .bold()
+                            })
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
                 }
@@ -143,7 +122,7 @@ struct GameScreenView: View {
             }
         }
         showGamePlayAlert.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             updateGameBoard()
         }
     }
@@ -162,6 +141,10 @@ struct GameScreenView: View {
         }
         
         resetGameState()
+        
+        if currentGameItems.isEmpty {
+            gameComplete = true
+        }
     }
     
     func resetGameState() {
