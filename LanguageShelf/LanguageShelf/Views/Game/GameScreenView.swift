@@ -85,6 +85,17 @@ struct GameScreenView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
+                
+                ToolbarItem(placement: .topBarTrailing){
+                    Button(action: {
+                        // TODO: refresh game set
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .font(.system(size: 20))
+                            .bold()
+                    })
+                }
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
