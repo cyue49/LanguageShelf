@@ -123,12 +123,31 @@ struct GameScreenView: View {
         if selection1!.1 == 0 { // selection 1 is word, selection 2 is definition
             if currentGameSet[selection1!.0] == selection2!.0 { // correct matches
                 correct = true
+                updateGameBoard()
             }
         } else { // selection 2 is word, selection 1 is definition
             if currentGameSet[selection2!.0] == selection1!.0 { // correct matches
                 correct = true
+                updateGameBoard()
             }
         }
+    }
+    
+    // update view by removing selected game card items when correctly matches and update game states accordingly
+    func updateGameBoard() {
+        var tempItems: [(String, Int)] = []
+        for item in currentGameItems {
+            if (item.0 == selection1!.0 || item.0 == selection2!.0){
+                continue
+            }
+            tempItems.append(item)
+        }
+        currentGameItems = tempItems
+        
+        selection1 = nil
+        selection2 = nil
+        itemSelected = [false, false, false, false, false, false, false, false, false, false]
+        correct = false
     }
 }
 
