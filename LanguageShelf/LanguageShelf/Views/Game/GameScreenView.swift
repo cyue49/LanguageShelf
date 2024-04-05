@@ -24,7 +24,9 @@ struct GameScreenView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                userManager.currentTheme.bgColor
+                LinearGradient(gradient: Gradient(colors: [userManager.currentTheme.bgColor,
+                                                           userManager.currentTheme.primaryAccentColor]),
+                               startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
                     if !gameComplete {
@@ -43,7 +45,6 @@ struct GameScreenView: View {
                                     }
                             }
                         }
-                        .padding()
                         
                         GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
                     } else {

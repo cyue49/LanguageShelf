@@ -10,12 +10,34 @@ struct GameStartScreenView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                userManager.currentTheme.bgColor
-                    .ignoresSafeArea()
+                LinearGradient(gradient: Gradient(colors: [userManager.currentTheme.bgColor,
+                                                           userManager.currentTheme.primaryAccentColor]),
+                               startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
                 
                 if userManager.userSession != nil {
-                    NavigationLink(destination: GameScreenView()) {
-                        Text("Start Game")
+                    VStack {
+                        Spacer()
+                        
+                        NavigationLink(destination: GameScreenView()) {
+                            ZStack {
+                                Rectangle()
+                                    .frame(maxWidth: .infinity, maxHeight: 70)
+                                    .cornerRadius(30)
+                                    .foregroundStyle(
+                                        userManager.currentTheme.primaryAccentColor
+                                    )
+                                
+                                Text("Start Game")
+                                    .foregroundStyle(userManager.currentTheme.bgColor)
+                                    .bold()
+                            }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(userManager.currentTheme.bgColor, lineWidth: 2)
+                            )
+                        }
+                        .padding()
                     }
                 } else { // display log in message
                     Text("Please sign in to play a game")
