@@ -39,7 +39,7 @@ struct GameCardView: View {
             .cornerRadius(30)
             .overlay(
                 RoundedRectangle(cornerRadius: 30)
-                    .stroke(userManager.currentTheme.bgColor2,
+                    .stroke(userManager.currentTheme.primaryAccentColor,
                             lineWidth: 2)
             )
         }

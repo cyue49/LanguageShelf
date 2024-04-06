@@ -10,9 +10,7 @@ struct GameStartScreenView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [userManager.currentTheme.bgColor,
-                                                           userManager.currentTheme.primaryAccentColor]),
-                               startPoint: .top, endPoint: .bottom)
+                userManager.currentTheme.bgColor
                 .ignoresSafeArea()
                 
                 if userManager.userSession != nil {
@@ -47,18 +45,17 @@ struct GameStartScreenView: View {
                                 }
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .foregroundStyle(userManager.currentTheme.fontColor)
                                 .background(
                                     RoundedRectangle(cornerRadius: 30)
-                                        .foregroundStyle(userManager.currentTheme.bgColor)
-                                        .opacity(0.6)
+                                        .foregroundStyle(userManager.currentTheme.buttonColor)
                                 )
                                 .cornerRadius(30)
                             }
                             .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 30)
-                                    .stroke(userManager.currentTheme.bgColor, lineWidth: 2)
+                                    .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 2.5)
                             )
                         }
                         .padding(.vertical)
@@ -76,10 +73,6 @@ struct GameStartScreenView: View {
                                     .foregroundStyle(userManager.currentTheme.bgColor)
                                     .bold()
                             }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .stroke(userManager.currentTheme.bgColor, lineWidth: 2)
-                            )
                         }
                     }
                     .padding(.vertical, 20)

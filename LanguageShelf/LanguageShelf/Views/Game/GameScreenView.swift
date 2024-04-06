@@ -25,9 +25,7 @@ struct GameScreenView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [userManager.currentTheme.bgColor,
-                                                           userManager.currentTheme.primaryAccentColor]),
-                               startPoint: .top, endPoint: .bottom)
+                userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
                     if !gameComplete {
@@ -54,6 +52,9 @@ struct GameScreenView: View {
             }
             .onAppear(){
                 prepareGame()
+                if correctAttempts == 0 && incorrectAttempts == 0 {
+                    gameComplete = false
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
