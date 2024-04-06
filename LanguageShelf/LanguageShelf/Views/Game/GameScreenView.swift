@@ -16,10 +16,11 @@ struct GameScreenView: View {
     @State var itemSelected: [Bool] = [false, false, false, false, false, false, false, false, false, false]
     
     @State var correct: Bool = false
-    
     @State var showGamePlayAlert: Bool = false
-    
     @State var gameComplete: Bool  = false
+    
+    @State var correctAttempts: Double = 0
+    @State var incorrectAttempts: Double = 0
     
     var body: some View {
         NavigationStack {
@@ -48,7 +49,7 @@ struct GameScreenView: View {
                         
                         GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
                     } else {
-                        GameResultView()
+                        GameResultView(correctAttempts: $correctAttempts, incorrectAttempts: $incorrectAttempts)
                     }
             }
             .onAppear(){
@@ -87,6 +88,8 @@ struct GameScreenView: View {
         // reset game states
         currentGameSet = [:]
         currentGameItems = []
+        correctAttempts = 0
+        incorrectAttempts = 0
         resetGameState()
         
         // get all of user's vocabs, shuffled
@@ -116,10 +119,16 @@ struct GameScreenView: View {
         if selection1!.1 == 0 { // selection 1 is word, selection 2 is definition
             if currentGameSet[selection1!.0] == selection2!.0 { // correct matches
                 correct = true
+                correctAttempts += 1
+            } else {
+                incorrectAttempts += 1
             }
         } else { // selection 2 is word, selection 1 is definition
             if currentGameSet[selection2!.0] == selection1!.0 { // correct matches
                 correct = true
+                correctAttempts += 1
+            } else {
+                incorrectAttempts += 1
             }
         }
         showGamePlayAlert.toggle()

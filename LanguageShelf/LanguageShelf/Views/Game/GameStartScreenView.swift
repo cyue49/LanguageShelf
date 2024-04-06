@@ -36,23 +36,23 @@ struct GameStartScreenView: View {
                         
                         VStack {
                             ScrollView {
-                                VStack (alignment: .leading, spacing: 10) {
+                                VStack (alignment: .leading, spacing: 12) {
                                     Text("How to play")
                                         .font(.title2)
                                         .bold()
                                     
                                     Text("Upon clicking on Start Game, 10 random cards will be shown on the screen. 5 of them will be vocabulary cards and the other 5 will be definition cards. Your goal is to match all the vocabularies and definitions!")
                                     Text("Click on two matching cards to make them disapear. The game ends when all cards are cleared!")
-                                    
-                                    Text("Different set of cards")
-                                        .font(.title2)
-                                        .bold()
-                                    
                                     Text("Anytime during the game, you can click on the refresh button at the top right of the screen to get another set of cards and restart the game.")
                                 }
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundStyle(userManager.currentTheme.fontColor)
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .foregroundStyle(userManager.currentTheme.bgColor)
+                                        .opacity(0.6)
+                                )
                                 .cornerRadius(30)
                             }
                             .padding()
