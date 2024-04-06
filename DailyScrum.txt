@@ -1,3 +1,18 @@
+2024/04/06 Chen
+
+Done since last scrum:
+- Modified frontend look of game play screen
+- Added a game start screen with a Start Game button, which leads to the game play screen on click
+- Added game instructions on the game start screen
+- Added temporary placeholder game results screen after game ends
+
+Todo until next scrum: 
+- Add frontend of game results view
+- Add keeping track of game statistics during game play
+- Add display game statistics on game results screen after game end
+
+------------------
+
 2024/04/05 Chen
 
 Done since last scrum: 
