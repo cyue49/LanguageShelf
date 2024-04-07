@@ -1,4 +1,5 @@
 import SwiftUI
+import SafariServices
 
 struct WordDefinitionsSheetView: View {
     @EnvironmentObject var userManager: UserAccountsManager
@@ -11,6 +12,8 @@ struct WordDefinitionsSheetView: View {
     
     @Binding var showSheet: Bool
     @State var wordDefs: [WordDefinitions] = []
+    
+    @State private var showSafari: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -89,9 +92,13 @@ struct WordDefinitionsSheetView: View {
                                 }
                             }
                         } else {
-                            VStack (alignment: .center) {
-                                Text("Online dictionary unavailable")
+                            VStack (alignment: .center, spacing: 20) {
+                                Text("Online dictionary not available.")
                                     .foregroundStyle(userManager.currentTheme.fontColor)
+                                Button("Search on Safari"){
+                                    showSafari.toggle()
+                                }
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                             }
                             .frame(maxWidth: .infinity, alignment: .center)
                         }
@@ -99,6 +106,13 @@ struct WordDefinitionsSheetView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 }
+            }
+            .sheet(isPresented: $showSafari){
+                SFSafariViewWrapper(url: URL(string: "https://www.google.com/search?q=\(word)")!)
+                    .ignoresSafeArea()
+                    .onDisappear(){
+                        showSheet.toggle()
+                    }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -124,6 +138,18 @@ struct WordDefinitionsSheetView: View {
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return } // code 200 means everything's ok
         let result = try JSONDecoder().decode([WordDefinitions].self, from: data)
         wordDefs = result
+    }
+}
+
+struct SFSafariViewWrapper: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<Self>) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SFSafariViewWrapper>) {
+        return
     }
 }
 
