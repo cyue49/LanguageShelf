@@ -1,3 +1,15 @@
+2024/04/07 Chen
+
+Done since last scrum:
+- Implemented function to calculate game statistics of a game round
+- Modified frontend of game result view and show statistics on game result view
+- Reworked on the frontend of the game section of the app
+
+Todo until next scrum: 
+- Look into developer account and testing the app on mobile
+
+------------------
+
 2024/04/06 Chen
 
 Done since last scrum:
