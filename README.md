@@ -53,7 +53,7 @@ The app is made up of three main tabs:
 
 ---
 
-* Swift and SwiftUI - Language used for writing the app and for building the user interface
+* Swift and SwiftUI - Used for writing the app and for building the user interface
 * Firebase Authentication - Used for user authentication
 * Firebase Storage - Used for storing user profile pictures and bookshelves/books cover pictures
 * Firestore Database - Used for storing data for the app (user, bookshelf, book, vocabulary, sentence)
