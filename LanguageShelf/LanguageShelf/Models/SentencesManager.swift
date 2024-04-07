@@ -138,7 +138,7 @@ class SentencesManager: ObservableObject {
         if !self.mySentences.isEmpty {
             for (book, sentencesArr) in mySentences{
                 var sortedSentences = sentencesArr
-                sortedSentences.sort(by: {$0.sentence < $1.sentence})
+                sortedSentences.sort(by: {$0.sentence.lowercased() < $1.sentence.lowercased()})
                 self.mySentences[book] = sortedSentences
             }
         }

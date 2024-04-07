@@ -92,7 +92,7 @@ class BooksManager: ObservableObject {
         if !self.myBooks.isEmpty {
             for (bookshelf, booksArr) in myBooks{
                 var sortedBooks = booksArr
-                sortedBooks.sort(by: {$0.title < $1.title})
+                sortedBooks.sort(by: {$0.title.lowercased() < $1.title.lowercased()})
                 self.myBooks[bookshelf] = sortedBooks
             }
         }

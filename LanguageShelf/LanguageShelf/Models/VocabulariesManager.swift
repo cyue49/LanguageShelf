@@ -122,7 +122,7 @@ class VocabulariesManager: ObservableObject {
         if !self.myVocabularies.isEmpty {
             for (book, vocabsArr) in myVocabularies{
                 var sortedVocabs = vocabsArr
-                sortedVocabs.sort(by: {$0.word < $1.word})
+                sortedVocabs.sort(by: {$0.word.lowercased() < $1.word.lowercased()})
                 self.myVocabularies[book] = sortedVocabs
             }
         }

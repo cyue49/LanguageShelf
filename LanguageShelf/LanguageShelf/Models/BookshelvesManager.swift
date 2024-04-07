@@ -82,7 +82,7 @@ class BookshelvesManager: ObservableObject {
     
     func sortAlphabetically() {
         if myBookshelves.count > 1 {
-            self.myBookshelves.sort(by: {$0.bookshelfName < $1.bookshelfName})
+            self.myBookshelves.sort(by: {$0.bookshelfName.lowercased() < $1.bookshelfName.lowercased()})
         }
     }
     
