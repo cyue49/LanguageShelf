@@ -121,6 +121,14 @@ struct WordDefinitionsSheetView: View {
                         showSheet.toggle()
                     }
                 }
+                
+                if !wordDefs.isEmpty {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Search on Safari") {
+                            showSafari.toggle()
+                        }
+                    }
+                }
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
