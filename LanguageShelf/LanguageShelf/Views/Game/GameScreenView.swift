@@ -28,27 +28,34 @@ struct GameScreenView: View {
                 userManager.currentTheme.bgColor
                     .ignoresSafeArea()
                 
-                    if !gameComplete {
-                        ScrollView {
-                            ForEach((0..<currentGameItems.count), id: \.self) { i in
-                                GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
-                                    .onTapGesture {
-                                        if selection1 == nil {
-                                            selection1 = currentGameItems[i]
-                                            itemSelected[i].toggle()
-                                        } else if selection2 == nil {
-                                            selection2 = currentGameItems[i]
-                                            itemSelected[i].toggle()
-                                            checkAnswer()
+                if !vocabsManager.myVocabularies.isEmpty {
+                        if !gameComplete {
+                            ScrollView {
+                                ForEach((0..<currentGameItems.count), id: \.self) { i in
+                                    GameCardView(gameCardItem: currentGameItems[i].0, isDefinition: (currentGameItems[i].1 == 0) ? false : true, isSelected: $itemSelected[i])
+                                        .onTapGesture {
+                                            if selection1 == nil {
+                                                selection1 = currentGameItems[i]
+                                                itemSelected[i].toggle()
+                                            } else if selection2 == nil {
+                                                selection2 = currentGameItems[i]
+                                                itemSelected[i].toggle()
+                                                checkAnswer()
+                                            }
                                         }
-                                    }
+                                }
                             }
+                            
+                            GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
+                        } else {
+                            GameResultView(correctAttempts: $correctAttempts, incorrectAttempts: $incorrectAttempts)
                         }
-                        
-                        GamePlayCorrectIncorrectView(showAlert: $showGamePlayAlert, correct: $correct)
-                    } else {
-                        GameResultView(correctAttempts: $correctAttempts, incorrectAttempts: $incorrectAttempts)
-                    }
+                } else {
+                    Text("You don't have any vocabulary cards. Add some to play the game!")
+                        .foregroundStyle(userManager.currentTheme.fontColor)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                }
             }
             .onAppear(){
                 prepareGame()
