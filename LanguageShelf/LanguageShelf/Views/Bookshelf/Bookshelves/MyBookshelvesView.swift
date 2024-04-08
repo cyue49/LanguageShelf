@@ -18,7 +18,7 @@ struct MyBookshelvesView: View {
             ZStack {
                 userManager.currentTheme.bgColor
                 
-                if userManager.userSession != nil { 
+                if userManager.userSession != nil {
                     if userManager.verifiedUser {
                         if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
                             Text("You don't have any bookshelf.")
@@ -36,16 +36,17 @@ struct MyBookshelvesView: View {
                         }
                     } else {
                         VStack (spacing: 20){
-                            Text("Please verify your email to user this functionality.")
+                            Text("Please verify your email and click on the button below when you are done to continue.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
-                            Text("Click on the button below after you have verified your email to continue.")
-                                .foregroundStyle(userManager.currentTheme.fontColor)
-                            Button("I have verified my email."){
+                                .multilineTextAlignment(.center)
+                            Button2(label: "Email verification done", clicked: {
                                 Task {
                                     try await userManager.reloadUser()
                                 }
                             }
+                            )
                         }
+                        .padding(30)
                     }
                 } else { // display log in message
                     Text("Please sign in to view your bookshelves")
