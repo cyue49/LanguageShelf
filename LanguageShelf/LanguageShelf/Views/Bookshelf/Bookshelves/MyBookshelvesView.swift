@@ -19,18 +19,30 @@ struct MyBookshelvesView: View {
                 userManager.currentTheme.bgColor
                 
                 if userManager.userSession != nil { 
-                    if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
-                        Text("You don't have any bookshelf.")
-                            .foregroundStyle(userManager.currentTheme.fontColor)
-                    } else {
-                        ScrollView{
-                            VStack(spacing: 15) {
-                                ForEach(bookshelvesManager.myBookshelves) { bookshelf in
-                                    BookshelfCardView(bookshelf: bookshelf, showLoadingSpinner: $showLoadingSpinner)
+                    if userManager.userSession!.isEmailVerified {
+                        if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
+                            Text("You don't have any bookshelf.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                        } else {
+                            ScrollView{
+                                VStack(spacing: 15) {
+                                    ForEach(bookshelvesManager.myBookshelves) { bookshelf in
+                                        BookshelfCardView(bookshelf: bookshelf, showLoadingSpinner: $showLoadingSpinner)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                .padding()
                             }
-                            .padding()
+                        }
+                    } else {
+                        VStack (spacing: 20){
+                            Text("Please verify your email to user this functionality.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                            Text("Click on the button below after you have verified your email to continue.")
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                            Button("I have verified my email."){
+                                userManager.userSession!.reload()
+                            }
                         }
                     }
                 } else { // display log in message
@@ -74,7 +86,7 @@ struct MyBookshelvesView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         
-                        if userManager.userSession != nil {
+                        if userManager.userSession != nil && userManager.userSession!.isEmailVerified {
                             VStack {
                                 Button(action: {
                                     newShelfName = ""

@@ -17,7 +17,7 @@ class UserAccountsManager: ObservableObject {
     private let allSpaceRegex = NSPredicate(format: "SELF MATCHES %@ ", "^ *$")
     
     init() {
-         self.userSession = Auth.auth().currentUser
+        self.userSession = Auth.auth().currentUser
         
         Task {
             await fetchUser()
@@ -26,18 +26,25 @@ class UserAccountsManager: ObservableObject {
     
     // set user session and current user and sign user in
     func signIn(email: String, password: String) async throws {
-            let result = try await Auth.auth().signIn(withEmail: email, password: password)
-            self.userSession = result.user
-            await fetchUser()
+        let result = try await Auth.auth().signIn(withEmail: email, password: password)
+        self.userSession = result.user
+        await fetchUser()
     }
     
     // create new user, add user info in firebase firestore, set user session, set current user
     func register(email: String, password: String, username: String) async throws {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user
-            let user = User(id: result.user.uid, email: email, username: username, theme: "0")
+        let result = try await Auth.auth().createUser(withEmail: email, password: password)
+        self.userSession = result.user
+        sendUserEmailVerification(user: self.userSession!)
+        let user = User(id: result.user.uid, email: email, username: username, theme: "0")
         try await ref.document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0, "profilePicture": ""])
-            await fetchUser()
+        await fetchUser()
+    }
+    
+    func sendUserEmailVerification(user: FirebaseAuth.User) {
+        if !user.isEmailVerified {
+            self.userSession!.sendEmailVerification()
+        }
     }
     
     // set current user
