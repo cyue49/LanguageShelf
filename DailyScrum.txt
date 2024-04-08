@@ -1,3 +1,18 @@
+2024/04/08 Chen
+
+Done since last scrum:
+- Fixed sorting bookshelves, books, vocabularies, and sentences alphabetically to compare everything in lowercase
+- Added the option to show a safari search for the vocabulary when it is not available in Dictionary API
+
+Todo until next scrum: 
+- Test and fix any mistakes found in the app and improve it
+- Add the safari search option even when Dictionary API is available in case the user is interested in looking up the word
+
+On hold: 
+- Waiting for confirmation on whether getting a developer account and deployment of the app is necessary before project deadline 
+
+------------------
+
 2024/04/07 Chen
 
 Done since last scrum:
