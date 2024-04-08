@@ -6,6 +6,7 @@ class UserAccountsManager: ObservableObject {
     // For user authentication
     @Published var userSession: FirebaseAuth.User? // whether user is signed in or not
     @Published var currentUser: User? // current user
+    @Published var verifiedUser: Bool
     
     // For user preference theme
     @Published var currentTheme: ThemeProtocol = DefaultTheme()
@@ -18,6 +19,7 @@ class UserAccountsManager: ObservableObject {
     
     init() {
         self.userSession = Auth.auth().currentUser
+        self.verifiedUser = (Auth.auth().currentUser != nil) ? Auth.auth().currentUser!.isEmailVerified : false
         
         Task {
             await fetchUser()
@@ -57,6 +59,12 @@ class UserAccountsManager: ObservableObject {
         let profilePicture = snapshot["profilePicture"] as? String ?? ""
         self.currentUser = User(id: uid, email: email, username: username, theme: theme, profilePicture: profilePicture)
         self.currentTheme = themeSets[Int(theme)!] // set theme to user preference
+    }
+    
+    func reloadUser() async throws {
+        try await Auth.auth().currentUser!.reload()
+        self.userSession = Auth.auth().currentUser
+        self.verifiedUser = (userSession != nil) ? userSession!.isEmailVerified : false
     }
     
     // unset user session and current userß

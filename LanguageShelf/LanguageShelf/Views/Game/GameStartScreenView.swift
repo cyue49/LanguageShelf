@@ -14,7 +14,7 @@ struct GameStartScreenView: View {
                 .ignoresSafeArea()
                 
                 if userManager.userSession != nil {
-                    if userManager.userSession!.isEmailVerified {
+                    if userManager.verifiedUser {
                         VStack {
                             Text("Vocab-Definition Matching Game")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -85,7 +85,9 @@ struct GameStartScreenView: View {
                             Text("Click on the button below after you have verified your email to continue.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                             Button("I have verified my email."){
-                                userManager.userSession!.reload()
+                                Task {
+                                    try await userManager.reloadUser()
+                                }
                             }
                         }
                     }

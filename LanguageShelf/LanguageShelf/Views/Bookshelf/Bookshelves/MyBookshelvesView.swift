@@ -19,7 +19,7 @@ struct MyBookshelvesView: View {
                 userManager.currentTheme.bgColor
                 
                 if userManager.userSession != nil { 
-                    if userManager.userSession!.isEmailVerified {
+                    if userManager.verifiedUser {
                         if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
                             Text("You don't have any bookshelf.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
@@ -41,7 +41,9 @@ struct MyBookshelvesView: View {
                             Text("Click on the button below after you have verified your email to continue.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                             Button("I have verified my email."){
-                                userManager.userSession!.reload()
+                                Task {
+                                    try await userManager.reloadUser()
+                                }
                             }
                         }
                     }
@@ -86,7 +88,7 @@ struct MyBookshelvesView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         
-                        if userManager.userSession != nil && userManager.userSession!.isEmailVerified {
+                        if userManager.userSession != nil && userManager.verifiedUser {
                             VStack {
                                 Button(action: {
                                     newShelfName = ""
