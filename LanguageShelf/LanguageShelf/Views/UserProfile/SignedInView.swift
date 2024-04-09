@@ -7,6 +7,7 @@ struct SignedInView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
     @State var profilePic: UIImage?
+    @State var updated: Bool = false
     
     var body: some View {
         if let user = userManager.currentUser {
@@ -67,7 +68,8 @@ struct SignedInView: View {
                         .font(.title)
                         .bold()
                     
-                    NavigationLink(destination: EditProfileView(profilePic: $profilePic)){
+                    NavigationLink(destination: EditProfileView(updated: $updated)
+                    ){
                         Text("Edit profile")
                     }
                     
@@ -79,6 +81,14 @@ struct SignedInView: View {
                     if !user.profilePicture.isEmpty {
                         setProfilePicFromStorage()
                     }
+                }
+                .onChange(of: updated){
+                        // retrieve and set profile picture if user has a choosen profile picture
+                        if !user.profilePicture.isEmpty {
+                            setProfilePicFromStorage()
+                        } else {
+                            profilePic = nil
+                        }
                 }
             }
         }

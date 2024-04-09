@@ -6,8 +6,10 @@ import PhotosUI
 struct EditProfileView: View {
     @EnvironmentObject var userManager: UserAccountsManager
     
-    @Binding var profilePic: UIImage?
+    @State var profilePic: UIImage?
     @State var photosPickerItem: PhotosPickerItem?
+    
+    @Binding var updated: Bool
     
     @State var newUsername = ""
     
@@ -135,6 +137,12 @@ struct EditProfileView: View {
             }
             .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .onAppear(){
+                // retrieve and set profile picture if user has a choosen profile picture
+                if !user.profilePicture.isEmpty {
+                    setProfilePicFromStorage()
+                }
+            }
         }
     }
     
@@ -159,6 +167,7 @@ struct EditProfileView: View {
                 // save reference to file in firestore database
                 Task {
                     try await userManager.updateUser(attribute: "profilePicture", value: filePath)
+                    updated.toggle()
                 }
             }
         }
@@ -180,6 +189,7 @@ struct EditProfileView: View {
                 
                 // remove reference to file in firestore database
                 try await userManager.updateUser(attribute: "profilePicture", value: "")
+                updated.toggle()
             }
             
             // update frontend
@@ -188,11 +198,33 @@ struct EditProfileView: View {
             }
         }
     }
+    
+    func setProfilePicFromStorage() {
+        if let user = userManager.currentUser {
+            // storage reference
+            let storageRef = Storage.storage().reference()
+            
+            // file path and name
+            let filePath = user.profilePicture
+            let fileRef = storageRef.child(filePath)
+            
+            // retrieve data
+            fileRef.getData(maxSize: 6 * 1024 * 1024) { data, error in
+                if error == nil && data != nil {
+                    // create UIImage and set it as profilePic
+                    let image = UIImage(data: data!)
+                    DispatchQueue.main.async {
+                        profilePic = image
+                    }
+                }
+            }
+        }
+    }
 }
 
 struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileView(profilePic: .constant(nil))
+        EditProfileView(updated: .constant(true))
             .environmentObject(UserAccountsManager())
     }
 }
