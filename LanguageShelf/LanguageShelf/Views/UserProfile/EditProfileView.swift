@@ -35,7 +35,8 @@ struct EditProfileView: View {
     }
     
     @State var showReLoginAlert: Bool = false
-    @State var showGeneralErrorAlert: Bool = false
+    @State var showGeneralEmailErrorAlert: Bool = false
+    @State var showGeneralPasswordErrorAlert: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -185,7 +186,7 @@ struct EditProfileView: View {
                                             print("login needed")
                                             showReLoginAlert.toggle()
                                         default:
-                                            showGeneralErrorAlert.toggle()
+                                            showGeneralEmailErrorAlert.toggle()
                                             print("\(error): \(error.localizedDescription)")
                                         }
                                     }
@@ -226,7 +227,21 @@ struct EditProfileView: View {
                             }
                             
                             Button2(label: "Update password") {
-                                // todo
+                                Task{
+                                    do {
+                                        try await userManager.updateUserPassword(newPassword: newPassword)
+                                    } catch {
+                                        let err = error as NSError
+                                        switch err {
+                                        case AuthErrorCode.requiresRecentLogin:
+                                            print("login needed")
+                                            showReLoginAlert = true
+                                        default:
+                                            showGeneralPasswordErrorAlert.toggle()
+                                            print("\(error): \(error.localizedDescription)")
+                                        }
+                                    }
+                                }
                             }
                             .disabled(!(validPassword && validConfirmPassword))
                             .opacity((validPassword && validConfirmPassword) ? 1.0 : 0.3)
@@ -258,22 +273,28 @@ struct EditProfileView: View {
                     setProfilePicFromStorage()
                 }
             }
-            .alert(isPresented: $showReLoginAlert) {
-                Alert (
-                    title: Text("Sign in again to continue"),
-                    message: Text("This operation requires to sign in again to continue. Please sign in and try again."),
-                    dismissButton: .default(Text("Ok")) {
-                        dismiss()
-                        Task {
-                            userManager.signOut()
-                        }
+            .alert("Sign in again to continue", isPresented: $showReLoginAlert) {
+                Button("Ok"){
+                    dismiss()
+                    Task {
+                        userManager.signOut()
                     }
-                )
+                }
+            } message: {
+                Text("This operation requires to sign in again to continue. Please sign in and try again.")
             }
-            .alert(isPresented: $showGeneralErrorAlert) {
+            
+            .alert(isPresented: $showGeneralEmailErrorAlert) {
                 Alert (
                     title: Text("Invalid email"),
                     message: Text("A verification email could not be sent. Please make sure you have entered the correct email address."),
+                    dismissButton: .default(Text("Ok"))
+                )
+            }
+            .alert(isPresented: $showGeneralPasswordErrorAlert) {
+                Alert (
+                    title: Text("Operation failed"),
+                    message: Text("Something went wrong. Please try again."),
                     dismissButton: .default(Text("Ok"))
                 )
             }
