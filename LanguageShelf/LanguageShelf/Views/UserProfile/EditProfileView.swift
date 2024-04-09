@@ -12,10 +12,26 @@ struct EditProfileView: View {
     @Binding var updated: Bool
     
     @State var newEmail: String = ""
+    @State var newPassword: String = ""
+    @State var confirmPassword: String = ""
+    
     private var validEmail: Bool {
         return !newEmail.isEmpty
         && newEmail.contains("@")
         && newEmail.contains(".")
+    }
+    
+    private var validPassword: Bool {
+        let passwordRegex = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[A-Z]+.*)(?=.*[0-9]+.*)(?=.*[!&^%$#@()/_*+-]+.*).{8,}$")
+        
+        return !newPassword.isEmpty
+        && newPassword.count>=8
+        && passwordRegex.evaluate(with: newPassword)
+    }
+    
+    private var validConfirmPassword: Bool {
+        return !confirmPassword.isEmpty
+        && confirmPassword == newPassword
     }
     
     @State var showReLoginAlert: Bool = false
@@ -192,7 +208,37 @@ struct EditProfileView: View {
                                         lineWidth: 2)
                         )
                         
-                        Spacer()
+                        // Change password
+                        VStack (spacing: 20) {
+                            Text("Password: ")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .bold()
+                            
+                            SecureTextFieldWithEye(label: "Enter your new password", placeholder: "", textValue: $newPassword)
+                            if (!newPassword.isEmpty){
+                                CheckListView(invalidMessage: "Your password must be between 8-20 characters long and contain an uppercase letter, a number, and a special character.", validMessage: "Valid password", isValid: validPassword)
+                            }
+                            
+                            SecureTextFieldWithEye(label: "Confirm your password", placeholder: "", textValue: $confirmPassword)
+                            if (!confirmPassword.isEmpty){
+                                CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Passwords match.", isValid: validConfirmPassword)
+                            }
+                            
+                            Button2(label: "Update password") {
+                                // todo
+                            }
+                            .disabled(!(validPassword && validConfirmPassword))
+                            .opacity((validPassword && validConfirmPassword) ? 1.0 : 0.3)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(userManager.currentTheme.secondaryColor,
+                                        lineWidth: 2)
+                        )
                     }
                     .padding()
                 }

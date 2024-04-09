@@ -55,6 +55,11 @@ class UserAccountsManager: ObservableObject {
         try await Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail)
     }
     
+    // update password
+    func updateUserPassword(newPassword: String) async throws {
+        try await Auth.auth().currentUser?.updatePassword(to: newPassword)
+    }
+    
     // set current user
     func fetchUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
