@@ -57,6 +57,7 @@ class UserAccountsManager: ObservableObject {
             return true
         }
         
+        // TODO: change update user email in database only if user verified their new email
         let result = try await task.value
         if result {
             try await updateUser(attribute: "email", value: newEmail)

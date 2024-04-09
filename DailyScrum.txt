@@ -1,3 +1,17 @@
+2024/04/09 Chen
+
+Done since last scrum:
+- Added safari search option for all vocabularies
+- Added send email verification after sign up and made bookshelf and game features available only if the user has verified their email
+- Moved edit user profile to its own separate view instead of directly on the user profile view
+- Started working on changing user email on edit user profile view
+
+Todo until next scrum: 
+- Continue working on changing user email on edit user profile view
+- Implement change user password on edit user profile view
+
+------------------
+
 2024/04/08 Chen
 
 Done since last scrum:
