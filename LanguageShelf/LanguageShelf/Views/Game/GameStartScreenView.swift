@@ -14,7 +14,7 @@ struct GameStartScreenView: View {
                 .ignoresSafeArea()
                 
                 if userManager.userSession != nil {
-                    if true {
+                    if userManager.verifiedUser {
                         VStack {
                             Text("Vocab-Definition Matching Game")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)

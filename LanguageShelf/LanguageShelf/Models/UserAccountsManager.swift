@@ -43,9 +43,23 @@ class UserAccountsManager: ObservableObject {
         await fetchUser()
     }
     
+    // send verification email to user's email
     func sendUserEmailVerification(user: FirebaseAuth.User) {
         if !user.isEmailVerified {
             self.userSession!.sendEmailVerification()
+        }
+    }
+    
+    // update email
+    func updateUserEmail(newEmail: String) async throws {
+        let task = Task {
+            try await Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail)
+            return true
+        }
+        
+        let result = try await task.value
+        if result {
+            try await updateUser(attribute: "email", value: newEmail)
         }
     }
     

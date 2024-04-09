@@ -12,6 +12,15 @@ struct EditProfileView: View {
     @Binding var updated: Bool
     
     @State var newEmail: String = ""
+    private var validEmail: Bool {
+        return !newEmail.isEmpty
+        && newEmail.contains("@")
+        && newEmail.contains(".")
+    }
+    
+    @State var showReLoginAlert: Bool = false
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         if let user = userManager.currentUser {
@@ -144,10 +153,21 @@ struct EditProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             CustomTextField(placeholder: "Email", textValue: $newEmail, optional: false)
+                            if (!newEmail.isEmpty){
+                                CheckListView(invalidMessage: "Invalid email format.", validMessage: "Valid email", isValid: validEmail)
+                            }
                             
                             Button2(label: "Update account email") {
-                                // todo
+                                Task{
+                                    do {
+                                        try await userManager.updateUserEmail(newEmail: newEmail)
+                                    } catch {
+                                        showReLoginAlert.toggle()
+                                    }
+                                }
                             }
+                            .disabled(!validEmail)
+                            .opacity(validEmail ? 1.0 : 0.3)
                             
                             Text("Note that you will need to re-verify your email to continue using the Bookshelves and Game features.")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -182,6 +202,18 @@ struct EditProfileView: View {
                 if !user.profilePicture.isEmpty {
                     setProfilePicFromStorage()
                 }
+            }
+            .alert(isPresented: $showReLoginAlert) {
+                Alert (
+                    title: Text("Sign in again to continue"),
+                    message: Text("This operation requires to sign in again to continue. Please sign in and try again."),
+                    dismissButton: .default(Text("Ok")) {
+                        dismiss()
+                        Task {
+                            userManager.signOut()
+                        }
+                    }
+                )
             }
         }
     }
