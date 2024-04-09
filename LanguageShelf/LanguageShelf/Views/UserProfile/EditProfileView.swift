@@ -19,6 +19,7 @@ struct EditProfileView: View {
     }
     
     @State var showReLoginAlert: Bool = false
+    @State var showGeneralErrorAlert: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -162,7 +163,15 @@ struct EditProfileView: View {
                                     do {
                                         try await userManager.updateUserEmail(newEmail: newEmail)
                                     } catch {
-                                        showReLoginAlert.toggle()
+                                        let err = error as NSError
+                                        switch err {
+                                        case AuthErrorCode.requiresRecentLogin:
+                                            print("login needed")
+                                            showReLoginAlert.toggle()
+                                        default:
+                                            showGeneralErrorAlert.toggle()
+                                            print("\(error): \(error.localizedDescription)")
+                                        }
                                     }
                                 }
                             }
@@ -213,6 +222,13 @@ struct EditProfileView: View {
                             userManager.signOut()
                         }
                     }
+                )
+            }
+            .alert(isPresented: $showGeneralErrorAlert) {
+                Alert (
+                    title: Text("Invalid email"),
+                    message: Text("A verification email could not be sent. Please make sure you have entered the correct email address."),
+                    dismissButton: .default(Text("Ok"))
                 )
             }
         }
