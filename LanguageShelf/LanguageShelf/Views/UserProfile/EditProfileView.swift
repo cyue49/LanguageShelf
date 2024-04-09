@@ -38,6 +38,9 @@ struct EditProfileView: View {
     @State var showGeneralEmailErrorAlert: Bool = false
     @State var showGeneralPasswordErrorAlert: Bool = false
     
+    @State var changeEmailVerificationSent: Bool = false
+    @State var successPasswordUpdate: Bool = false
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -175,10 +178,18 @@ struct EditProfileView: View {
                                 CheckListView(invalidMessage: "Invalid email format.", validMessage: "Valid email", isValid: validEmail)
                             }
                             
+                            if changeEmailVerificationSent {
+                                Text("Verification email sent to your new email!")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .bold()
+                            }
+                            
                             Button2(label: "Update account email") {
                                 Task{
                                     do {
                                         try await userManager.updateUserEmail(newEmail: newEmail)
+                                        changeEmailVerificationSent.toggle()
                                     } catch {
                                         let err = error as NSError
                                         switch err {
@@ -226,10 +237,20 @@ struct EditProfileView: View {
                                 CheckListView(invalidMessage: "Passwords don't match.", validMessage: "Passwords match.", isValid: validConfirmPassword)
                             }
                             
+                            if successPasswordUpdate {
+                                Text("Password updated successfully!")
+                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .bold()
+                            }
+                            
                             Button2(label: "Update password") {
                                 Task{
                                     do {
                                         try await userManager.updateUserPassword(newPassword: newPassword)
+                                        successPasswordUpdate.toggle()
+                                        newPassword = ""
+                                        confirmPassword = ""
                                     } catch {
                                         let err = error as NSError
                                         switch err {
