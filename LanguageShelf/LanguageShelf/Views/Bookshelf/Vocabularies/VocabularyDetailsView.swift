@@ -113,19 +113,17 @@ struct VocabularyDetailsView: View {
                 updatedVocab = try await getVocabFromDatabase()
             }
         }
-        .alert(isPresented: $showConfirmDeleteAlert) {
-            Alert (
-                title: Text("Confirm delete"),
-                message: Text("Are you sure you want to delete this vocabulary?"),
-                primaryButton: .destructive(Text("Delete")) {
-                    Task {
-                        updateSentencesLinkedVocab()
-                        try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
-                    }
-                    dismiss()
-                },
-                secondaryButton: .cancel()
-            )
+        .alert("Confirm delete", isPresented: $showConfirmDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                Task {
+                    updateSentencesLinkedVocab()
+                    try await vocabsManager.removeVocabulary(vocabularyID: vocabulary.id)
+                }
+                dismiss()
+            }
+            Button("Cancel", role: .cancel){}
+        } message: {
+            Text("Are you sure you want to delete this vocabulary?")
         }
         .sheet(isPresented: $showWordDefinitionsSheet) {
             WordDefinitionsSheetView(word: updatedVocab.word, showSheet: $showWordDefinitionsSheet)

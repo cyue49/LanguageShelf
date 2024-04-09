@@ -96,11 +96,10 @@ struct SignedOutView: View {
                 }
             }
             .padding()
-            .alert(isPresented: $showLoginAlert){
-                Alert (
-                    title: Text("Sign in failed"),
-                    message: Text("Please make sure that you have entered the correct email address and password."),
-                    dismissButton: .cancel(Text("Ok")) {})
+            .alert("Sign in failed", isPresented: $showLoginAlert){
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text("Please make sure that you have entered the correct email address and password.")
             }
         }
         .backgroundStyle(userManager.currentTheme.toolbarColor)
@@ -175,17 +174,15 @@ struct SignedOutView: View {
                 }
             }
             .padding()
-            .alert(isPresented: $showSignupAlert){
-                Alert (
-                    title: Text("Sign up failed"),
-                    message: Text("An account with this email already exists. Please use \"Sign In\" instead if you already have an account"),
-                    dismissButton: .cancel(Text("Ok")) {})
+            .alert("Sign up failed", isPresented: $showSignupAlert){
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text("An account with this email already exists. Please use \"Sign In\" instead if you already have an account.")
             }
-            .alert(isPresented: $showGeneralErrorAlert){
-                Alert (
-                    title: Text("Sign up failed"),
-                    message: Text("Please make sure you have correctly entered all the required fields in the proper format."),
-                    dismissButton: .cancel(Text("Ok")) {})
+            .alert("Sign up failed", isPresented: $showGeneralErrorAlert){
+                Button("Ok", role: .cancel) {}
+            } message: {
+                Text("Please make sure you have correctly entered all the required fields in the proper format.")
             }
         }
         .backgroundStyle(userManager.currentTheme.toolbarColor)

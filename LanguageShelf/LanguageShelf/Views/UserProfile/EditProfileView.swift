@@ -273,6 +273,7 @@ struct EditProfileView: View {
                     setProfilePicFromStorage()
                 }
             }
+            // sign in again alert
             .alert("Sign in again to continue", isPresented: $showReLoginAlert) {
                 Button("Ok"){
                     dismiss()
@@ -283,20 +284,17 @@ struct EditProfileView: View {
             } message: {
                 Text("This operation requires to sign in again to continue. Please sign in and try again.")
             }
-            
-            .alert(isPresented: $showGeneralEmailErrorAlert) {
-                Alert (
-                    title: Text("Invalid email"),
-                    message: Text("A verification email could not be sent. Please make sure you have entered the correct email address."),
-                    dismissButton: .default(Text("Ok"))
-                )
+            // invalid email alert
+            .alert("Invalid email", isPresented: $showGeneralEmailErrorAlert) {
+                Button("Ok", role: .cancel){}
+            } message: {
+                Text("A verification email could not be sent. Please make sure you have entered the correct email address.")
             }
-            .alert(isPresented: $showGeneralPasswordErrorAlert) {
-                Alert (
-                    title: Text("Operation failed"),
-                    message: Text("Something went wrong. Please try again."),
-                    dismissButton: .default(Text("Ok"))
-                )
+            // general error alert
+            .alert("Operation failed", isPresented: $showGeneralPasswordErrorAlert) {
+                Button("Ok", role: .cancel){}
+            } message: {
+                Text("Something went wrong. Please try again.")
             }
         }
     }

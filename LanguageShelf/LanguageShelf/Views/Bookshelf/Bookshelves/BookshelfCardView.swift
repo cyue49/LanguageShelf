@@ -164,16 +164,14 @@ struct BookshelfCardView: View {
                 emptyBookshelfNameAlert = false
             }
         }
-        .alert(isPresented: $showConfirmDeleteAlert) {
-            Alert (
-                title: Text("Confirm delete"),
-                message: Text("Are you sure you want to delete this bookshelf? Everything inside this bookshelf will also be deleted."),
-                primaryButton: .destructive(Text("Delete")) {
-                    showLoadingSpinner = true
-                    deleteBookshelf(bookshelfID: bookshelf.id)
-                },
-                secondaryButton: .cancel()
-            )
+        .alert("Confirm delete", isPresented: $showConfirmDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                showLoadingSpinner = true
+                deleteBookshelf(bookshelfID: bookshelf.id)
+            }
+            Button("Cancel", role: .cancel){}
+        } message: {
+            Text("Are you sure you want to delete this bookshelf? Everything inside this bookshelf will also be deleted.")
         }
         .onAppear(){
             // retrieve and set cover picture if user has a choosen cover picture for this bookshelf

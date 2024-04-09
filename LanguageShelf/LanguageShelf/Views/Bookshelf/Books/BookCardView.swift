@@ -129,16 +129,14 @@ struct BookCardView: View {
         .sheet(isPresented: $showBookInfo){
             BookInfoSheetView(bookshelf: bookshelf, book: book, showBookInfo: $showBookInfo, showLoadingSpinner: $showLoadingSpinner)
         }
-        .alert(isPresented: $showConfirmDeleteAlert) {
-            Alert (
-                title: Text("Confirm delete"),
-                message: Text("Are you sure you want to delete this book? Everything inside this book will also be deleted."),
-                primaryButton: .destructive(Text("Delete")) {
-                    showLoadingSpinner = true
-                    deleteBook(bookID: book.id)
-                },
-                secondaryButton: .cancel()
-            )
+        .alert("Confirm delete", isPresented: $showConfirmDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                showLoadingSpinner = true
+                deleteBook(bookID: book.id)
+            }
+            Button("Cancel", role: .cancel){}
+        } message: {
+            Text("Are you sure you want to delete this book? Everything inside this book will also be deleted.")
         }
         .onAppear(){
             // retrieve and set cover picture if user has a choosen cover picture for this bookshelf

@@ -76,18 +76,16 @@ struct SentenceDetailsView: View {
                 updatedSentence = try await getSentenceFromDatabase()
             }
         }
-        .alert(isPresented: $showConfirmDeleteAlert) {
-            Alert (
-                title: Text("Confirm delete"),
-                message: Text("Are you sure you want to delete this sentence?"),
-                primaryButton: .destructive(Text("Delete")) {
-                    Task {
-                        try await sentencesManager.removeSentence(sentenceID: sentence.id)
-                    }
-                    dismiss()
-                },
-                secondaryButton: .cancel()
-            )
+        .alert("Confirm Delete", isPresented: $showConfirmDeleteAlert) {
+            Button("Delete", role: .destructive){
+                Task {
+                    try await sentencesManager.removeSentence(sentenceID: sentence.id)
+                }
+                dismiss()
+            }
+            Button("Cancel", role: .cancel){}
+        } message: {
+            Text("Are you sure you want to delete this sentence?")
         }
     }
     
