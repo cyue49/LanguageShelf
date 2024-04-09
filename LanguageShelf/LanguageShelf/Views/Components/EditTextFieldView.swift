@@ -30,7 +30,7 @@ struct EditTextFieldView: View {
                 Spacer()
                 Text(inputText)
                     .font(.title)
-                    .foregroundStyle(userManager.currentTheme.fontColor)
+                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
             }
             Spacer()
             

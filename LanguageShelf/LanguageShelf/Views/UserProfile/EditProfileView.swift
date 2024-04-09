@@ -22,6 +22,9 @@ struct EditProfileView: View {
                         // edit profile picture
                         VStack (spacing: 20) {
                             Text("Profile Picture: ")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
                             PhotosPicker(selection: $photosPickerItem, matching: .images) {
                                 switch userManager.currentTheme.name {
                                 case "default":
@@ -88,26 +91,25 @@ struct EditProfileView: View {
                                 }
                             }
                             
-                            Button(action: {
+                            Button2(label: "Delete profile picture") {
                                 removeProfilePicture()
-                            }, label: {
-                                Label("Delete profile picture", systemImage: "x.circle.fill")
-                                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
-                                    .font(.system(size: 20))
-                            })
+                            }
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
                         .cornerRadius(30)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(userManager.currentTheme.primaryAccentColor,
+                                .stroke(userManager.currentTheme.secondaryColor,
                                         lineWidth: 2)
                         )
                         
                         // Edit username
                         VStack (spacing: 20) {
                             Text("Username: ")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
                             EditTextFieldView(updateField: "username", inputText: user.username, maxLength: 12)
                         }
                         .padding()
@@ -115,7 +117,7 @@ struct EditProfileView: View {
                         .cornerRadius(30)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(userManager.currentTheme.primaryAccentColor,
+                                .stroke(userManager.currentTheme.secondaryColor,
                                         lineWidth: 2)
                         )
                         
@@ -124,6 +126,15 @@ struct EditProfileView: View {
                     .padding()
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal){
+                    Text("Edit Profile")
+                        .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                }
+            }
+            .toolbarBackground(userManager.currentTheme.toolbarColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
     
