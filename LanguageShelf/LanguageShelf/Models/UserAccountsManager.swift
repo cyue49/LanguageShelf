@@ -22,7 +22,7 @@ class UserAccountsManager: ObservableObject {
         self.verifiedUser = (Auth.auth().currentUser != nil) ? Auth.auth().currentUser!.isEmailVerified : false
         
         Task {
-            await fetchUser()
+            try await fetchUser()
         }
     }
     
@@ -30,7 +30,7 @@ class UserAccountsManager: ObservableObject {
     func signIn(email: String, password: String) async throws {
         let result = try await Auth.auth().signIn(withEmail: email, password: password)
         self.userSession = result.user
-        await fetchUser()
+        try await fetchUser()
     }
     
     // create new user, add user info in firebase firestore, set user session, set current user
@@ -40,7 +40,7 @@ class UserAccountsManager: ObservableObject {
         sendUserEmailVerification(user: self.userSession!)
         let user = User(id: result.user.uid, email: email, username: username, theme: "0")
         try await ref.document(user.id).setData(["id": user.id, "email": email, "username": username, "theme": 0, "profilePicture": ""])
-        await fetchUser()
+        try await fetchUser()
     }
     
     // send verification email to user's email
@@ -52,23 +52,22 @@ class UserAccountsManager: ObservableObject {
     
     // update email
     func updateUserEmail(newEmail: String) async throws {
-        let task = Task {
-            try await Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail)
-            return true
-        }
-        
-        // TODO: change update user email in database only if user verified their new email
-        let result = try await task.value
-        if result {
-            try await updateUser(attribute: "email", value: newEmail)
-        }
+        try await Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail)
     }
     
     // set current user
-    func fetchUser() async {
+    func fetchUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let email = Auth.auth().currentUser?.email else { return }
+        
         guard let snapshot = try? await ref.document(uid).getDocument() else { return }
-        let email = snapshot["email"] as? String ?? ""
+        
+        // if email has been updated in auth, update it in db as well
+        let dbEmail = snapshot["email"] as? String ?? ""
+        if dbEmail != email {
+            try await updateUser(attribute: "email", value: email)
+        }
+        
         let username = snapshot["username"] as? String ?? ""
         let theme = snapshot["theme"] as? String ?? "0"
         let profilePicture = snapshot["profilePicture"] as? String ?? ""
@@ -102,7 +101,7 @@ class UserAccountsManager: ObservableObject {
         
         do {
             try await ref.document(userSession!.uid).updateData([attribute: value])
-            await fetchUser()
+            try await fetchUser()
         } catch {
             print("ERROR UPDATING DATA: \(error.localizedDescription)")
         }

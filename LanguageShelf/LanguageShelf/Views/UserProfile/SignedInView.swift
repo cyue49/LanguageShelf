@@ -13,55 +13,55 @@ struct SignedInView: View {
         if let user = userManager.currentUser {
             NavigationStack {
                 VStack (alignment: .center, spacing: 15) {
-                            switch userManager.currentTheme.name {
-                            case "default":
-                                Image(uiImage: profilePic ?? UIImage(resource: .profileBlue))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(.circle)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
-                                    )
-                            case "light":
-                                Image(uiImage: profilePic ?? UIImage(resource: .profileLight))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(.circle)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
-                                    )
-                            case "dark":
-                                Image(uiImage: profilePic ?? UIImage(resource: .profileDark))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(.circle)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
-                                    )
-                            case "green":
-                                Image(uiImage: profilePic ?? UIImage(resource: .profileGreen))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(.circle)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
-                                    )
-                            default:
+                    switch userManager.currentTheme.name {
+                    case "default":
+                        Image(uiImage: profilePic ?? UIImage(resource: .profileBlue))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 150, height: 150)
+                            .clipShape(.circle)
+                            .overlay(
                                 Circle()
-                                    .fill(userManager.currentTheme.buttonColor)
-                                    .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
-                                    .frame(width: 150, height: 150)
-                                    .padding(.top)
-                            }
-                   
+                                    .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
+                            )
+                    case "light":
+                        Image(uiImage: profilePic ?? UIImage(resource: .profileLight))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 150, height: 150)
+                            .clipShape(.circle)
+                            .overlay(
+                                Circle()
+                                    .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
+                            )
+                    case "dark":
+                        Image(uiImage: profilePic ?? UIImage(resource: .profileDark))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 150, height: 150)
+                            .clipShape(.circle)
+                            .overlay(
+                                Circle()
+                                    .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
+                            )
+                    case "green":
+                        Image(uiImage: profilePic ?? UIImage(resource: .profileGreen))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 150, height: 150)
+                            .clipShape(.circle)
+                            .overlay(
+                                Circle()
+                                    .stroke(userManager.currentTheme.primaryAccentColor, lineWidth: 5)
+                            )
+                    default:
+                        Circle()
+                            .fill(userManager.currentTheme.buttonColor)
+                            .stroke(userManager.currentTheme.secondaryColor, lineWidth: 2)
+                            .frame(width: 150, height: 150)
+                            .padding(.top)
+                    }
+                    
                     //EditTextFieldView(updateField: "username", inputText: user.username, maxLength: 12)
                     Text(user.username)
                         .foregroundStyle(userManager.currentTheme.primaryAccentColor)
@@ -83,12 +83,11 @@ struct SignedInView: View {
                     }
                 }
                 .onChange(of: updated){
-                        // retrieve and set profile picture if user has a choosen profile picture
-                        if !user.profilePicture.isEmpty {
-                            setProfilePicFromStorage()
-                        } else {
-                            profilePic = nil
-                        }
+                    if !user.profilePicture.isEmpty {
+                        setProfilePicFromStorage()
+                    } else {
+                        profilePic = nil
+                    }
                 }
             }
         }

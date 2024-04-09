@@ -145,7 +145,7 @@ struct EditProfileView: View {
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Text(user.email)
+                            Text(Auth.auth().currentUser!.email!)
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                             
                             Text("New account email:")
@@ -169,7 +169,7 @@ struct EditProfileView: View {
                             .disabled(!validEmail)
                             .opacity(validEmail ? 1.0 : 0.3)
                             
-                            Text("Note that you will need to re-verify your email to continue using the Bookshelves and Game features.")
+                            Text("A verification email will be sent to the new email address you have entered once you click on Update acount email. Please follow the link in the email to finish updating your account email. Please note that the display on this page won't update until you sign out and sign in again after you have followed the verification link send to your new email.")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.caption)
