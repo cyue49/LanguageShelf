@@ -40,7 +40,7 @@ struct GameStartScreenView: View {
                                             .font(.title2)
                                             .bold()
                                         
-                                        Text("Upon clicking on Start Game, 10 random cards will be shown on the screen. 5 of them will be vocabulary cards and the other 5 will be definition cards. Your goal is to match all the vocabularies and definitions!")
+                                        Text("Upon clicking on Start Game, up to 10 random cards will be shown on the screen. half of them will be vocabulary cards and the other half will be definition cards. Your goal is to match all the vocabularies and definitions!")
                                         Text("Click on two matching cards to make them disapear. The game ends when all cards are cleared!")
                                         Text("Anytime during the game, you can click on the refresh button at the top right of the screen to get another set of cards and restart the game.")
                                     }

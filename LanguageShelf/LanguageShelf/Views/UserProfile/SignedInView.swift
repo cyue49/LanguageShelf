@@ -71,6 +71,14 @@ struct SignedInView: View {
                     NavigationLink(destination: EditProfileView(updated: $updated)
                     ){
                         Text("Edit profile")
+                            .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                            .cornerRadius(30)
+                            .padding(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(userManager.currentTheme.secondaryColor,
+                                            lineWidth: 2)
+                            )
                     }
                     
                     ChooseColorThemeView()
