@@ -29,7 +29,7 @@ struct EditTextFieldView: View {
             } else {
                 Spacer()
                 Text(inputText)
-                    .font(.largeTitle)
+                    .font(.title)
                     .foregroundStyle(userManager.currentTheme.fontColor)
             }
             Spacer()
@@ -49,7 +49,7 @@ struct EditTextFieldView: View {
                 isEdit.toggle()
             }, label: {
                 Image(systemName: isEdit ? "checkmark.square" : "square.and.pencil")
-                    .font(.title)
+                    .font(.system(size: 20))
                     .foregroundStyle(userManager.currentTheme.primaryAccentColor)
             })
             Spacer()

@@ -19,7 +19,7 @@ struct MyBookshelvesView: View {
                 userManager.currentTheme.bgColor
                 
                 if userManager.userSession != nil {
-                    if userManager.verifiedUser {
+                    if true {
                         if bookshelvesManager.myBookshelves.count == 0 { // No bookshelf yet
                             Text("You don't have any bookshelf.")
                                 .foregroundStyle(userManager.currentTheme.fontColor)
