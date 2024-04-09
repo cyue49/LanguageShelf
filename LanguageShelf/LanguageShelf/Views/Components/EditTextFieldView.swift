@@ -29,8 +29,8 @@ struct EditTextFieldView: View {
             } else {
                 Spacer()
                 Text(inputText)
-                    .font(.title)
-                    .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                    .font(.title3)
+                    .foregroundStyle(userManager.currentTheme.fontColor)
             }
             Spacer()
             

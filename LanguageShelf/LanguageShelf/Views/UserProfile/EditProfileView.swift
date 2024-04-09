@@ -11,7 +11,7 @@ struct EditProfileView: View {
     
     @Binding var updated: Bool
     
-    @State var newUsername = ""
+    @State var newEmail: String = ""
     
     var body: some View {
         if let user = userManager.currentUser {
@@ -26,6 +26,7 @@ struct EditProfileView: View {
                             Text("Profile Picture: ")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .bold()
                             
                             PhotosPicker(selection: $photosPickerItem, matching: .images) {
                                 switch userManager.currentTheme.name {
@@ -111,8 +112,47 @@ struct EditProfileView: View {
                             Text("Username: ")
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .bold()
                             
                             EditTextFieldView(updateField: "username", inputText: user.username, maxLength: 12)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(userManager.currentTheme.secondaryColor,
+                                        lineWidth: 2)
+                        )
+                        
+                        // Change email
+                        VStack (spacing: 20) {
+                            Text("Email: ")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .bold()
+                            
+                            Text("Current account email: ")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Text(user.email)
+                                .foregroundStyle(userManager.currentTheme.fontColor)
+                            
+                            Text("New account email:")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            CustomTextField(placeholder: "Email", textValue: $newEmail, optional: false)
+                            
+                            Button2(label: "Update account email") {
+                                // todo
+                            }
+                            
+                            Text("Note that you will need to re-verify your email to continue using the Bookshelves and Game features.")
+                                .foregroundStyle(userManager.currentTheme.primaryAccentColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.caption)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
