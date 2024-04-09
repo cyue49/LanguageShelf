@@ -17,6 +17,7 @@ struct SignedOutView: View {
     
     @State private var showLoginAlert: Bool = false
     @State private var showSignupAlert: Bool = false
+    @State private var showGeneralErrorAlert: Bool = false
     
     private var validEmail: Bool {
         return !email.isEmpty
@@ -145,7 +146,15 @@ struct SignedOutView: View {
                             await vocabsManager.fetchVocabularies()
                             await sentencesManager.fetchSentences()
                         } catch {
-                            showSignupAlert.toggle()
+                            let err = error as NSError
+                            switch err {
+                            case AuthErrorCode.emailAlreadyInUse:
+                                print("account already exists")
+                                showSignupAlert.toggle()
+                            default:
+                                print("\(error): \(error.localizedDescription)")
+                                showGeneralErrorAlert.toggle()
+                            }
                         }
                     }
                 })
@@ -170,6 +179,12 @@ struct SignedOutView: View {
                 Alert (
                     title: Text("Sign up failed"),
                     message: Text("An account with this email already exists. Please use \"Sign In\" instead if you already have an account"),
+                    dismissButton: .cancel(Text("Ok")) {})
+            }
+            .alert(isPresented: $showGeneralErrorAlert){
+                Alert (
+                    title: Text("Sign up failed"),
+                    message: Text("Please make sure you have correctly entered all the required fields in the proper format."),
                     dismissButton: .cancel(Text("Ok")) {})
             }
         }
