@@ -25,7 +25,7 @@ struct CustomTextField: View {
             if isSecureField {
                 ZStack {
                     SecureField(placeholder, text: $textValue)
-                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                        .autocapitalization(.none)
                         .padding(12)
                         .background(userManager.currentTheme.bgColor)
                         .foregroundStyle(userManager.currentTheme.fontColor)
@@ -37,7 +37,7 @@ struct CustomTextField: View {
                 }
             } else {
                 TextField(placeholder, text: $textValue)
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    .autocapitalization(.none)
                     .padding(12)
                     .background(userManager.currentTheme.bgColor)
                     .foregroundStyle(userManager.currentTheme.fontColor)

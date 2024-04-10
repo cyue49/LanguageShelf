@@ -34,12 +34,17 @@ struct EditProfileView: View {
         && confirmPassword == newPassword
     }
     
-    @State var showReLoginAlert: Bool = false
     @State var showGeneralEmailErrorAlert: Bool = false
-    @State var showGeneralPasswordErrorAlert: Bool = false
+    @State var showGeneralErrorAlert: Bool = false
     
     @State var changeEmailVerificationSent: Bool = false
     @State var successPasswordUpdate: Bool = false
+    
+    @State var showReauthenticate: Bool = false
+    @State var showReauthSuccess: Bool = false
+    @State var showReauthFailed: Bool = false
+    @State var currentEmail: String = ""
+    @State var currentPwd: String = ""
     
     @Environment(\.dismiss) var dismiss
     
@@ -166,7 +171,7 @@ struct EditProfileView: View {
                                 .foregroundStyle(userManager.currentTheme.primaryAccentColor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Text(Auth.auth().currentUser!.email!)
+                            Text(currentEmail)
                                 .foregroundStyle(userManager.currentTheme.fontColor)
                             
                             Text("New account email:")
@@ -189,13 +194,13 @@ struct EditProfileView: View {
                                 Task{
                                     do {
                                         try await userManager.updateUserEmail(newEmail: newEmail)
-                                        changeEmailVerificationSent.toggle()
+                                        changeEmailVerificationSent = true
                                     } catch {
                                         let err = error as NSError
                                         switch err {
                                         case AuthErrorCode.requiresRecentLogin:
                                             print("login needed")
-                                            showReLoginAlert.toggle()
+                                            showReauthenticate = true
                                         default:
                                             showGeneralEmailErrorAlert.toggle()
                                             print("\(error): \(error.localizedDescription)")
@@ -248,7 +253,7 @@ struct EditProfileView: View {
                                 Task{
                                     do {
                                         try await userManager.updateUserPassword(newPassword: newPassword)
-                                        successPasswordUpdate.toggle()
+                                        successPasswordUpdate = true
                                         newPassword = ""
                                         confirmPassword = ""
                                     } catch {
@@ -256,9 +261,9 @@ struct EditProfileView: View {
                                         switch err {
                                         case AuthErrorCode.requiresRecentLogin:
                                             print("login needed")
-                                            showReLoginAlert = true
+                                            showReauthenticate = true
                                         default:
-                                            showGeneralPasswordErrorAlert.toggle()
+                                            showGeneralErrorAlert.toggle()
                                             print("\(error): \(error.localizedDescription)")
                                         }
                                     }
@@ -293,29 +298,66 @@ struct EditProfileView: View {
                 if !user.profilePicture.isEmpty {
                     setProfilePicFromStorage()
                 }
+                
+                // set current email for display
+                if let curUser = Auth.auth().currentUser {
+                    if curUser.email != nil {
+                        currentEmail = curUser.email!
+                    }
+                }
             }
-            // sign in again alert
-            .alert("Sign in again to continue", isPresented: $showReLoginAlert) {
-                Button("Ok"){
+            // invalid email and general email error alert
+            .alert("Error", isPresented: $showGeneralEmailErrorAlert) {
+                Button("Ok", role: .cancel){}
+            } message: {
+                Text("A verification email could not be sent. Please make sure you have entered the correct email address. If the problem persists, sign out then sign in again using your current email and password then try again.")
+            }
+            // general error alert
+            .alert("Operation failed", isPresented: $showGeneralErrorAlert) {
+                Button("Ok", role: .cancel){
                     dismiss()
                     Task {
                         userManager.signOut()
                     }
                 }
             } message: {
-                Text("This operation requires to sign in again to continue. Please sign in and try again.")
+                Text("Something went wrong. Please re-sign in to try again.")
             }
-            // invalid email alert
-            .alert("Invalid email", isPresented: $showGeneralEmailErrorAlert) {
-                Button("Ok", role: .cancel){}
+            // reauthenticate required
+            .alert("Requthentication required:", isPresented: $showReauthenticate){
+                TextField("Email", text: $currentEmail)
+                    .autocapitalization(.none)
+                SecureField("Password", text: $currentPwd)
+                    .autocapitalization(.none)
+                Button("Confirm") {
+                    let credential = EmailAuthProvider.credential(withEmail: currentEmail, password: currentPwd)
+                    Auth.auth().currentUser?.reauthenticate(with: credential, completion: { result, error in
+                        if error != nil {
+                            showReauthFailed .toggle()
+                        } else {
+                            showReauthSuccess.toggle()
+                        }
+                    })
+                }
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text("A verification email could not be sent. Please make sure you have entered the correct email address.")
+                Text("Please enter your current email and password to continue.")
             }
-            // general error alert
-            .alert("Operation failed", isPresented: $showGeneralPasswordErrorAlert) {
-                Button("Ok", role: .cancel){}
+            // reauthentication success
+            .alert("Reauthentication success!", isPresented: $showReauthSuccess) {
+                Button("Ok", role: .cancel){
+                    currentPwd = ""
+                }
             } message: {
-                Text("Something went wrong. Please try again.")
+                Text("Please resubmit your changes to continue")
+            }
+            // reauthentication failed
+            .alert("Reauthentication failed!", isPresented: $showReauthFailed) {
+                Button("Ok", role: .cancel){
+                    currentPwd = ""
+                }
+            } message: {
+                Text("Please make sure you have entered the correct email and password.")
             }
         }
     }

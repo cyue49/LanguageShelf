@@ -80,6 +80,7 @@ class UserAccountsManager: ObservableObject {
         self.currentTheme = themeSets[Int(theme)!] // set theme to user preference
     }
     
+    // reload current user
     func reloadUser() async throws {
         try await Auth.auth().currentUser!.reload()
         self.userSession = Auth.auth().currentUser
