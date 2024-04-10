@@ -1,3 +1,16 @@
+2024/04/10 Chen
+
+Done since last scrum:
+- Added error handling for changing email in edit profile view
+- Implemented changing password in edit profile view including error handling
+- Changed all views using the deprecated alert struct to use the alert view modifier instead
+- Added re-authenticate without needing to sign out then sign in again for changing email and password in edit profile view
+
+Todo until next scrum: 
+- Prepare for presentation
+
+------------------
+
 2024/04/09 Chen
 
 Done since last scrum:
